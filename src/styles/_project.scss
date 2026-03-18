@@ -1,0 +1,304 @@
+@use 'variables' as v;
+
+a:hover {
+	font-weight: 700;
+	color: v.$color-bg-primary;
+	background-color: v.$color-yellow;
+	cursor: pointer;
+}
+
+.grid-intro {
+	position: relative;
+	display: grid;
+	line-height: 1;
+	height: 100dvh;
+	width: 100dvw;
+	grid-template-columns: 10% 1fr 1fr 10%;
+	grid-template-rows: auto 1fr 1fr auto;
+	grid-row-gap: 5dvh;
+	align-items: center;
+	grid-column-gap: 4dvw;
+	will-change: transform;
+}
+
+.intro__back {
+	display: flex;
+	align-items: center;
+	height: 40px;
+	grid-column: 2 / 4;
+	grid-row: 1;
+	flex-wrap: wrap;
+	font-size: 18px;
+}
+
+.intro__scroll {
+	grid-column: 3 / 4;
+	grid-row: 2;
+	font-size: 16px;
+}
+
+.info {
+
+	grid-column: 2 / 4;
+	grid-row: 3;
+	display: flex;
+	flex-direction: column;
+	row-gap: 4px;
+	font-size: 16px;
+	letter-spacing: 1px;
+
+}
+.info span {
+	color: v.$color-text-secondary;
+	font-family: v.$font-family-secondary;
+	font-weight: 600;
+	letter-spacing: 0.8px;
+}
+
+.info p {
+	letter-spacing: 0px;
+	line-height: 1.4em;
+}
+
+.roles {
+
+	grid-column: 2 / 4;
+	grid-row: 3;
+}
+
+.intro__title {
+	grid-column: 1 / 5;
+	grid-row: 4;
+	font-size: 16vw;
+	will-change: color;
+	line-height: 0.8;
+}
+
+.grid-1 {
+	position: relative;
+	display: grid;
+	line-height: 1;
+	width: 100dvw;
+	padding: 5dvh 0;
+	grid-template-columns: 3dvh 1fr 3dvh;
+	grid-template-rows: auto 1fr auto;
+	grid-row-gap: 5dvh;
+	align-items: center;
+	grid-column-gap: 4dvw;
+	will-change: transform;
+}
+
+.problem {
+	grid-column: 2;
+	grid-row: 1;
+}
+
+.grid-img {
+	// height: 100%;
+	background-size: cover;
+	background-position: 50% 50%;
+	pointer-events: none;
+	will-change: transform;
+	height: min-content;
+	aspect-ratio: 17 / 22;
+	z-index: 100;
+}
+
+.grid-1-img {
+	grid-column: 2;
+	grid-row: 2;
+}
+
+.solution {
+	grid-column: 2;
+	grid-row: 3;
+}
+
+.grid-2 {
+	position: relative;
+	display: grid;
+	line-height: 1;
+	width: 100dvw;
+	padding: 5dvh 0 10dvh 0;
+	grid-template-columns: 3dvh 1fr 3dvh;
+	grid-template-rows: repeat(9, auto);
+	grid-row-gap: 5dvh;
+	align-items: center;
+	grid-column-gap: 4dvw;
+	will-change: transform;
+}
+
+.grid-2-img:nth-child(1) {
+	grid-column: 2;
+	grid-row: 1;
+}
+
+.solution-2 {
+	grid-column: 2;
+	grid-row: 2;
+}
+
+.grid-2-img:nth-child(2) {
+	grid-column: 2;
+	grid-row: 3;
+}
+
+.grid-2-img:nth-child(3) {
+	grid-column: 2;
+	grid-row: 4;
+}
+
+.solution-3 {
+	grid-column: 2;
+	grid-row: 5;
+}
+
+.grid-2-img:nth-child(4) {
+	grid-column: 2;
+	grid-row: 6;
+}
+
+.grid-2-img:nth-child(5) {
+	grid-column: 2;
+	grid-row: 7;
+}
+
+.timeframe {
+	align-self: start;
+	grid-column: 2;
+	grid-row: 8;
+}
+
+.tools {
+	align-self: start;
+	grid-column: 2;
+	grid-row: 9;
+}
+
+.footer {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	padding: 5dvh 0;
+}
+
+.video-section {
+	height: 100dvh;
+	width: auto;
+	margin: 40px;
+	display: flex;
+}
+
+@media (min-width: 600px) {
+
+	.intro__back a {
+		font-size: 20px;
+	}
+
+	.intro__scroll {
+		font-size: 18px;
+	}
+
+	.info span {
+		font-size: 20px;
+	}
+
+	.info p {
+		font-size: 20px;
+	}
+
+}
+
+@media (min-width: 1200px) {
+
+	.project-detail {
+		padding-top: 3rem;
+	}
+
+	.intro__back {
+		font-size: 22px;
+	}
+
+	.intro__scroll {
+		font-size: 20px;
+	}
+
+	.info span {
+		font-size: 22px;
+	}
+
+	.info p {
+		font-size: 22px;
+	}
+
+	.grid-intro {
+		grid-template-columns: 20% 1fr 1fr;
+		grid-template-rows: auto 1fr 1fr auto;
+	}
+
+	.grid-1 {
+		grid-template-columns: 3dvh 1fr 1fr 3dvh 1fr 1fr 3dvh;
+		grid-template-rows: auto auto auto;
+	}
+
+	.problem {
+		grid-column: 3 / 6;
+		grid-row: 1;
+	}
+
+	.grid-1-img {
+		grid-column: 2 / 4;
+		grid-row: 2;
+	}
+
+	.solution {
+		grid-column: 5 / 7;
+		grid-row: 2;
+	}
+
+	.grid-2 {
+		grid-template-columns: 3dvh 1fr 1fr 1fr 3dvh;
+		grid-template-rows: auto auto auto auto;
+	}
+
+	.solution-2 {
+		grid-column: 3 / 5;
+		grid-row: 2;
+	}
+
+	.grid-2-img:nth-child(2) {
+		grid-column: 3;
+		grid-row: 1;
+	}
+
+	.grid-2-img:nth-child(3) {
+		grid-column: 4;
+		grid-row: 1;
+	}
+
+	.solution-3 {
+		grid-column: 4;
+		grid-row: 3;
+	}
+
+	.grid-2-img:nth-child(4) {
+		grid-column: 2;
+		grid-row: 3;
+	}
+
+	.grid-2-img:nth-child(5) {
+		grid-column: 3;
+		grid-row: 3;
+	}
+
+	.timeframe {
+		grid-column: 2;
+		grid-row: 4;
+	}
+
+	.tools {
+		grid-column: 3;
+		grid-row: 4;
+	}
+
+}

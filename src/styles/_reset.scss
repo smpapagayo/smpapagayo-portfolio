@@ -1,0 +1,111 @@
+@use 'variables' as v; 
+
+
+/* Resetting margins and padding for all tags */
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  vertical-align: baseline;
+}
+
+/* Avoiding issues with images */
+img,
+picture,
+video,
+iframe,
+figure {
+  max-width: 100%;
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center center;
+}
+
+/* Set "a" tags as blocks */
+a {
+  display: block;
+  // cursor: none;
+}
+
+/* Resetting the style of "li" tags */
+li {
+  list-style-type: none;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: v.$color-bg-primary;
+  // cursor: none;
+}
+
+/* Turn off the default styles for the main text tags */
+h1, h2, h3, h4, h5, h6,
+p, span, a, strong, blockquote,
+i, b, u, em {
+  font-size: 1em;
+  font-weight: inherit;
+  font-style: inherit;
+  text-decoration: none;
+  color: v.$color-text-primary;
+  margin: 0;
+}
+
+blockquote,
+q {
+  &::before,
+  &::after {
+    content: '';
+    content: none;
+  }
+}
+
+form,
+input,
+textarea,
+select,
+button,
+label {
+  font-family: inherit;
+  font-size: inherit;
+  hyphens: auto;
+  background-color: transparent;
+  display: block;
+  color: inherit;
+}
+
+/* Resetting the tables */
+table,
+tr,
+td {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Fixing issues with SVGs */
+svg {
+  display: block;
+}
+
+/* Setting the text that is selected */
+::selection {
+  background-color: v.$color-bg-secondary;
+}
+
+body {
+
+  font-family: v.$font-family-primary;
+  color: v.$color-text-primary;
+  margin: 0;
+  padding: 0;
+  letter-spacing: -0.03em;
+  position: relative;
+  // cursor: none;
+}
+
+html, body {
+  width: 100vw;
+  overflow-x: hidden;
+}
+

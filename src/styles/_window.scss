@@ -1,0 +1,25 @@
+@use 'variables' as v;
+// .window-container {
+//   width: 100dvw;
+//   height: 100dvh;
+//   background-color: v.$color-yellow;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
+// .window-content {
+//   width: 90%;
+//   height: 90%;
+//   background-color: v.$color-blue;
+// }
+
+div {
+width: "100vh";           // invertido
+    height: "100vw";          // invertido
+    transform: "rotate(90deg)";
+    transformOrigin: "center";
+    position: "absolute";
+    top: 0;
+    left: 0;
+    overflow: "hidden";
+}

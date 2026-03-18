@@ -1,0 +1,107 @@
+@use 'variables' as v; 
+
+body::before {
+  content: "";
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: transparent url("../assets/noise-transparent.png") repeat 0 0;
+  background-size: 300px 300px;
+  animation: noise-animation 0.3s steps(5) infinite;
+  will-change: transform;
+  z-index: 100;
+  pointer-events: none;
+  &.hover-link {
+    background: v.$color-yellow; // color al pasar sobre enlaces
+  }
+}
+
+@keyframes noise-animation {
+  0% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-2%, -3%);
+  }
+  20% {
+    transform: translate(-4%, 2%);
+  }
+  30% {
+    transform: translate(2%, -4%);
+  }
+  40% {
+    transform: translate(-2%, 5%);
+  }
+  50% {
+    transform: translate(-4%, 2%);
+  }
+  60% {
+    transform: translate(3%, 0);
+  }
+  70% {
+    transform: translate(0, 3%);
+  }
+  80% {
+    transform: translate(-3%, 0);
+  }
+  90% {
+    transform: translate(2%, 2%);
+  }
+  100% {
+    transform: translate(1%, 0);
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: v.$font-family-secondary;
+}
+
+h1 { font-size: v.$font-h1-s; font-weight: 800;}
+
+@media (min-width: 800px) {
+  h1 { font-size: v.$font-h1-m; }
+}
+
+@media (min-width: 1200px) {
+  h1 { font-size: v.$font-h1-l; }
+}
+
+p {
+  text-wrap: balance;
+}
+
+.button {
+  width: 140px;
+  height: 30px;
+  font-size: v.$font-size-m;
+  font-family: v.$font-family-secondary;
+  font-weight: 500;
+  color: v.$color-bg-primary;
+  background-color: v.$color-yellow;
+  background-image: url("../assets/SVG/pattern-1-dark.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 94% 97%;
+  transition: background-color 1s ease, background-image 1s ease;
+  img {
+    width: 20px;
+    height: 20px;
+  }
+  &:hover {
+    cursor: pointer;
+    background-color: v.$color-yellow-light;
+    background-image: url("../assets/SVG/pattern-1-light.svg");
+    font-weight: 700;
+  }
+  @media (min-width: 768px) {
+    width: 170px;
+    height: 40px;
+    font-size: v.$font-size-l;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: v.$font-size-xl;
+  }
+}

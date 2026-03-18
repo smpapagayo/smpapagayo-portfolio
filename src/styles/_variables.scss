@@ -1,0 +1,45 @@
+$font-size-xs: 0.875em;       /* 14pt */
+$font-size-s: 1em;       /* 16pt */
+$font-size-m: 1.125em;   /* 18pt */
+$font-size-l: 1.25em;    /* 20pt */
+$font-size-xl: 1.5em;    /* 24pt */
+
+$font-h1-s: 1.5em;  /* 24pt */
+$font-h1-m: 6em;    /* 44pt */
+$font-h1-l: 7em;    /* 96pt */
+
+$font-h2-s: 1.125em;  /* 20pt */
+$font-h2-m: 3em;    /* 40pt */
+$font-h2-l: 4em;    /* 48pt */
+
+$color-yellow: #FF9624;
+$color-yellow-light: #FFC14F;
+
+$color-blue: #2E70BF;
+$color-blue-light: #27A4D6;
+
+$color-red: #E40909;
+$color-red-dark: #FF2A2A;
+
+$color-text-primary: #F7F9FF;
+$color-text-secondary: #ddd;
+$color-text-tertiary: #FFF6EF;
+
+$color-bg-primary: #2F344B;
+$color-bg-secondary: #1E2234;
+$color-bg-tertiary: #292f46;
+
+$font-family-primary: "Karla", sans-serif;
+$font-family-secondary: "Poppins", sans-serif;
+
+$transition: 0.3s ease;
+
+@mixin flex-center($justify: center, $align: center, $direction: row) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+
+
