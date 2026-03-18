@@ -1,16 +1,26 @@
-$font-size-xs: 0.875em;       /* 14pt */
-$font-size-s: 1em;       /* 16pt */
-$font-size-m: 1.125em;   /* 18pt */
-$font-size-l: 1.25em;    /* 20pt */
-$font-size-xl: 1.5em;    /* 24pt */
+$font-16: 1em;
+/* 16pt */
+$font-20: 1.25em;
+/* 20pt */
+$font-24: 1.5em;
+/* 24pt */
+$font-32: 2em;
+/* 32pt */
+$font-40: 2.5em;
+/* 40pt */
+$font-48: 3em;
+/* 48pt */
+$font-56: 3.5em;
+/* 56pt */
 
-$font-h1-s: 1.5em;  /* 24pt */
-$font-h1-m: 6em;    /* 44pt */
-$font-h1-l: 7em;    /* 96pt */
+$line-height-20: 1.25em;
+$line-height-24: 1.5em;
+$line-height-28: 1.75em;
+$line-height-40: 2.5em;
+$line-height-48: 3em;
+$line-height-56: 3.5em;
+$line-height-64: 4em;
 
-$font-h2-s: 1.125em;  /* 20pt */
-$font-h2-m: 3em;    /* 40pt */
-$font-h2-l: 4em;    /* 48pt */
 
 $color-yellow: #FF9624;
 $color-yellow-light: #FFC14F;
@@ -40,6 +50,3 @@ $transition: 0.3s ease;
   justify-content: $justify;
   align-items: $align;
 }
-
-
-

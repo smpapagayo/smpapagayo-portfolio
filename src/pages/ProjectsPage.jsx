@@ -157,48 +157,6 @@ const ProjectsPage = () => {
     );
   };
 
-  // useEffect(() => {
-  //   if (!isMobile) return;
-
-  //   const container = scrollContainerRef.current;
-  //   let touchStartY = 0;
-
-  //   const handleTouchStart = (e) => {
-  //     touchStartY = e.touches[0].clientY;
-  //   };
-
-  //   const handleTouchEnd = (e) => {
-  //     const touchEndY = e.changedTouches[0].clientY;
-  //     const delta = touchStartY - touchEndY;
-
-  //     if (Math.abs(delta) < 50 || isScrolling.current) return; // evita scrolls suaves
-  //     isScrolling.current = true;
-
-  //     setTimeout(() => {
-  //       isScrolling.current = false;
-  //     }, 800);
-
-  //     if (delta > 0) {
-  //       // swipe up → siguiente
-  //       const nextIndex = (index + 1) % projects.length;
-  //       setIndex(nextIndex);
-  //       setCurrentProject(projects[nextIndex]);
-  //     } else {
-  //       // swipe down → anterior
-  //       const prevIndex = (index - 1 + projects.length) % projects.length;
-  //       setIndex(prevIndex);
-  //       setCurrentProject(projects[prevIndex]);
-  //     }
-  //   };
-
-  //   container.addEventListener("touchstart", handleTouchStart);
-  //   container.addEventListener("touchend", handleTouchEnd);
-
-  //   return () => {
-  //     container.removeEventListener("touchstart", handleTouchStart);
-  //     container.removeEventListener("touchend", handleTouchEnd);
-  //   };
-  // }, [index, isMobile]);
 
   useEffect(() => {
     const container = scrollContainerRef.current;

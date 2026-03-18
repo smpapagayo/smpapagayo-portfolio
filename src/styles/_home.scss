@@ -1,4 +1,3 @@
-
 @use 'variables' as v;
 @use "sass:list";
 
@@ -22,8 +21,16 @@ $heights: (
   75.57px,
   80.06px
 );
-$scales: (0.35, 0.8, 1);
-$breakpoints: (null, 768px, 1024px);
+$scales: (
+  0.35,
+  0.8,
+  1
+);
+$breakpoints: (
+  null,
+  768px,
+  1024px
+);
 
 
 @mixin responsive-sizes($i) {
@@ -31,10 +38,12 @@ $breakpoints: (null, 768px, 1024px);
     $w: list.nth($widths, $i) * $scale;
     $h: list.nth($heights, $i) * $scale;
 
-    @if $bp == null {
+    @if $bp ==null {
       width: $w;
       height: $h;
-    } @else {
+    }
+
+    @else {
       @media (min-width: $bp) {
         width: $w;
         height: $h;
@@ -124,7 +133,7 @@ $breakpoints: (null, 768px, 1024px);
     opacity: 0;
     transform: translateY(-20px);
     font-weight: 400;
-    font-size: v.$font-size-m;
+    font-size: v.$font-16;
     letter-spacing: 1px;
     text-align: center;
     pointer-events: auto;
@@ -133,11 +142,11 @@ $breakpoints: (null, 768px, 1024px);
 
     @media (min-width: 768px) {
       width: 50%;
-      font-size: v.$font-size-l;
+      font-size: v.$font-20;
     }
 
     @media (min-width: 1200px) {
-      font-size: v.$font-size-xl;
+      font-size: v.$font-24;
     }
   }
 }
@@ -170,16 +179,16 @@ $breakpoints: (null, 768px, 1024px);
   display: grid;
   place-items: center;
   padding: 12px;
-  font-size: v.$font-size-xs;
+  font-size: v.$font-16;
   font-weight: 300;
   letter-spacing: 2px;
 
   @media (min-width: 768px) {
     padding: 8px;
     letter-spacing: 1px;
-    font-size: v.$font-size-xs;
+    font-size: v.$font-16;
   }
-  
+
 }
 
 .contact li a:focus {
@@ -194,7 +203,7 @@ $breakpoints: (null, 768px, 1024px);
 
   @media (min-width: 768px) {
     width: 24px;
-  height: 24px;
+    height: 24px;
   }
 }
 
