@@ -1,5 +1,5 @@
 @use 'variables' as v;
-
+@use 'typography' as *;
 
 .intro {
   min-height: 100vh;
@@ -38,7 +38,15 @@
   gap: 8px;
   text-align: center;
   color: v.$color-text-secondary;
-  // @include body-16;
+  @include action-16;
+
+  @media (min-width: 1200px) {
+    @include action-20;
+  }
+
+  @media (min-width: 1600px) {
+    @include action-24;
+  }
 }
 
 .intro__text .loading-text {

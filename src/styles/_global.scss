@@ -14,9 +14,15 @@ body::before {
   will-change: transform;
   z-index: 100;
   pointer-events: none;
+  opacity: 0.6;
 
   &.hover-link {
     background: v.$color-yellow; // color al pasar sobre enlaces
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    background-position: center; // Keep it static
   }
 }
 
@@ -90,24 +96,10 @@ h2 {
   }
 }
 
-p {
-  text-wrap: balance;
-  @include body-16;
-
-  @media (min-width: 1200px) {
-    @include body-20;
-  }
-
-  @media (min-width: 1600px) {
-    @include body-24;
-  }
-}
 
 .button {
   width: 140px;
   height: 30px;
-  // font-size: v.$font-16;
-  // font-family: v.$font-family-secondary;
   font-weight: 500;
   color: v.$color-bg-primary;
   background-color: v.$color-yellow;
@@ -132,10 +124,5 @@ p {
   @media (min-width: 840px) {
     width: 170px;
     height: 40px;
-    // font-size: v.$font-20;
-  }
-
-  @media (min-width: 1600px) {
-    // font-size: v.$font-24;
   }
 }
