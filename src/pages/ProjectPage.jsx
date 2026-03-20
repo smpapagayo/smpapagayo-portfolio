@@ -111,108 +111,6 @@ const ProjectDetailPage = () => {
       );
   }, []);
 
-  // useEffect(() => {
-  //   if (!project?.images?.length) return;
-  // const grid = document.querySelector(".grid-1");
-  // if (!grid) return;
-  //   const gridImages = grid.querySelectorAll(".grid-1-img");
-
-  //   gsap.from(".problem", {
-  //     opacity: 0,
-  //     x: 30,
-  //     duration: 0.4,
-  //     ease: "power2.out",
-  //     scrollTrigger: {
-  //       trigger: ".problem",
-  //       start: "top 80%",
-  //       end: "bottom 50%",
-  //       scrub: true,
-  //     },
-  //   });
-
-  //     gsap
-  //     .timeline({
-  //       defaults: { ease: "power3" },
-  //       scrollTrigger: {
-  //         trigger: grid,
-  //         start: "top 80%",
-  //       end: "bottom 80%",
-  //         scrub: true,
-  //       },
-  //     })
-  //     .from(gridImages, {
-  //       stagger: 0.06,
-  //       y: 300,
-  //       rotation: () => gsap.utils.random(-15, 15),
-  //       transformOrigin: "50% 0%",
-  //     })
-
-  //     gsap.from(".solution", {
-  //       opacity: 0,
-  //       x: -30,
-  //       duration: 0.4,
-  //       ease: "power2.out",
-  //       scrollTrigger: {
-  //         trigger: ".solution",
-  //         start: "top 80%",
-  //         end: "bottom 50%",
-  //         scrub: true,
-  //       },
-  //     });
-
-  //     gsap.from(".solution-2", {
-  //       opacity: 0,
-  //       x: -30,
-  //       duration: 0.4,
-  //       ease: "power2.out",
-  //       scrollTrigger: {
-  //         trigger: ".solution-2",
-  //         start: "top 80%",
-  //         end: "bottom 50%",
-  //         scrub: true,
-  //       },
-  //     });
-
-  //     gsap.from(".solution-3", {
-  //       opacity: 0,
-  //       x: -30,
-  //       duration: 0.4,
-  //       ease: "power2.out",
-  //       scrollTrigger: {
-  //         trigger: ".solution-3",
-  //         start: "top 80%",
-  //         end: "bottom 50%",
-  //         scrub: true,
-  //       },
-  //     });
-
-  //     gsap.from(".timeframe", {
-  //       opacity: 0,
-  //       y: -30,
-  //       duration: 0.4,
-  //       ease: "power2.out",
-  //       scrollTrigger: {
-  //         trigger: ".timeframe",
-  //         start: "top 80%",
-  //         end: "bottom 50%",
-  //         scrub: true,
-  //       },
-  //     });
-
-  //     gsap.from(".tools", {
-  //       opacity: 0,
-  //       y: -30,
-  //       duration: 0.4,
-  //       ease: "power2.out",
-  //       scrollTrigger: {
-  //         trigger: ".timeframe",
-  //         start: "top 80%",
-  //         end: "bottom 50%",
-  //         scrub: true,
-  //       },
-  //     });
-
-  // }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -297,12 +195,6 @@ const ProjectDetailPage = () => {
           x: -100,
           duration: 0.4,
           ease: "power2.out",
-          // scrollTrigger: {
-          //   trigger: ".timeframe",
-          //   start: "top 50%",
-          //   end: "bottom 50%",
-          //   scrub: true,
-          // },
         });
 
         gsap.from(".tools", {
@@ -310,13 +202,6 @@ const ProjectDetailPage = () => {
           x: -100,
           duration: 0.4,
           ease: "power2.out",
-          // scrollTrigger: {
-          //   trigger: ".tools",
-          //   start: "-600%",
-          //   end: "-200%",
-          //   scrub: true,
-          //   markers: true
-          // },
         });
       } catch (e) {
         console.error("GSAP error:", e);
@@ -330,7 +215,7 @@ const ProjectDetailPage = () => {
     const ctx = gsap.context(() => {
       const images = document.querySelectorAll(".grid-2-img");
       if (images.length === 0) return;
-  
+
       // Evalúa si las imágenes están en la misma fila
       const isRowLayout = () => {
         if (images.length < 2) return false;
@@ -338,7 +223,7 @@ const ProjectDetailPage = () => {
         const top2 = images[1].getBoundingClientRect().top;
         return Math.abs(top1 - top2) < 5; // tolerancia por layout shift
       };
-  
+
       if (isRowLayout()) {
         // Desktop layout: animación en grupo
         gsap.from(images, {
@@ -372,7 +257,7 @@ const ProjectDetailPage = () => {
         });
       }
     });
-  
+
     return () => ctx.revert(); // Limpieza segura al desmontar
   }, []);
 
@@ -390,7 +275,7 @@ const ProjectDetailPage = () => {
         <h1 className="intro__title">{project.title}</h1>
         <p className="intro__scroll">Scroll down ↓</p>
         <nav className="intro__back">
-          <a onClick={() => navigate("/projects")}>← Back to Projects</a>
+          <a onClick={() => navigate("/home")}>← Back to Projects</a>
         </nav>
         <div className="info roles">
           <span>Roles:</span>
@@ -528,7 +413,7 @@ const ProjectDetailPage = () => {
 
       <footer className="footer info">
         {prevProject ? (
-      
+
           <a onClick={() => navigate(`/projects/${prevProject.id}`)}>
             ← {prevProject.title}
           </a>
@@ -537,12 +422,12 @@ const ProjectDetailPage = () => {
         )}
 
         <span>
-          <a onClick={() => navigate("/projects")}>↑ Back to Projects</a>
+          <a onClick={() => navigate("/home")}>↑ Back to Projects</a>
         </span>
 
         {nextProject ? (
           <a onClick={() => navigate(`/projects/${nextProject.id}`)}>{nextProject.title} →</a>
-    
+
         ) : (
           <span></span>
         )}
@@ -550,7 +435,7 @@ const ProjectDetailPage = () => {
     </main>
   );
 
-  
+
 
 
 };

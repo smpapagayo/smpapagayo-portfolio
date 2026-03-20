@@ -17,7 +17,7 @@
   display: grid;
   place-items: center;
 
-  @media (min-width: 1024px) {
+  @media (min-width: 840px) {
     width: 173px;
     height: 600px;
   }
@@ -30,7 +30,22 @@
 }
 
 .intro__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   text-align: center;
   font-family: v.$font-family-secondary;
   font-size: v.$font-16;
+  color: v.$color-text-secondary;
+}
+
+.intro__text .loading-text {
+  width: 115px;
+  fill: v.$color-text-secondary;
+
+  @media (min-width: 840px) {
+    width: 173px;
+  }
 }
