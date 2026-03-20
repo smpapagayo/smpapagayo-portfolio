@@ -47,7 +47,7 @@
   justify-content: flex-end;
 
   .instructions {
-    font-size: v.$font-16;
+    // font-size: v.$font-16;
   }
 
   .frame__content {
@@ -58,16 +58,16 @@
     background-color: v.$color-bg-secondary;
 
     .project-title {
-      font-family: v.$font-family-secondary;
-      font-size: v.$font-24;
+      // font-family: v.$font-family-secondary;
+      // font-size: v.$font-24;
       font-weight: 800;
       letter-spacing: 0.5px;
       line-height: 2rem;
     }
 
     .project-category {
-      font-size: v.$font-20;
-      font-family: v.$font-family-secondary;
+      // font-size: v.$font-20;
+      // font-family: v.$font-family-secondary;
       font-weight: 500;
       letter-spacing: 0.8px;
     }
@@ -155,7 +155,7 @@
 
       p {
         margin-bottom: 1.5rem;
-        font-size: v.$font-24;
+        // font-size: v.$font-24;
       }
 
       a {
@@ -165,10 +165,10 @@
         pointer-events: auto;
         padding: 0.25rem 0;
         position: relative;
-        font-family: v.$font-family-secondary;
+        // font-family: v.$font-family-secondary;
         font-weight: 500;
         letter-spacing: 1px;
-        font-size: v.$font-24;
+        // font-size: v.$font-24;
         text-decoration: none;
         color: v.$color-text-primary;
         transition: all v.$transition;
@@ -225,7 +225,7 @@
       row-gap: 10px;
 
       .social-link-text {
-        font-size: v.$font-16;
+        // font-size: v.$font-16;
         transition: all v.$transition;
       }
 
@@ -262,10 +262,10 @@
       margin: 0;
       line-height: 1;
       font-weight: 800;
-      font-family: v.$font-family-secondary;
+      // font-family: v.$font-family-secondary;
 
       p {
-        font-size: v.$font-24;
+        // font-size: v.$font-24;
       }
     }
 
@@ -282,10 +282,10 @@
       line-height: 1;
       font-weight: 600;
       letter-spacing: 1px;
-      font-family: v.$font-family-secondary;
+      // font-family: v.$font-family-secondary;
 
       p {
-        font-size: v.$font-20;
+        // font-size: v.$font-20;
       }
     }
 
@@ -326,20 +326,20 @@
     padding: 3rem;
   }
 
-  .frame__works p {
-    font-size: v.$font-24;
-  }
+  // .frame__works p {
+  //   font-size: v.$font-24;
+  // }
 
-  .frame__links .social-link-text {
-    font-size: v.$font-24;
-  }
+  // .frame__links .social-link-text {
+  //   font-size: v.$font-24;
+  // }
 
-  .frame__content .title p {
-    font-size: v.$font-24;
-  }
+  // .frame__content .title p {
+  //   font-size: v.$font-24;
+  // }
 
-  .frame__content .category p {
-    font-size: v.$font-20;
-  }
+  // .frame__content .category p {
+  //   font-size: v.$font-20;
+  // }
 
 }

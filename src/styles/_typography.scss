@@ -1,0 +1,141 @@
+// ── Fonts ──────────────────────────────────────────
+$font-family-primary: "Karla", sans-serif;
+$font-family-secondary: "Poppins", sans-serif;
+
+// ── Titles (Poppins, Semi Bold) ─────────────────────
+@mixin title-32 {
+  font-family: $font-family-secondary;
+  font-size: 32pt;
+  line-height: 40pt;
+  font-weight: 600;
+}
+
+@mixin title-40 {
+  font-family: $font-family-secondary;
+  font-size: 40pt;
+  line-height: 48pt;
+  font-weight: 600;
+}
+
+@mixin title-48 {
+  font-family: $font-family-secondary;
+  font-size: 48pt;
+  line-height: 56pt;
+  font-weight: 600;
+}
+
+@mixin title-56 {
+  font-family: $font-family-secondary;
+  font-size: 56pt;
+  line-height: 64pt;
+  font-weight: 600;
+}
+
+// ── Subtitles (Karla, Bold) ─────────────────────────
+@mixin subtitle-16 {
+  font-family: $font-family-primary;
+  font-size: 16pt;
+  line-height: 20pt;
+  font-weight: 700;
+}
+
+@mixin subtitle-20 {
+  font-family: $font-family-primary;
+  font-size: 20pt;
+  line-height: 24pt;
+  font-weight: 700;
+}
+
+@mixin subtitle-24 {
+  font-family: $font-family-primary;
+  font-size: 24pt;
+  line-height: 28pt;
+  font-weight: 700;
+}
+
+// ── Body Text (Karla, Medium) ───────────────────────
+@mixin body-16 {
+  font-family: $font-family-primary;
+  font-size: 16pt;
+  line-height: 20pt;
+  font-weight: 500;
+}
+
+@mixin body-20 {
+  font-family: $font-family-primary;
+  font-size: 20pt;
+  line-height: 24pt;
+  font-weight: 500;
+}
+
+@mixin body-24 {
+  font-family: $font-family-primary;
+  font-size: 24pt;
+  line-height: 28pt;
+  font-weight: 500;
+}
+
+// ── Links (Poppins) ─────────────────────────────────
+@mixin link-16 {
+  font-family: $font-family-secondary;
+  font-size: 16pt;
+  line-height: 20pt;
+  font-weight: 500;
+}
+
+@mixin link-16-hover {
+  font-family: $font-family-secondary;
+  font-size: 16pt;
+  line-height: 20pt;
+  font-weight: 600;
+}
+
+@mixin link-20 {
+  font-family: $font-family-secondary;
+  font-size: 20pt;
+  line-height: 24pt;
+  font-weight: 500;
+}
+
+@mixin link-20-hover {
+  font-family: $font-family-secondary;
+  font-size: 20pt;
+  line-height: 24pt;
+  font-weight: 600;
+}
+
+@mixin link-24 {
+  font-family: $font-family-secondary;
+  font-size: 24pt;
+  line-height: 28pt;
+  font-weight: 500;
+}
+
+@mixin link-24-hover {
+  font-family: $font-family-secondary;
+  font-size: 24pt;
+  line-height: 28pt;
+  font-weight: 600;
+}
+
+// ── Actions (Karla, Light) ──────────────────────────
+@mixin action-16 {
+  font-family: $font-family-primary;
+  font-size: 16pt;
+  line-height: 20pt;
+  font-weight: 300;
+}
+
+@mixin action-20 {
+  font-family: $font-family-primary;
+  font-size: 20pt;
+  line-height: 24pt;
+  font-weight: 300;
+}
+
+@mixin action-24 {
+  font-family: $font-family-primary;
+  font-size: 24pt;
+  line-height: 28pt;
+  font-weight: 300;
+}

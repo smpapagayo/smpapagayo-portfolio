@@ -1,4 +1,4 @@
-@use 'variables' as v; 
+@use 'variables' as v;
 
 
 /* Resetting margins and padding for all tags */
@@ -41,9 +41,21 @@ html {
 }
 
 /* Turn off the default styles for the main text tags */
-h1, h2, h3, h4, h5, h6,
-p, span, a, strong, blockquote,
-i, b, u, em {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+a,
+strong,
+blockquote,
+i,
+b,
+u,
+em {
   font-size: 1em;
   font-weight: inherit;
   font-style: inherit;
@@ -54,6 +66,7 @@ i, b, u, em {
 
 blockquote,
 q {
+
   &::before,
   &::after {
     content: '';
@@ -94,8 +107,6 @@ svg {
 }
 
 body {
-
-  font-family: v.$font-family-primary;
   color: v.$color-text-primary;
   margin: 0;
   padding: 0;
@@ -104,8 +115,8 @@ body {
   // cursor: none;
 }
 
-html, body {
+html,
+body {
   width: 100vw;
   overflow-x: hidden;
 }
-

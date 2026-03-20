@@ -1,4 +1,5 @@
 @use 'variables' as v;
+@use './typography' as *;
 
 body::before {
   content: "";
@@ -65,47 +66,48 @@ body::before {
   }
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: v.$font-family-secondary;
-}
-
 h1 {
-  font-size: v.$font-32;
-  font-weight: 800;
-}
+  @include title-32;
 
-@media (min-width: 840px) {
-  h1 {
-    font-size: v.$font-40;
+  @media (min-width: 1200px) {
+    @include title-40;
+  }
+
+  @media (min-width: 1600px) {
+    @include title-48;
   }
 }
 
-@media (min-width: 1200px) {
-  h1 {
-    font-size: v.$font-48;
-  }
-}
+h2 {
+  @include subtitle-16;
 
-@media (min-width: 1600px) {
-  h1 {
-    font-size: v.$font-56;
+  @media (min-width: 1200px) {
+    @include subtitle-20;
+  }
+
+  @media (min-width: 1600px) {
+    @include subtitle-24;
   }
 }
 
 p {
   text-wrap: balance;
+  @include body-16;
+
+  @media (min-width: 1200px) {
+    @include body-20;
+  }
+
+  @media (min-width: 1600px) {
+    @include body-24;
+  }
 }
 
 .button {
   width: 140px;
   height: 30px;
-  font-size: v.$font-16;
-  font-family: v.$font-family-secondary;
+  // font-size: v.$font-16;
+  // font-family: v.$font-family-secondary;
   font-weight: 500;
   color: v.$color-bg-primary;
   background-color: v.$color-yellow;
@@ -130,10 +132,10 @@ p {
   @media (min-width: 840px) {
     width: 170px;
     height: 40px;
-    font-size: v.$font-20;
+    // font-size: v.$font-20;
   }
 
   @media (min-width: 1600px) {
-    font-size: v.$font-24;
+    // font-size: v.$font-24;
   }
 }
