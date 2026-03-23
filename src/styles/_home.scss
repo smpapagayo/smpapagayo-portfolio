@@ -1,2 +1,450 @@
 @use 'variables' as v;
+@use 'typography' as *;
 @use "sass:list";
+
+.smp-page {
+  padding: 0 16px;
+}
+
+@media (min-width: 600px) {
+  .smp-page {
+    padding: 0 24px;
+  }
+}
+
+@media (min-width: 840px) {
+  .smp-page {
+    padding: 0 40px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .smp-page {
+    padding: 0 60px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .smp-page {
+    padding: 0 120px;
+  }
+}
+
+// ── Navbar ──────────────────────────────────────────
+.smp-nav {
+  padding: 20px 0;
+  height: 95px;
+  @include v.flex-center(space-between, center, column);
+}
+
+@media (min-width: 840px) {
+  .smp-nav {
+    height: 100px;
+    @include v.flex-center(space-between, center, row);
+  }
+}
+
+.smp-nav-logo {
+  height: 28px;
+  width: 327px;
+  background-color: v.$color-text;
+  mask-image: url('../assets/smp-logo.svg');
+  -webkit-mask-image: url('../assets/smp-logo.svg');
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  transition: background-color 0.3s, mask-image 0.3s;
+}
+
+@media (min-width: 840px) {
+  .smp-nav-logo {
+    height: 60px;
+    width: 201px;
+    mask-image: url('../assets/smp-logo-stacked.svg');
+    -webkit-mask-image: url('../assets/smp-logo-stacked.svg');
+  }
+}
+
+.smp-nav-menu {
+  width: 100%;
+  @include v.flex-center(center, center, row);
+  gap: 24px;
+}
+
+@media (min-width: 840px) {
+  .smp-nav-menu {
+    @include v.flex-center(flex-end, center, row);
+  }
+}
+
+.smp-nav-menu a {
+  @include link-16;
+}
+
+@media (min-width: 1200px) {
+  .smp-nav-menu a {
+    @include link-20;
+  }
+}
+
+@media (min-width: 1600px) {
+  .smp-nav-menu a {
+    @include link-24;
+  }
+}
+
+.smp-nav-menu a {
+  text-decoration: none;
+  color: v.$color-text;
+  transition: color v.$transition, background-color v.$transition, padding v.$transition;
+}
+
+.smp-nav-menu a:hover {
+  padding: 0 8px;
+  color: v.$color-text-hover;
+  background-color: v.$color-bg-secondary;
+  @include link-16-hover;
+}
+
+@media (min-width: 1200px) {
+  .smp-nav-menu a:hover {
+    @include link-20-hover;
+  }
+}
+
+@media (min-width: 1600px) {
+  .smp-nav-menu a:hover {
+    @include link-24-hover;
+  }
+}
+
+// ── Hero ──────────────────────────────────────────
+.smp-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px 16px;
+  gap: 28px;
+}
+
+@media (min-width: 600px) {
+  .smp-hero {
+    padding: 52px 24px;
+  }
+}
+
+@media (min-width: 840px) {
+  .smp-hero {
+    padding: 60px 0;
+    gap: 32px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .smp-hero {
+    gap: 36px;
+  }
+}
+
+.smp-hero-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.smp-bio {
+  @include body-16
+}
+
+@media (min-width: 840px) {
+  .smp-bio {
+    @include body-20;
+  }
+}
+
+@media (min-width: 1200px) {
+  .smp-bio {
+    @include body-24;
+  }
+}
+
+.smp-action {
+  @include action-16;
+}
+
+@media (min-width: 840px) {
+  .smp-action {
+    @include action-20;
+  }
+}
+
+@media (min-width: 1200px) {
+  .smp-action {
+    @include action-24;
+  }
+}
+
+// ── Projects ──────────────────────────────────────────
+.smp-projects {
+  width: 100%;
+}
+
+.smp-project {
+  border-bottom: 2px solid v.$color-text;
+  padding: 8px 0;
+  cursor: pointer;
+  // transition: all v.$transition;
+}
+
+.smp-project:hover {
+
+  .smp-proj-title,
+  .smp-proj-num,
+  .smp-proj-cat {
+    color: v.$color-text-hover;
+  }
+
+  .smp-proj-title {
+    font-weight: 900;
+  }
+
+  .smp-proj-num,
+  .smp-proj-cat {
+    font-weight: 700
+  }
+}
+
+.smp-proj-head {
+  @include v.flex-center(space-between, flex-start, column);
+  // gap: 4px;
+  min-height: 40px;
+}
+
+@media (min-width: 840px) {
+  .smp-proj-head {
+    @include v.flex-center(flex-start, baseline, row);
+  }
+}
+
+.smp-proj-group {
+  @include v.flex-center(flex-start, baseline, row);
+  gap: 8px;
+  min-width: 0;
+  flex: 1;
+}
+
+.smp-proj-num,
+.smp-proj-cat {
+  @include subtitle-16;
+  transition: color v.$transition;
+}
+
+@media (min-width: 840px) {
+
+  .smp-proj-num,
+  .smp-proj-cat {
+    @include subtitle-20;
+  }
+}
+
+@media (min-width: 1200px) {
+
+  .smp-proj-num,
+  .smp-proj-cat {
+    @include subtitle-24;
+  }
+}
+
+.smp-proj-title {
+  flex: 1;
+  min-width: 0;
+  @include title-32;
+  transition: color v.$transition;
+}
+
+@media (min-width: 840px) {
+  .smp-proj-title {
+    @include title-40;
+  }
+}
+
+@media (min-width: 1600px) {
+  .smp-proj-title {
+    @include title-48;
+  }
+}
+
+.smp-proj-img {
+  margin-top: 0;
+  width: 100%;
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  // background-color: v.$color-text-tertiary;
+  transition: all v.$transition;
+}
+
+.smp-project:hover .smp-proj-img {
+  margin-top: 12px;
+  height: 288px;
+  opacity: 1;
+}
+
+@media (min-width: 840px) {
+  .smp-project:hover .smp-proj-img {
+    height: 470px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .smp-project:hover .smp-proj-img {
+    height: 520px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .smp-project:hover .smp-proj-img {
+    height: 620px;
+  }
+}
+
+// ── Skills ──────────────────────────────────────────
+.smp-about {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 0;
+  gap: 12px;
+  text-align: center;
+}
+
+@media (min-width: 840px) {
+  .smp-about {
+    padding: 60px 0;
+    gap: 16px;
+  }
+}
+
+.smp-about-img {
+  background: rgba(247, 249, 255, 0.07);
+  border-radius: 8px;
+  width: 100%;
+  max-width: 368px;
+  height: 288px;
+}
+
+@media (min-width: 600px) {
+  .smp-about-img {
+    max-width: 552px;
+    height: 308px;
+  }
+}
+
+@media (min-width: 840px) {
+  .smp-about-img {
+    max-width: 562px;
+    height: 471px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .smp-about-img {
+    max-width: 708px;
+    height: 471px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .smp-about-img {
+    max-width: 896px;
+    height: 471px;
+  }
+}
+
+.smp-about-text {
+  opacity: 0.75;
+  max-width: 640px;
+}
+
+// ── Footer ──────────────────────────────────────────
+.smp-footer {
+  @include v.flex-center(space-between, flex-start, row);
+  padding: 32px 0 48px;
+}
+
+.smp-footer-heading {
+  @include title-32;
+  width: 65%;
+}
+
+@media (min-width: 1200px) {
+  .smp-footer-heading {
+    @include title-40;
+  }
+}
+
+@media (min-width: 1600px) {
+  .smp-footer-heading {
+    @include title-48;
+  }
+}
+
+.smp-footer-links {
+  @include v.flex-center(flex-end, flex-start, column);
+  gap: 4px;
+  flex-shrink: 0;
+  width: 35%;
+}
+
+@media (min-width: 840px) {
+  .smp-footer-links {
+    gap: 8px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .smp-footer-links {
+    gap: 12px;
+  }
+}
+
+.smp-footer-links a {
+  text-decoration: none;
+  color: v.$color-text;
+  transition: color v.$transition, background-color v.$transition, padding v.$transition;
+  @include link-16
+}
+
+@media (min-width: 1200px) {
+  .smp-footer-links a {
+    @include link-20;
+  }
+}
+
+@media (min-width: 1600px) {
+  .smp-footer-links a {
+    @include link-24;
+  }
+}
+
+.smp-footer-links a:hover {
+  padding: 0 8px;
+  color: v.$color-text-hover;
+  background-color: v.$color-bg-secondary;
+  @include link-16-hover;
+}
+
+@media (min-width: 1200px) {
+  .smp-footer-links a:hover {
+    @include link-20-hover;
+  }
+}
+
+@media (min-width: 1600px) {
+  .smp-footer-links a:hover {
+    @include link-24-hover;
+  }
+}

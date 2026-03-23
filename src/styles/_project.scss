@@ -2,7 +2,7 @@
 
 a:hover {
 	font-weight: 700;
-	color: v.$color-bg-primary;
+	// color: v.$color-bg-primary;
 	background-color: v.$color-yellow;
 	cursor: pointer;
 }
@@ -50,7 +50,7 @@ a:hover {
 }
 
 .info span {
-	color: v.$color-text-secondary;
+	color: v.$color-text;
 	// font-family: v.$font-family-secondary;
 	font-weight: 600;
 	letter-spacing: 0.8px;

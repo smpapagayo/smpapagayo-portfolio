@@ -26,7 +26,6 @@ figure {
 /* Set "a" tags as blocks */
 a {
   display: block;
-  // cursor: none;
 }
 
 /* Resetting the style of "li" tags */
@@ -36,8 +35,6 @@ li {
 
 html {
   scroll-behavior: smooth;
-  background: v.$color-bg-primary;
-  // cursor: none;
 }
 
 /* Turn off the default styles for the main text tags */
@@ -60,7 +57,6 @@ em {
   font-weight: inherit;
   font-style: inherit;
   text-decoration: none;
-  color: v.$color-text-primary;
   margin: 0;
 }
 
@@ -103,11 +99,11 @@ svg {
 
 /* Setting the text that is selected */
 ::selection {
-  background-color: v.$color-bg-secondary;
+  background-color: v.$color-bg;
 }
 
 body {
-  color: v.$color-text-primary;
+  color: v.$color-text;
   margin: 0;
   padding: 0;
   letter-spacing: -0.03em;

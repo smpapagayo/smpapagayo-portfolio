@@ -10,20 +10,21 @@ body::before {
   height: 200%;
   background: transparent url("../assets/noise-transparent.png") repeat 0 0;
   background-size: 300px 300px;
-  animation: noise-animation 0.3s steps(5) infinite;
+  animation: noise-animation 0.3s step-end infinite; // Optimized timing function
   will-change: transform;
   z-index: 100;
   pointer-events: none;
-  opacity: 0.6;
-
-  &.hover-link {
-    background: v.$color-yellow; // color al pasar sobre enlaces
-  }
+  // opacity: 0.6;
 
   @media (prefers-reduced-motion: reduce) {
     animation: none;
     background-position: center; // Keep it static
   }
+}
+
+// BUG FIX: Moved outside as `body::before.hover-link` (from `&.hover-link`) is invalid CSS.
+body.hover-link::before {
+  background-color: v.$color-yellow; // Use background-color to preserve the noise image pattern
 }
 
 @keyframes noise-animation {
@@ -101,13 +102,14 @@ h2 {
   width: 140px;
   height: 30px;
   font-weight: 500;
-  color: v.$color-bg-primary;
+  // color: v.$color-bg;
   background-color: v.$color-yellow;
   background-image: url("../assets/SVG/pattern-1-dark.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 94% 97%;
-  transition: background-color 1s ease, background-image 1s ease;
+  transition: background-color 0.3s ease; // Optimized: faster transition, removed invalid background-image transition
+  cursor: pointer; // Optimized: Moved from &:hover to main class
 
   img {
     width: 20px;
@@ -115,7 +117,6 @@ h2 {
   }
 
   &:hover {
-    cursor: pointer;
     background-color: v.$color-yellow-light;
     background-image: url("../assets/SVG/pattern-1-light.svg");
     font-weight: 700;
@@ -125,4 +126,16 @@ h2 {
     width: 170px;
     height: 40px;
   }
+}
+
+.page-transition {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: v.$color-bg;
+  z-index: 9999;
+  pointer-events: none;
+  transform: scaleY(0);
 }

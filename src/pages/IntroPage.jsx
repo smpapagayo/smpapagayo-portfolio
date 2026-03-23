@@ -12,22 +12,23 @@ export default function IntroPage() {
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
+      // ----------------------------------------------------
+      // 1. INITIAL SETUP
+      // ----------------------------------------------------
       const allPaths = gsap.utils.toArray(".load-bar path");
 
+      // Custom colors for different parts of the macaw SVG
       const colors = {
         "tail-1": "#27a4d6",
         "tail-2": "#2e70bf",
-        // "tail-3": "#e40909",
         "wing-1": "#ffc14f",
-        // "wing-2": "#ffc14f",
         "wing-2": "#ff9624",
         "face": "#fff6ef",
-        // "beak-1": "#ddd",
         "beak": "#1e2234",
         "body": "#ff2a2a",
       };
 
-      // 1. Group paths by their parent <g> ID
+      // Group SVG paths by their parent <g> ID
       const groupedPaths = {};
       allPaths.forEach((path) => {
         const g = path.closest("g[id]");
@@ -36,34 +37,43 @@ export default function IntroPage() {
           if (!groupedPaths[id]) groupedPaths[id] = [];
           groupedPaths[id].push(path);
 
-          // Pre-set fill to background color and hide them
+          // Pre-set fill to dark background color and hide them
           gsap.set(path, { fill: "#292f46", opacity: 0 });
         }
       });
 
-      // 2. Extract the part IDs and shuffle them randomly
+      // Extract the part IDs and shuffle them randomly for a varied fill order on every load
       const partIds = Object.keys(groupedPaths);
-      gsap.utils.shuffle(partIds); // This randomizes the order on every page load
+      gsap.utils.shuffle(partIds);
 
-      // Hide credits initially
-      gsap.set(".intro__credits", { opacity: 0 });
+      // Hide credits text initially and set reveal-block scale to 0
+      gsap.set(".intro__credits-text", { opacity: 0 });
+      gsap.set(".intro__credits-block", { scaleX: 0, transformOrigin: "left" });
 
       // Identify letters in LoadingText and set initial state
       const letters = gsap.utils.toArray(".loading-text path");
       gsap.set(letters, { opacity: 0, y: 20, scale: 0.9, transformOrigin: "50% 50%" });
 
-      const barTl2 = gsap.timeline({ paused: true });
-      // Attach the onComplete to the timeline itself now
+      // ----------------------------------------------------
+      // 2. ANIMATION TIMELINES
+      // ----------------------------------------------------
+      
+      // Secondary timeline (Transition out): Starts playing when barTl completes
+      const outTl = gsap.timeline({ paused: true });
+      
+      // Main timeline (Intro load):
+      // - delay: Initial wait time before the loading animation starts
       const barTl = gsap.timeline({
-        delay: 1, // INITIAL WAIT
-        onComplete: () => barTl2.play()
+        delay: 1, 
+        onComplete: () => outTl.play()
       });
 
-      // 3. Loop through the randomized parts and animate them one at a time
+      // Loop through the randomized macaw parts and animate them one at a time
       partIds.forEach((id, index) => {
         const pathsInPart = groupedPaths[id];
 
-        // Animate one letter exactly when this macaw part starts
+        // A. Animate one LOADING LETTER exactly when this macaw part starts animating
+        // - duration: How fast the letter fades and slides up
         if (letters[index]) {
           barTl.to(letters[index], {
             opacity: 1,
@@ -74,7 +84,9 @@ export default function IntroPage() {
           }, index === 0 ? undefined : "-=0.75");
         }
 
-        // Animate the macaw part at the exact same start time
+        // B. Animate the MACAW PART at the exact same start time
+        // - keyframes duration: How fast each path fades in, then changes fill color
+        // - stagger 'each': The micro-delay between individual strokes in a single group
         if (pathsInPart && pathsInPart.length > 0) {
           barTl.to(pathsInPart, {
             keyframes: [
@@ -82,32 +94,48 @@ export default function IntroPage() {
               { fill: colors[id], duration: 0.15, ease: "power1.inOut", delay: 0.35 }
             ],
             stagger: {
-              each: 0.0065, // STAGGER TIME
+              each: 0.0065, // Time between each stroke filling up
               from: "random",
             },
-          }, letters[index] ? "<" : (index === 0 ? undefined : "-=0.75")); // OVERLAP
+          }, letters[index] ? "<" : (index === 0 ? undefined : "-=0.75")); // "<" syncs it with the letter animation
         }
       });
 
-      // 4. Fade in the credits text at the end of the timeline
-      barTl.to(".intro__credits", {
-        duration: 0.7,
-        opacity: 1,
-        ease: "power2.out"
-      }, "+=0.2"); // slight wait before text appears
+      // ----------------------------------------------------
+      // 3. CREDITS REVEAL (Color Block Sweep)
+      // ----------------------------------------------------
+      // Add a label to synchronize the credits lines
+      // - "+=0.2": Tiny wait time before the credits reveal starts perfectly
+      barTl.addLabel("revealCredits", "+=0.2");
+      const lines = gsap.utils.toArray(".intro__credits-line");
+      
+      lines.forEach((line, i) => {
+        const block = line.querySelector(".intro__credits-block");
+        const text = line.querySelector(".intro__credits-text");
 
-      barTl2.to(".load-bar", {
-        opacity: 0,
-        duration: 0.6,
-        delay: 2, // OUTRO WAIT
-      }).to(".loading-text", {
-        opacity: 0,
-        duration: 0.5,
-      }, "-=0.2").to(".intro__credits", {
-        opacity: 0,
-        duration: 0.5,
-        // onComplete: () => navigate("/projects"),
-      }, "-=0.2");
+        // The block sweeps across, text appears, the block shrinks away
+        // - duration (0.4s): How fast each half of the sweep is
+        // - i * 0.15: Creates the stagger between the two credit lines
+        barTl.to(block, { scaleX: 1, duration: 0.4, ease: "power2.inOut" }, `revealCredits+=${i * 0.15}`)
+             .set(text, { opacity: 1 }, `revealCredits+=${i * 0.15 + 0.4}`)
+             .set(block, { transformOrigin: "right" }, `revealCredits+=${i * 0.15 + 0.4}`)
+             .to(block, { scaleX: 0, duration: 0.4, ease: "power2.inOut" }, `revealCredits+=${i * 0.15 + 0.4}`);
+      });
+
+      // ----------------------------------------------------
+      // 4. PAGE TRANSITION (Out)
+      // ----------------------------------------------------
+      // Wait for credits to display (delay: 1.5s), then sweep the background block upward
+      // to cover the loading screen before navigating.
+      outTl.set(".page-transition", { transformOrigin: "bottom" })
+           .to(".page-transition", {
+             scaleY: 1,
+             duration: 0.8,
+             ease: "power3.inOut",
+             delay: 1.5, // Time the user gets to read the credits
+             onComplete: () => navigate("/home"), // Navigate when the sweep finishes covering
+           });
+           
     });
 
     return () => ctx.revert();
@@ -115,17 +143,30 @@ export default function IntroPage() {
 
   return (
     <div className="intro">
+      {/* Intro Parrot SVG Container */}
       <div className="intro__art">
         <SvgLoader />
       </div>
 
       <div className="intro__text">
+        {/* Loading "loading..." string SVG */}
         <LoadingText />
-        <p className="intro__credits">
-          designed and coded by<br />
-          sergio m papagayo © 2025
-        </p>
+        
+        {/* Color-block text reveal lines */}
+        <div className="intro__credits">
+          <div className="intro__credits-line">
+            <div className="intro__credits-block"></div>
+            <span className="intro__credits-text">designed and coded by</span>
+          </div>
+          <div className="intro__credits-line">
+            <div className="intro__credits-block"></div>
+            <span className="intro__credits-text">sergio m papagayo © 2025</span>
+          </div>
+        </div>
       </div>
+
+      {/* Sweep Transition Block */}
+      <div className="page-transition"></div>
     </div>
   );
 }
