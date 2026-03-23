@@ -32,16 +32,46 @@
 
 // ── Navbar ──────────────────────────────────────────
 .smp-nav {
-  padding: 20px 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  box-sizing: border-box;
+  padding: 20px 16px;
   height: 95px;
   @include v.flex-center(space-between, center, column);
+  transition: background-color 0.3s, backdrop-filter 0.3s, border-bottom 0.3s;
+}
+
+@media (min-width: 600px) {
+  .smp-nav {
+    padding: 20px 24px;
+  }
 }
 
 @media (min-width: 840px) {
   .smp-nav {
     height: 100px;
+    padding: 20px 40px;
     @include v.flex-center(space-between, center, row);
   }
+}
+
+@media (min-width: 1200px) {
+  .smp-nav {
+    padding: 20px 60px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .smp-nav {
+    padding: 20px 120px;
+  }
+}
+
+.smp-nav.is-scrolled {
+  background-color: v.$color-bg;
 }
 
 .smp-nav-logo {
@@ -125,19 +155,19 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 40px 16px;
+  padding: calc(40px + 95px) 16px 40px 16px;
   gap: 28px;
 }
 
 @media (min-width: 600px) {
   .smp-hero {
-    padding: 52px 24px;
+    padding: calc(52px + 95px) 24px 52px 24px;
   }
 }
 
 @media (min-width: 840px) {
   .smp-hero {
-    padding: 60px 0;
+    padding: calc(60px + 100px) 0 60px 0;
     gap: 32px;
   }
 }

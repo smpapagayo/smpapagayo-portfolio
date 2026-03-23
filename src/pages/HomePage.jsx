@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useLayoutEffect, useRef, useState, useEffect } from "react";
 import { gsap } from "gsap";
 import { DrawSVGPlugin, ScrollTrigger } from "gsap/all";
 import { projects } from "../scripts/projects";
@@ -9,6 +9,16 @@ gsap.registerPlugin(DrawSVGPlugin, ScrollTrigger);
 export default function HomePage() {
   const rootRef = useRef(null);
   const isMobile = useIsMobile();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -113,7 +123,7 @@ export default function HomePage() {
   return (
     <div className="smp-page" ref={rootRef}>
       {/* --- Header / Navigation --- */}
-      <header className="smp-nav">
+      <header className={`smp-nav ${isScrolled ? 'is-scrolled' : ''}`}>
         <div className="smp-nav-logo"></div>
         <nav className="smp-nav-menu" aria-label="Main navigation">
           <a href="#work">work</a>
