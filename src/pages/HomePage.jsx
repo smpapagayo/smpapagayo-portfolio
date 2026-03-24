@@ -1,4 +1,5 @@
 import React, { useLayoutEffect, useRef, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { DrawSVGPlugin, ScrollTrigger } from "gsap/all";
 import { projects } from "../scripts/projects";
@@ -9,6 +10,7 @@ gsap.registerPlugin(DrawSVGPlugin, ScrollTrigger);
 export default function HomePage() {
   const rootRef = useRef(null);
   const isMobile = useIsMobile();
+  const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -148,7 +150,19 @@ export default function HomePage() {
         {/* --- Projects Section --- */}
         <section id="work" className="smp-projects" aria-label="Projects">
           {projects.map((p) => (
-            <article key={p.num} className="smp-project">
+            <article 
+              key={p.num} 
+              className="smp-project" 
+              onClick={() => navigate(`/home/${p.id}`)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  navigate(`/home/${p.id}`);
+                }
+              }}
+            >
               <div className="smp-proj-head">
                 {isMobile ? (
                   // Mobile Layout: Number and Category together, Title below

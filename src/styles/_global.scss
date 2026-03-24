@@ -89,11 +89,11 @@ h2 {
   @include subtitle-16;
 
   @media (min-width: 1200px) {
-    @include subtitle-20;
+    @include subtitle-18;
   }
 
   @media (min-width: 1600px) {
-    @include subtitle-24;
+    @include subtitle-20;
   }
 }
 

@@ -186,34 +186,34 @@
 }
 
 .smp-bio {
-  @include body-16
+  @include body-14
 }
 
 @media (min-width: 840px) {
   .smp-bio {
-    @include body-20;
+    @include body-16;
   }
 }
 
 @media (min-width: 1200px) {
   .smp-bio {
-    @include body-24;
+    @include body-18;
   }
 }
 
 .smp-action {
-  @include action-16;
+  @include action-12;
 }
 
 @media (min-width: 840px) {
   .smp-action {
-    @include action-20;
+    @include action-14;
   }
 }
 
 @media (min-width: 1200px) {
   .smp-action {
-    @include action-24;
+    @include action-16;
   }
 }
 
@@ -276,7 +276,7 @@
 
   .smp-proj-num,
   .smp-proj-cat {
-    @include subtitle-20;
+    @include subtitle-18;
   }
 }
 
@@ -284,7 +284,7 @@
 
   .smp-proj-num,
   .smp-proj-cat {
-    @include subtitle-24;
+    @include subtitle-20;
   }
 }
 

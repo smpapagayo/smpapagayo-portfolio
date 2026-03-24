@@ -273,7 +273,7 @@ const ProjectDetailPage = () => {
     <main className="project-detail">
       <section className="grid-intro">
         <h1 className="intro__title">{project.title}</h1>
-        <p className="intro__scroll">Scroll down ↓</p>
+        <p className="intro__scroll">[Scroll down ↓]</p>
         <nav className="intro__back">
           <a onClick={() => navigate("/home")}>← Back to Projects</a>
         </nav>
@@ -414,7 +414,7 @@ const ProjectDetailPage = () => {
       <footer className="footer info">
         {prevProject ? (
 
-          <a onClick={() => navigate(`/projects/${prevProject.id}`)}>
+          <a className="footer__prev" onClick={() => navigate(`/home/${prevProject.id}`)}>
             ← {prevProject.title}
           </a>
         ) : (
@@ -422,11 +422,11 @@ const ProjectDetailPage = () => {
         )}
 
         <span>
-          <a onClick={() => navigate("/home")}>↑ Back to Projects</a>
+          <a className="footer__back" onClick={() => navigate("/home")}>↑ Back to Projects</a>
         </span>
 
         {nextProject ? (
-          <a onClick={() => navigate(`/projects/${nextProject.id}`)}>{nextProject.title} →</a>
+          <a className="footer__next" onClick={() => navigate(`/home/${nextProject.id}`)}>{nextProject.title} →</a>
 
         ) : (
           <span></span>

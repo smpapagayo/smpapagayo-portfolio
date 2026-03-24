@@ -39,14 +39,14 @@
   gap: 8px;
   text-align: center;
   color: v.$color-bg;
-  @include action-16;
+  @include action-12;
 
   @media (min-width: 1200px) {
-    @include action-20;
+    @include action-14;
   }
 
   @media (min-width: 1600px) {
-    @include action-24;
+    @include action-16;
   }
 }
 

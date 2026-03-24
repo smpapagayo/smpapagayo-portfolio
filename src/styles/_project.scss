@@ -1,9 +1,7 @@
 @use 'variables' as v;
+@use 'typography' as *;
 
-a:hover {
-	font-weight: 700;
-	// color: v.$color-bg-primary;
-	background-color: v.$color-yellow;
+a {
 	cursor: pointer;
 }
 
@@ -28,13 +26,68 @@ a:hover {
 	grid-column: 2 / 4;
 	grid-row: 1;
 	flex-wrap: wrap;
-	font-size: 18px;
+	@include link-16;
+}
+
+.intro__back a {
+	@include link-16;
+	transition: all v.$transition;
+}
+
+
+@media (min-width: 1200px) {
+	.intro__back a {
+		@include link-20;
+	}
+}
+
+@media (min-width: 1600px) {
+	.intro__back a {
+		@include link-24;
+	}
+}
+
+.intro__back a:hover {
+	padding: 0 8px;
+	color: v.$color-text-hover;
+	background-color: v.$color-bg-secondary;
+	@include link-16-hover;
+}
+
+@media (min-width: 1200px) {
+	.intro__back a:hover {
+		@include link-20-hover;
+	}
+}
+
+@media (min-width: 1600px) {
+	.intro__back a:hover {
+		@include link-24-hover;
+	}
 }
 
 .intro__scroll {
 	grid-column: 3 / 4;
 	grid-row: 2;
-	font-size: 16px;
+	@include action-12;
+}
+
+.intro__scroll {
+	grid-column: 3 / 4;
+	grid-row: 2;
+	@include action-12;
+}
+
+@media (min-width: 840px) {
+	.intro__scroll {
+		@include action-14;
+	}
+}
+
+@media (min-width: 1200px) {
+	.intro__scroll {
+		@include action-16;
+	}
 }
 
 .info {
@@ -44,25 +97,42 @@ a:hover {
 	display: flex;
 	flex-direction: column;
 	row-gap: 4px;
-	font-size: 16px;
-	letter-spacing: 1px;
 
 }
 
 .info span {
-	color: v.$color-text;
-	// font-family: v.$font-family-secondary;
-	font-weight: 600;
-	letter-spacing: 0.8px;
+	@include subtitle-16
+}
+
+@media (min-width: 840px) {
+	.info span {
+		@include subtitle-18;
+	}
+}
+
+@media (min-width: 1200px) {
+	.info span {
+		@include subtitle-20;
+	}
 }
 
 .info p {
-	letter-spacing: 0px;
-	line-height: 1.4em;
+	@include body-14;
+}
+
+@media (min-width: 840px) {
+	.info p {
+		@include body-16;
+	}
+}
+
+@media (min-width: 1200px) {
+	.info p {
+		@include body-18;
+	}
 }
 
 .roles {
-
 	grid-column: 2 / 4;
 	grid-row: 3;
 }
@@ -183,6 +253,48 @@ a:hover {
 	padding: 5dvh 0;
 }
 
+.footer__back,
+.footer__prev,
+.footer__next {
+	@include link-16;
+	transition: all v.$transition;
+}
+
+
+@media (min-width: 1200px) {
+
+	.footer__back,
+	.footer__prev,
+	.footer__next {
+		@include link-16;
+	}
+}
+
+@media (min-width: 1600px) {
+	.intro__back a {
+		@include link-24;
+	}
+}
+
+.intro__back a:hover {
+	padding: 0 8px;
+	color: v.$color-text-hover;
+	background-color: v.$color-bg-secondary;
+	@include link-16-hover;
+}
+
+@media (min-width: 1200px) {
+	.intro__back a:hover {
+		@include link-20-hover;
+	}
+}
+
+@media (min-width: 1600px) {
+	.intro__back a:hover {
+		@include link-24-hover;
+	}
+}
+
 .video-section {
 	height: 100dvh;
 	width: auto;
@@ -190,46 +302,10 @@ a:hover {
 	display: flex;
 }
 
-@media (min-width: 600px) {
-
-	.intro__back a {
-		font-size: 20px;
-	}
-
-	.intro__scroll {
-		font-size: 18px;
-	}
-
-	.info span {
-		font-size: 20px;
-	}
-
-	.info p {
-		font-size: 20px;
-	}
-
-}
-
 @media (min-width: 1200px) {
 
 	.project-detail {
 		padding-top: 3rem;
-	}
-
-	.intro__back {
-		font-size: 22px;
-	}
-
-	.intro__scroll {
-		font-size: 20px;
-	}
-
-	.info span {
-		font-size: 22px;
-	}
-
-	.info p {
-		font-size: 22px;
 	}
 
 	.grid-intro {
