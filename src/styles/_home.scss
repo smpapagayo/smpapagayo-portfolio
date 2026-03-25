@@ -220,13 +220,19 @@
 // ── Projects ──────────────────────────────────────────
 .smp-projects {
   width: 100%;
+  border-bottom: 2px solid v.$color-text;
 }
 
 .smp-project {
-  border-bottom: 2px solid v.$color-text;
   padding: 8px 0;
   cursor: pointer;
   // transition: all v.$transition;
+}
+
+.smp-proj-border {
+  width: 100%;
+  height: 2px;
+  background-color: v.$color-text;
 }
 
 .smp-project:hover {
@@ -251,11 +257,17 @@
   @include v.flex-center(space-between, flex-start, column);
   // gap: 4px;
   min-height: 40px;
+  position: sticky;
+  top: 95px;
+  z-index: 10;
+  background-color: v.$color-bg;
+  padding: 8px 0;
 }
 
 @media (min-width: 840px) {
   .smp-proj-head {
     @include v.flex-center(flex-start, baseline, row);
+    top: 100px;
   }
 }
 
@@ -308,37 +320,40 @@
 }
 
 .smp-proj-img {
+  --target-height: 320px;
   margin-top: 0;
   width: 100%;
   height: 0;
-  opacity: 0;
   overflow: hidden;
-  // background-color: v.$color-text-tertiary;
-  transition: all v.$transition;
-}
-
-.smp-project:hover .smp-proj-img {
-  margin-top: 12px;
-  height: 288px;
-  opacity: 1;
+  /* transition removed, controlled by GSAP */
 }
 
 @media (min-width: 840px) {
-  .smp-project:hover .smp-proj-img {
-    height: 470px;
+  .smp-proj-img {
+    --target-height: 560px;
   }
 }
 
 @media (min-width: 1200px) {
-  .smp-project:hover .smp-proj-img {
-    height: 520px;
+  .smp-proj-img {
+    --target-height: 620px;
   }
 }
 
 @media (min-width: 1600px) {
-  .smp-project:hover .smp-proj-img {
-    height: 620px;
+  .smp-proj-img {
+    --target-height: 720px;
   }
+}
+
+.smp-proj-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  clip-path: inset(100% 0% 0% 0%);
+  transform: scale(1.15);
+  transform-origin: center;
+  transition: none; /* Let GSAP control */
 }
 
 // ── Skills ──────────────────────────────────────────

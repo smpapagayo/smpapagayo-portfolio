@@ -1,11 +1,11 @@
 import React, { useLayoutEffect, useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
-import { DrawSVGPlugin, ScrollTrigger } from "gsap/all";
+import { DrawSVGPlugin, ScrollTrigger, SplitText } from "gsap/all";
 import { projects } from "../scripts/projects";
 import useIsMobile from "../hooks/useIsMobile";
 
-gsap.registerPlugin(DrawSVGPlugin, ScrollTrigger);
+gsap.registerPlugin(DrawSVGPlugin, ScrollTrigger, SplitText);
 
 export default function HomePage() {
   const rootRef = useRef(null);
@@ -54,35 +54,106 @@ export default function HomePage() {
       }, "-=0.4"); // Starts 0.4s before the page transition finishes
 
       // ==========================================
-      // 3. HERO ENTRANCE (Title & Intro Text)
+      // 3. HERO ENTRANCE (Line Mask Reveal)
       // ==========================================
-      // Animates the main heading and bio text sliding up.
-      // Tweak 'y' (e.g. 100 for a bigger slide) or 'stagger' to delay each line.
-      tl.from(".smp-hero h1, .smp-bio, .smp-action", {
-        y: 40,
-        opacity: 0,
+      // Split h1 and bio into lines, each masked so text slides up from behind
+      // its own clipping boundary — matching the landonorris.com reveal style.
+      const headingSplit = new SplitText(".smp-hero h1", {
+        type: "lines",
+        mask: "lines",
+      });
+      const bioSplit = new SplitText(".smp-bio", {
+        type: "lines",
+        mask: "lines",
+      });
+      const actionSplit = new SplitText(".smp-action", {
+        type: "lines",
+        mask: "lines",
+      });
+
+      const heroLines = [...headingSplit.lines, ...bioSplit.lines];
+
+      tl.from(heroLines, {
+        yPercent: 110,
         duration: 1,
-        stagger: 0.15,
-        ease: "power3.out",
+        stagger: 0.08,
+        ease: "power4.out",
+      }, "-=0.5")
+      .from(actionSplit.lines, {
+        yPercent: 110,
+        duration: 0.8,
+        ease: "power4.out",
       }, "-=0.6");
 
       // ==========================================
-      // 4. PROJECTS LIST ON SCROLL
+      // 4. PROJECTS LIST ON SCROLL + HOVER EFFECTS
       // ==========================================
-      // As you scroll down, each project slides up individually.
       const projectsEl = gsap.utils.toArray(".smp-project");
+      
+      // We will define a custom intense cubic-bezier similar to Lando's duration and snap
+      const hoverEase = "power4.inOut"; 
+
       projectsEl.forEach((proj) => {
-        gsap.from(proj, {
+        const border = proj.querySelector(".smp-proj-border");
+        const num    = proj.querySelector(".smp-proj-num");
+        const title  = proj.querySelector(".smp-proj-title");
+        const cat    = proj.querySelector(".smp-proj-cat");
+        const imgWrapper = proj.querySelector(".smp-proj-img");
+        const img = proj.querySelector(".smp-proj-img img");
+
+        const numSplit   = new SplitText(num,   { type: "lines", mask: "lines" });
+        const titleSplit = new SplitText(title, { type: "lines", mask: "lines" });
+        const catSplit   = new SplitText(cat,   { type: "lines", mask: "lines" });
+
+        // Scroll entry timeline
+        const projTl = gsap.timeline({
           scrollTrigger: {
             trigger: proj,
-            start: "top 85%", // Triggers when the top of the project is 85% down the viewport
-            toggleActions: "play none none reverse", // Set to "play none none none" to only animate once
+            start: "top 88%",
+            toggleActions: "play none none reverse",
           },
-          y: 60, // Slide distance
-          opacity: 0,
-          duration: 0.8,
-          ease: "power3.out",
         });
+
+        projTl
+          .from(border, {
+            scaleX: 0,
+            transformOrigin: "left",
+            duration: 0.6,
+            ease: "power3.inOut",
+          })
+          .from(
+            [...numSplit.lines, ...titleSplit.lines, ...catSplit.lines],
+            { yPercent: 110, duration: 0.9, stagger: 0.06, ease: "power4.out" },
+            "-=0.4"
+          );
+
+        // Hover intense timeline
+        const hoverTl = gsap.timeline({ paused: true });
+        
+        // Ensure values are read fresh on hover by using functional updates if needed,
+        // but passing the var() right into GSAP lets the browser handle responsive values dynamically 
+        // provided the CSS var is updated correctly on resize.
+        hoverTl
+          .to(imgWrapper, {
+            height: "var(--target-height)",
+            marginTop: 12,
+            duration: 0.75,
+            ease: hoverEase,
+          })
+          .to(img, {
+            clipPath: "inset(0% 0% 0% 0%)",
+            scale: 1,
+            duration: 0.75,
+            ease: hoverEase,
+          }, "<")
+          .to([title, num], {
+            x: 10,
+            duration: 0.75,
+            ease: "power3.out",
+          }, "<0.1");
+
+        // Stash the timeline on the DOM element for access in onMouseEnter
+        proj._hoverTl = hoverTl;
       });
 
       // ==========================================
@@ -162,7 +233,37 @@ export default function HomePage() {
                   navigate(`/home/${p.id}`);
                 }
               }}
+              onMouseEnter={(e) => {
+                const target = e.currentTarget;
+                if (target._hoverTl) target._hoverTl.play();
+
+                if (window.hoverScrollTimeout) {
+                  clearTimeout(window.hoverScrollTimeout);
+                }
+                
+                window.hoverScrollTimeout = setTimeout(() => {
+                  const navHeight = window.innerWidth >= 840 ? 100 : 95;
+                  const projectRect = target.getBoundingClientRect();
+                  
+                  // Scroll if the project isn't already positioned right under the navbar
+                  if (Math.abs(projectRect.top - navHeight) > 5) {
+                    window.scrollTo({
+                      top: window.scrollY + projectRect.top - navHeight,
+                      behavior: 'smooth'
+                    });
+                  }
+                }, 750); // match duration of GSAP hover ease
+              }}
+              onMouseLeave={(e) => {
+                const target = e.currentTarget;
+                if (target._hoverTl) target._hoverTl.reverse();
+
+                if (window.hoverScrollTimeout) {
+                  clearTimeout(window.hoverScrollTimeout);
+                }
+              }}
             >
+              <div className="smp-proj-border" aria-hidden="true" />
               <div className="smp-proj-head">
                 {isMobile ? (
                   // Mobile Layout: Number and Category together, Title below

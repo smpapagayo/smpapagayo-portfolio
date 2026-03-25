@@ -125,16 +125,43 @@ export default function IntroPage() {
       // ----------------------------------------------------
       // 4. PAGE TRANSITION (Out)
       // ----------------------------------------------------
-      // Wait for credits to display (delay: 1.5s), then sweep the background block upward
-      // to cover the loading screen before navigating.
-      outTl.set(".page-transition", { transformOrigin: "bottom" })
-           .to(".page-transition", {
-             scaleY: 1,
-             duration: 0.8,
-             ease: "power3.inOut",
-             delay: 1.5, // Time the user gets to read the credits
-             onComplete: () => navigate("/home"), // Navigate when the sweep finishes covering
-           });
+      // Wait for credits to display (delay: 1.2s), then animate out the elements,
+      // and finally sweep the background block upward to cover the screen.
+      outTl
+        // Exit credits: fade + drift up (mirrors the block-reveal entrance)
+        .to(".intro__credits-text", {
+          opacity: 0,
+          y: -8,
+          duration: 0.4,
+          stagger: 0.1,
+          ease: "power2.in",
+          delay: 1.2,
+        })
+        // Exit loading letters: continue upward + fade (reverse of entry slide-up)
+        .to(letters, {
+          opacity: 0,
+          y: -20,
+          scale: 0.9,
+          transformOrigin: "50% 50%",
+          duration: 0.6,
+          stagger: { each: 0.05, from: "end" },
+          ease: "power3.in",
+        }, "<")
+        // Exit macaw: fade out paths with random stagger (mirrors entry fill-in)
+        .to(allPaths, {
+          opacity: 0,
+          duration: 0.2,
+          stagger: { each: 0.002, from: "random" },
+          ease: "power1.in",
+        }, "<")
+        // Block sweep: covers the screen and navigates
+        .set(".page-transition", { transformOrigin: "bottom" })
+        .to(".page-transition", {
+          scaleY: 1,
+          duration: 0.5,
+          ease: "power3.inOut",
+          onComplete: () => navigate("/home"),
+        }, "+=0.2");
            
     });
 
