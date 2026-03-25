@@ -226,7 +226,7 @@
 .smp-project {
   padding: 8px 0;
   cursor: pointer;
-  // transition: all v.$transition;
+  transition: all v.$transition;
 }
 
 .smp-proj-border {
@@ -260,7 +260,7 @@
   position: sticky;
   top: 95px;
   z-index: 10;
-  background-color: v.$color-bg;
+  // background-color: v.$color-bg;
   padding: 8px 0;
 }
 
@@ -353,7 +353,8 @@
   clip-path: inset(100% 0% 0% 0%);
   transform: scale(1.15);
   transform-origin: center;
-  transition: none; /* Let GSAP control */
+  transition: none;
+  /* Let GSAP control */
 }
 
 // ── Skills ──────────────────────────────────────────

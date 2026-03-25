@@ -1,7 +1,7 @@
 export default function LoadingText() {
       return (
-            <svg version="1.1" className="loading-text" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                  width="200px" height="44.573px" viewBox="0 0 200 44.573" enable-background="new 0 0 200 44.573" xml:space="preserve">
+            <svg version="1.1" className="loading-text" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                  width="200px" height="44.573px" viewBox="0 0 200 44.573" enableBackground="new 0 0 200 44.573" xmlSpace="preserve">
                   <path d="M0,35.662V0h12.445v35.662H0z" />
                   <path d="M46.697,21.499c0,9.06-6.476,14.773-16.193,14.773s-16.193-5.712-16.193-14.773S20.788,6.724,30.504,6.724
 	S46.697,12.439,46.697,21.499z M33.867,21.499c0-3.204-1.014-5.169-3.362-5.169s-3.362,1.965-3.362,5.169s1.014,5.169,3.362,5.169

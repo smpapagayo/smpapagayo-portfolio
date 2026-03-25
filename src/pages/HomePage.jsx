@@ -25,170 +25,187 @@ export default function HomePage() {
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
 
-      // ==========================================
-      // 1. PAGE TRANSITION (Blue Block Sweep)
-      // ==========================================
-      // This animates the solid color block covering the screen on page load.
-      // Tweak 'duration' or 'ease' to make the swipe faster or softer.
-      gsap.set(".page-transition", { scaleY: 1, transformOrigin: "bottom" });
-      const tl = gsap.timeline();
-      tl.to(".page-transition", {
-        scaleY: 0,
-        transformOrigin: "top", // Sweeps up towards the top
-        duration: 0.8,
-        ease: "power3.inOut",
-        delay: 0.1,
-      });
-
-      // ==========================================
-      // 2. NAVBAR ENTRANCE
-      // ==========================================
-      // Animates the logo and menu items dropping down from the top.
-      // Tweak 'y' for drop distance, 'stagger' for the delay between links.
-      tl.from(".smp-nav-logo, .smp-nav-menu a", {
-        y: -30,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: "power3.out",
-      }, "-=0.4"); // Starts 0.4s before the page transition finishes
-
-      // ==========================================
-      // 3. HERO ENTRANCE (Line Mask Reveal)
-      // ==========================================
-      // Split h1 and bio into lines, each masked so text slides up from behind
-      // its own clipping boundary — matching the landonorris.com reveal style.
-      const headingSplit = new SplitText(".smp-hero h1", {
-        type: "lines",
-        mask: "lines",
-      });
-      const bioSplit = new SplitText(".smp-bio", {
-        type: "lines",
-        mask: "lines",
-      });
-      const actionSplit = new SplitText(".smp-action", {
-        type: "lines",
-        mask: "lines",
-      });
-
-      const heroLines = [...headingSplit.lines, ...bioSplit.lines];
-
-      tl.from(heroLines, {
-        yPercent: 110,
-        duration: 1,
-        stagger: 0.08,
-        ease: "power4.out",
-      }, "-=0.5")
-      .from(actionSplit.lines, {
-        yPercent: 110,
-        duration: 0.8,
-        ease: "power4.out",
-      }, "-=0.6");
-
-      // ==========================================
-      // 4. PROJECTS LIST ON SCROLL + HOVER EFFECTS
-      // ==========================================
-      const projectsEl = gsap.utils.toArray(".smp-project");
-      
-      // We will define a custom intense cubic-bezier similar to Lando's duration and snap
-      const hoverEase = "power4.inOut"; 
-
-      projectsEl.forEach((proj) => {
-        const border = proj.querySelector(".smp-proj-border");
-        const num    = proj.querySelector(".smp-proj-num");
-        const title  = proj.querySelector(".smp-proj-title");
-        const cat    = proj.querySelector(".smp-proj-cat");
-        const imgWrapper = proj.querySelector(".smp-proj-img");
-        const img = proj.querySelector(".smp-proj-img img");
-
-        const numSplit   = new SplitText(num,   { type: "lines", mask: "lines" });
-        const titleSplit = new SplitText(title, { type: "lines", mask: "lines" });
-        const catSplit   = new SplitText(cat,   { type: "lines", mask: "lines" });
-
-        // Scroll entry timeline
-        const projTl = gsap.timeline({
-          scrollTrigger: {
-            trigger: proj,
-            start: "top 88%",
-            toggleActions: "play none none reverse",
-          },
+        // ==========================================
+        // 1. PAGE TRANSITION (Blue Block Sweep)
+        // ==========================================
+        // This animates the solid color block covering the screen on page load.
+        // Tweak 'duration' or 'ease' to make the swipe faster or softer.
+        gsap.set(".page-transition", { scaleY: 1, transformOrigin: "bottom" });
+        const tl = gsap.timeline();
+        tl.to(".page-transition", {
+          scaleY: 0,
+          transformOrigin: "top", // Sweeps up towards the top
+          duration: 0.8,
+          ease: "power3.inOut",
+          delay: 0.1,
         });
 
-        projTl
-          .from(border, {
-            scaleX: 0,
-            transformOrigin: "left",
-            duration: 0.6,
-            ease: "power3.inOut",
-          })
-          .from(
-            [...numSplit.lines, ...titleSplit.lines, ...catSplit.lines],
-            { yPercent: 110, duration: 0.9, stagger: 0.06, ease: "power4.out" },
-            "-=0.4"
-          );
+        // ==========================================
+        // 2. NAVBAR ENTRANCE
+        // ==========================================
+        // Animates the logo and menu items dropping down from the top.
+        // Tweak 'y' for drop distance, 'stagger' for the delay between links.
+        tl.from(".smp-nav-logo, .smp-nav-menu a", {
+          y: -30,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "power3.out",
+        }, "-=0.4"); // Starts 0.4s before the page transition finishes
 
-        // Hover intense timeline
-        const hoverTl = gsap.timeline({ paused: true });
+        // ==========================================
+        // 3. HERO ENTRANCE (Line Mask Reveal)
+        // ==========================================
+        // Split h1 and bio into lines, each masked so text slides up from behind
+        // its own clipping boundary — matching the landonorris.com reveal style.
+        const headingSplit = new SplitText(".smp-hero h1", {
+          type: "lines",
+          mask: "lines",
+        });
+        const bioSplit = new SplitText(".smp-bio", {
+          type: "lines",
+          mask: "lines",
+        });
+        const actionSplit = new SplitText(".smp-action", {
+          type: "lines",
+          mask: "lines",
+        });
+
+        const heroLines = [...headingSplit.lines, ...bioSplit.lines];
+
+        tl.from(heroLines, {
+          yPercent: 110,
+          duration: 1,
+          stagger: 0.08,
+          ease: "power4.out",
+        }, "-=0.5")
+        .from(actionSplit.lines, {
+          yPercent: 110,
+          duration: 0.8,
+          ease: "power4.out",
+        }, "-=0.6");
+
+        // ==========================================
+        // 4. PROJECTS LIST ON SCROLL + HOVER EFFECTS
+        // ==========================================
+        const projectsEl = gsap.utils.toArray(".smp-project");
         
-        // Ensure values are read fresh on hover by using functional updates if needed,
-        // but passing the var() right into GSAP lets the browser handle responsive values dynamically 
-        // provided the CSS var is updated correctly on resize.
-        hoverTl
-          .to(imgWrapper, {
-            height: "var(--target-height)",
-            marginTop: 12,
-            duration: 0.75,
-            ease: hoverEase,
-          })
-          .to(img, {
-            clipPath: "inset(0% 0% 0% 0%)",
-            scale: 1,
-            duration: 0.75,
-            ease: hoverEase,
-          }, "<")
-          .to([title, num], {
-            x: 10,
-            duration: 0.75,
-            ease: "power3.out",
-          }, "<0.1");
+        // We will define a custom intense cubic-bezier similar to Lando's duration and snap
+        const hoverEase = "power4.inOut"; 
 
-        // Stash the timeline on the DOM element for access in onMouseEnter
-        proj._hoverTl = hoverTl;
-      });
+        projectsEl.forEach((proj, index) => {
+          const border = proj.querySelector(".smp-proj-border");
+          const num    = proj.querySelector(".smp-proj-num");
+          const title  = proj.querySelector(".smp-proj-title");
+          const cat    = proj.querySelector(".smp-proj-cat");
+          const imgWrapper = proj.querySelector(".smp-proj-img");
+          const img = proj.querySelector(".smp-proj-img img");
 
-      // ==========================================
-      // 5. ABOUT SECTION ON SCROLL
-      // ==========================================
-      gsap.from(".smp-about-img, .smp-about-text", {
-        scrollTrigger: {
-          trigger: ".smp-about",
-          start: "top 85%",
-          toggleActions: "play none none reverse",
-        },
-        y: 60,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.2, // Image animates first, text follows 0.2s later
-        ease: "power3.out",
-      });
+          const numSplit   = new SplitText(num,   { type: "lines", mask: "lines" });
+          const titleSplit = new SplitText(title, { type: "lines", mask: "lines" });
+          const catSplit   = new SplitText(cat,   { type: "lines", mask: "lines" });
 
-      // ==========================================
-      // 6. FOOTER ON SCROLL
-      // ==========================================
-      gsap.from(".smp-footer-heading, .smp-footer-links a", {
-        scrollTrigger: {
-          trigger: ".smp-footer",
-          start: "top 90%",
-          toggleActions: "play none none reverse",
-        },
-        y: 40,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.1, // Links appear one by one
-        ease: "power3.out",
-      });
+          // Scroll entry timeline
+          const projTl = gsap.timeline({ paused: true });
 
-    }, rootRef); // rootRef scopes all animations strictly to this component
+          projTl
+            .from(border, {
+              scaleX: 0,
+              transformOrigin: "left",
+              duration: 0.6,
+              ease: "power3.inOut",
+            })
+            .from(
+              [...numSplit.lines, ...titleSplit.lines, ...catSplit.lines],
+              { yPercent: 110, duration: 0.9, stagger: 0.06, ease: "power4.out" },
+              "-=0.4"
+            );
+
+          const isInitiallyVisible = proj.getBoundingClientRect().top <= window.innerHeight * 0.9;
+          let isFirstPlay = true;
+          let delayCall = null;
+
+          ScrollTrigger.create({
+            trigger: proj,
+            start: "top 88%",
+            onEnter: () => {
+              if (isFirstPlay && isInitiallyVisible) {
+                isFirstPlay = false;
+                // Wait for initial page enter animations to finish
+                delayCall = gsap.delayedCall(1.4 + (index * 0.15), () => projTl.play());
+                return;
+              }
+              isFirstPlay = false;
+              projTl.play();
+            },
+            onLeaveBack: () => {
+              if (delayCall) delayCall.kill();
+              projTl.reverse();
+            }
+          });
+
+          // Hover intense timeline
+          const hoverTl = gsap.timeline({ paused: true });
+          
+          // Ensure values are read fresh on hover by using functional updates if needed,
+          // but passing the var() right into GSAP lets the browser handle responsive values dynamically 
+          // provided the CSS var is updated correctly on resize.
+          hoverTl
+            .to(imgWrapper, {
+              height: "var(--target-height)",
+              marginTop: 12,
+              duration: 0.75,
+              ease: hoverEase,
+            })
+            .to(img, {
+              clipPath: "inset(0% 0% 0% 0%)",
+              scale: 1,
+              duration: 0.75,
+              ease: hoverEase,
+            }, "<")
+            .to([title, num], {
+              x: 10,
+              duration: 0.75,
+              ease: "power3.out",
+            }, "<0.1");
+
+          // Stash the timeline on the DOM element for access in onMouseEnter
+          proj._hoverTl = hoverTl;
+        });
+
+        // ==========================================
+        // 5. ABOUT SECTION ON SCROLL
+        // ==========================================
+        gsap.from(".smp-about-img, .smp-about-text", {
+          scrollTrigger: {
+            trigger: ".smp-about",
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
+          y: 60,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.2, // Image animates first, text follows 0.2s later
+          ease: "power3.out",
+        });
+
+        // ==========================================
+        // 6. FOOTER ON SCROLL
+        // ==========================================
+        gsap.from(".smp-footer-heading, .smp-footer-links a", {
+          scrollTrigger: {
+            trigger: ".smp-footer",
+            start: "top 90%",
+            toggleActions: "play none none reverse",
+          },
+          y: 40,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.1, // Links appear one by one
+          ease: "power3.out",
+        });
+
+      }, rootRef); // rootRef scopes all animations strictly to this component
 
     return () => ctx.revert(); // Cleanup GSAP on unmount
   }, [isMobile]); // Re-run if layout completely changes structure
