@@ -532,10 +532,7 @@
 		.project-footer__title {
 			display: block;
 			@include title-24;
-			// font-size: clamp(1.5rem, 4vw, 3rem);
-			// font-weight: 700;
 			transition: all v.$transition;
-			// font-family: v.$font-family-secondary;
 
 			@media (min-width: 840px) {
 				@include title-28;
@@ -551,5 +548,28 @@
 			font-weight: 800;
 			color: v.$color-text-hover;
 		}
+	}
+}
+
+// ── Text Reveal Utility ───────────────────────────────────────
+.color-reveal {
+	position: relative;
+	overflow: hidden;
+
+	&__block {
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		background-color: v.$color-blue;
+		z-index: 2;
+		transform: scaleX(0);
+		transform-origin: left;
+		will-change: transform;
+	}
+
+	&__text {
+		opacity: 0;
 	}
 }

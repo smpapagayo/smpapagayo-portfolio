@@ -3,495 +3,405 @@
 @use "sass:list";
 
 .smp-page {
-  padding: 0 16px;
-}
+	padding: 0 16px;
 
-@media (min-width: 600px) {
-  .smp-page {
-    padding: 0 24px;
-  }
-}
+	@media (min-width: 600px) {
+		padding: 0 24px;
+	}
 
-@media (min-width: 840px) {
-  .smp-page {
-    padding: 0 40px;
-  }
-}
+	@media (min-width: 840px) {
+		padding: 0 40px;
+	}
 
-@media (min-width: 1200px) {
-  .smp-page {
-    padding: 0 60px;
-  }
-}
+	@media (min-width: 1200px) {
+		padding: 0 60px;
+	}
 
-@media (min-width: 1600px) {
-  .smp-page {
-    padding: 0 120px;
-  }
+	@media (min-width: 1600px) {
+		padding: 0 120px;
+	}
 }
 
 // ── Navbar ──────────────────────────────────────────
 .smp-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 100;
-  box-sizing: border-box;
-  padding: 20px 16px;
-  height: 95px;
-  @include v.flex-center(space-between, center, column);
-  transition: background-color 0.3s, backdrop-filter 0.3s, border-bottom 0.3s;
-}
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 100;
+	box-sizing: border-box;
+	padding: 20px 16px;
+	height: 95px;
+	@include v.flex-center(space-between, center, column);
+	transition: background-color 0.3s, backdrop-filter 0.3s, border-bottom 0.3s;
 
-@media (min-width: 600px) {
-  .smp-nav {
-    padding: 20px 24px;
-  }
-}
+	@media (min-width: 600px) {
+		padding: 20px 24px;
+	}
 
-@media (min-width: 840px) {
-  .smp-nav {
-    height: 100px;
-    padding: 20px 40px;
-    @include v.flex-center(space-between, center, row);
-  }
-}
+	@media (min-width: 840px) {
+		height: 100px;
+		padding: 20px 40px;
+		@include v.flex-center(space-between, center, row);
+	}
 
-@media (min-width: 1200px) {
-  .smp-nav {
-    padding: 20px 60px;
-  }
-}
+	@media (min-width: 1200px) {
+		padding: 20px 60px;
+	}
 
-@media (min-width: 1600px) {
-  .smp-nav {
-    padding: 20px 120px;
-  }
-}
+	@media (min-width: 1600px) {
+		padding: 20px 120px;
+	}
 
-.smp-nav.is-scrolled {
-  background-color: v.$color-bg;
-}
+	&.is-scrolled {
+		background-color: v.$color-bg;
+	}
 
-.smp-nav-logo {
-  height: 28px;
-  width: 327px;
-  background-color: v.$color-text;
-  mask-image: url('../assets/smp-logo.svg');
-  -webkit-mask-image: url('../assets/smp-logo.svg');
-  mask-size: contain;
-  mask-repeat: no-repeat;
-  mask-position: center;
-  -webkit-mask-size: contain;
-  transition: background-color 0.3s, mask-image 0.3s;
-}
+	&-logo {
+		height: 28px;
+		width: 327px;
+		background-color: v.$color-text;
+		mask-image: url('../assets/smp-logo.svg');
+		-webkit-mask-image: url('../assets/smp-logo.svg');
+		mask-size: contain;
+		mask-repeat: no-repeat;
+		mask-position: center;
+		-webkit-mask-size: contain;
+		transition: background-color 0.3s, mask-image 0.3s;
 
-@media (min-width: 840px) {
-  .smp-nav-logo {
-    height: 60px;
-    width: 201px;
-    mask-image: url('../assets/smp-logo-stacked.svg');
-    -webkit-mask-image: url('../assets/smp-logo-stacked.svg');
-  }
-}
+		@media (min-width: 840px) {
+			height: 60px;
+			width: 201px;
+			mask-image: url('../assets/smp-logo-stacked.svg');
+			-webkit-mask-image: url('../assets/smp-logo-stacked.svg');
+		}
+	}
 
-.smp-nav-menu {
-  width: 100%;
-  @include v.flex-center(center, center, row);
-  gap: 24px;
-}
+	&-menu {
+		width: 100%;
+		@include v.flex-center(center, center, row);
+		gap: 24px;
 
-@media (min-width: 840px) {
-  .smp-nav-menu {
-    @include v.flex-center(flex-end, center, row);
-  }
-}
+		@media (min-width: 840px) {
+			@include v.flex-center(flex-end, center, row);
+		}
 
-.smp-nav-menu a {
-  @include link-16;
-}
+		a {
+			@include link-16;
+			text-decoration: none;
+			color: v.$color-text;
+			transition: color v.$transition, background-color v.$transition, padding v.$transition;
 
-@media (min-width: 1200px) {
-  .smp-nav-menu a {
-    @include link-20;
-  }
-}
+			@media (min-width: 1200px) {
+				@include link-20;
+			}
 
-@media (min-width: 1600px) {
-  .smp-nav-menu a {
-    @include link-24;
-  }
-}
+			@media (min-width: 1600px) {
+				@include link-24;
+			}
 
-.smp-nav-menu a {
-  text-decoration: none;
-  color: v.$color-text;
-  transition: color v.$transition, background-color v.$transition, padding v.$transition;
-}
+			&:hover {
+				padding: 0 8px;
+				color: v.$color-text-hover;
+				background-color: v.$color-bg-secondary;
+				@include link-16-hover;
 
-.smp-nav-menu a:hover {
-  padding: 0 8px;
-  color: v.$color-text-hover;
-  background-color: v.$color-bg-secondary;
-  @include link-16-hover;
-}
+				@media (min-width: 1200px) {
+					@include link-20-hover;
+				}
 
-@media (min-width: 1200px) {
-  .smp-nav-menu a:hover {
-    @include link-20-hover;
-  }
-}
-
-@media (min-width: 1600px) {
-  .smp-nav-menu a:hover {
-    @include link-24-hover;
-  }
+				@media (min-width: 1600px) {
+					@include link-24-hover;
+				}
+			}
+		}
+	}
 }
 
 // ── Hero ──────────────────────────────────────────
 .smp-hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: calc(40px + 95px) 16px 40px 16px;
-  gap: 28px;
-}
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	padding: calc(40px + 95px) 16px 40px 16px;
+	gap: 28px;
 
-@media (min-width: 600px) {
-  .smp-hero {
-    padding: calc(52px + 95px) 24px 52px 24px;
-  }
-}
+	@media (min-width: 600px) {
+		padding: calc(52px + 95px) 24px 52px 24px;
+	}
 
-@media (min-width: 840px) {
-  .smp-hero {
-    padding: calc(60px + 100px) 0 60px 0;
-    gap: 32px;
-  }
-}
+	@media (min-width: 840px) {
+		padding: calc(60px + 100px) 0 60px 0;
+		gap: 32px;
+	}
 
-@media (min-width: 1200px) {
-  .smp-hero {
-    gap: 36px;
-  }
-}
+	@media (min-width: 1200px) {
+		gap: 36px;
+	}
 
-.smp-hero-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
+	&-inner {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 12px;
+	}
 }
 
 .smp-bio {
-  @include body-14
-}
+	@include body-14;
 
-@media (min-width: 840px) {
-  .smp-bio {
-    @include body-16;
-  }
-}
+	@media (min-width: 840px) {
+		@include body-16;
+	}
 
-@media (min-width: 1200px) {
-  .smp-bio {
-    @include body-18;
-  }
+	@media (min-width: 1200px) {
+		@include body-18;
+	}
 }
 
 .smp-action {
-  @include action-12;
-}
+	@include action-12;
 
-@media (min-width: 840px) {
-  .smp-action {
-    @include action-14;
-  }
-}
+	@media (min-width: 840px) {
+		@include action-14;
+	}
 
-@media (min-width: 1200px) {
-  .smp-action {
-    @include action-16;
-  }
+	@media (min-width: 1200px) {
+		@include action-16;
+	}
 }
 
 // ── Projects ──────────────────────────────────────────
 .smp-projects {
-  width: 100%;
-  border-bottom: 2px solid v.$color-text;
+	width: 100%;
+	border-bottom: 2px solid v.$color-text;
 }
 
 .smp-project {
-  padding: 8px 0;
-  cursor: pointer;
-  transition: all v.$transition;
+	padding: 8px 0;
+	cursor: pointer;
+	transition: all v.$transition;
+
+	&:hover,
+	&.is-active {
+
+		.smp-proj-title,
+		.smp-proj-num,
+		.smp-proj-cat {
+			color: v.$color-text-hover;
+		}
+
+		.smp-proj-title {
+			font-weight: 900;
+		}
+
+		.smp-proj-num,
+		.smp-proj-cat {
+			font-weight: 700;
+		}
+	}
 }
 
-.smp-proj-border {
-  width: 100%;
-  height: 2px;
-  background-color: v.$color-text;
-}
+.smp-proj {
+	&-border {
+		width: 100%;
+		height: 2px;
+		background-color: v.$color-text;
+	}
 
-.smp-project:hover,
-.smp-project.is-active {
+	&-head {
+		@include v.flex-center(space-between, flex-start, column);
+		// gap: 4px;
+		min-height: 40px;
+		position: sticky;
+		top: 95px;
+		z-index: 10;
+		background-color: v.$color-bg;
+		padding: 8px;
 
-  .smp-proj-title,
-  .smp-proj-num,
-  .smp-proj-cat {
-    color: v.$color-text-hover;
-  }
+		@media (min-width: 840px) {
+			@include v.flex-center(flex-start, baseline, row);
+			top: 100px;
+		}
+	}
 
-  .smp-proj-title {
-    font-weight: 900;
-  }
+	&-group {
+		@include v.flex-center(flex-start, baseline, row);
+		gap: 8px;
+		min-width: 0;
+		flex: 1;
+	}
 
-  .smp-proj-num,
-  .smp-proj-cat {
-    font-weight: 700
-  }
-}
+	&-num,
+	&-cat {
+		@include subtitle-16;
+		transition: color v.$transition;
 
-.smp-proj-head {
-  @include v.flex-center(space-between, flex-start, column);
-  // gap: 4px;
-  min-height: 40px;
-  position: sticky;
-  top: 95px;
-  z-index: 10;
-  background-color: v.$color-bg;
-  padding: 8px;
-}
+		@media (min-width: 840px) {
+			@include subtitle-18;
+		}
 
-@media (min-width: 840px) {
-  .smp-proj-head {
-    @include v.flex-center(flex-start, baseline, row);
-    top: 100px;
-  }
-}
+		@media (min-width: 1200px) {
+			@include subtitle-20;
+		}
+	}
 
-.smp-proj-group {
-  @include v.flex-center(flex-start, baseline, row);
-  gap: 8px;
-  min-width: 0;
-  flex: 1;
-}
+	&-title {
+		flex: 1;
+		min-width: 0;
+		@include title-32;
+		transition: color v.$transition;
 
-.smp-proj-num,
-.smp-proj-cat {
-  @include subtitle-16;
-  transition: color v.$transition;
-}
+		@media (min-width: 840px) {
+			@include title-40;
+		}
 
-@media (min-width: 840px) {
+		@media (min-width: 1600px) {
+			@include title-48;
+		}
+	}
 
-  .smp-proj-num,
-  .smp-proj-cat {
-    @include subtitle-18;
-  }
-}
+	&-img {
+		--target-height: 320px;
+		margin-top: 0;
+		width: 100%;
+		height: 0;
+		overflow: hidden;
 
-@media (min-width: 1200px) {
+		@media (min-width: 840px) {
+			--target-height: 560px;
+		}
 
-  .smp-proj-num,
-  .smp-proj-cat {
-    @include subtitle-20;
-  }
-}
+		@media (min-width: 1200px) {
+			--target-height: 620px;
+		}
 
-.smp-proj-title {
-  flex: 1;
-  min-width: 0;
-  @include title-32;
-  transition: color v.$transition;
-}
+		@media (min-width: 1600px) {
+			--target-height: 720px;
+		}
 
-@media (min-width: 840px) {
-  .smp-proj-title {
-    @include title-40;
-  }
-}
-
-@media (min-width: 1600px) {
-  .smp-proj-title {
-    @include title-48;
-  }
-}
-
-.smp-proj-img {
-  --target-height: 320px;
-  margin-top: 0;
-  width: 100%;
-  height: 0;
-  overflow: hidden;
-  /* transition removed, controlled by GSAP */
-}
-
-@media (min-width: 840px) {
-  .smp-proj-img {
-    --target-height: 560px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .smp-proj-img {
-    --target-height: 620px;
-  }
-}
-
-@media (min-width: 1600px) {
-  .smp-proj-img {
-    --target-height: 720px;
-  }
-}
-
-.smp-proj-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  clip-path: inset(100% 0% 0% 0%);
-  transform: scale(1.15);
-  transform-origin: center;
-  transition: none;
-  /* Let GSAP control */
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			clip-path: inset(100% 0% 0% 0%);
+			transform: scale(1.15);
+			transform-origin: center;
+			transition: none;
+			/* Let GSAP control */
+		}
+	}
 }
 
 // ── Skills ──────────────────────────────────────────
 .smp-about {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 40px 0;
-  gap: 12px;
-  text-align: center;
-}
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 40px 0;
+	gap: 12px;
+	text-align: center;
 
-@media (min-width: 840px) {
-  .smp-about {
-    padding: 60px 0;
-    gap: 16px;
-  }
-}
+	@media (min-width: 840px) {
+		padding: 60px 0;
+		gap: 16px;
+	}
 
-.smp-about-img {
-  background: rgba(247, 249, 255, 0.07);
-  border-radius: 8px;
-  width: 100%;
-  max-width: 368px;
-  height: 288px;
-}
+	&-img {
+		background: rgba(247, 249, 255, 0.07);
+		border-radius: 8px;
+		width: 100%;
+		max-width: 368px;
+		height: 288px;
 
-@media (min-width: 600px) {
-  .smp-about-img {
-    max-width: 552px;
-    height: 308px;
-  }
-}
+		@media (min-width: 600px) {
+			max-width: 552px;
+			height: 308px;
+		}
 
-@media (min-width: 840px) {
-  .smp-about-img {
-    max-width: 562px;
-    height: 471px;
-  }
-}
+		@media (min-width: 840px) {
+			max-width: 562px;
+			height: 471px;
+		}
 
-@media (min-width: 1200px) {
-  .smp-about-img {
-    max-width: 708px;
-    height: 471px;
-  }
-}
+		@media (min-width: 1200px) {
+			max-width: 708px;
+			height: 471px;
+		}
 
-@media (min-width: 1600px) {
-  .smp-about-img {
-    max-width: 896px;
-    height: 471px;
-  }
-}
+		@media (min-width: 1600px) {
+			max-width: 896px;
+			height: 471px;
+		}
+	}
 
-.smp-about-text {
-  opacity: 0.75;
-  max-width: 640px;
+	&-text {
+		opacity: 0.75;
+		max-width: 640px;
+	}
 }
 
 // ── Footer ──────────────────────────────────────────
 .smp-footer {
-  @include v.flex-center(space-between, flex-start, row);
-  padding: 32px 0 48px;
-}
+	@include v.flex-center(space-between, flex-start, row);
+	padding: 32px 0 48px;
 
-.smp-footer-heading {
-  @include title-32;
-  width: 65%;
-}
+	&-heading {
+		@include title-32;
+		width: 65%;
 
-@media (min-width: 1200px) {
-  .smp-footer-heading {
-    @include title-40;
-  }
-}
+		@media (min-width: 1200px) {
+			@include title-40;
+		}
 
-@media (min-width: 1600px) {
-  .smp-footer-heading {
-    @include title-48;
-  }
-}
+		@media (min-width: 1600px) {
+			@include title-48;
+		}
+	}
 
-.smp-footer-links {
-  @include v.flex-center(flex-end, flex-start, column);
-  gap: 4px;
-  flex-shrink: 0;
-  width: 35%;
-}
+	&-links {
+		@include v.flex-center(flex-end, flex-start, column);
+		gap: 4px;
+		flex-shrink: 0;
+		width: 35%;
 
-@media (min-width: 840px) {
-  .smp-footer-links {
-    gap: 8px;
-  }
-}
+		@media (min-width: 840px) {
+			gap: 8px;
+		}
 
-@media (min-width: 1200px) {
-  .smp-footer-links {
-    gap: 12px;
-  }
-}
+		@media (min-width: 1200px) {
+			gap: 12px;
+		}
 
-.smp-footer-links a {
-  text-decoration: none;
-  color: v.$color-text;
-  transition: color v.$transition, background-color v.$transition, padding v.$transition;
-  @include link-16
-}
+		a {
+			text-decoration: none;
+			color: v.$color-text;
+			transition: color v.$transition, background-color v.$transition, padding v.$transition;
+			@include link-16;
 
-@media (min-width: 1200px) {
-  .smp-footer-links a {
-    @include link-20;
-  }
-}
+			@media (min-width: 1200px) {
+				@include link-20;
+			}
 
-@media (min-width: 1600px) {
-  .smp-footer-links a {
-    @include link-24;
-  }
-}
+			@media (min-width: 1600px) {
+				@include link-24;
+			}
 
-.smp-footer-links a:hover {
-  padding: 0 8px;
-  color: v.$color-text-hover;
-  background-color: v.$color-bg-secondary;
-  @include link-16-hover;
-}
+			&:hover {
+				padding: 0 8px;
+				color: v.$color-text-hover;
+				background-color: v.$color-bg-secondary;
+				@include link-16-hover;
 
-@media (min-width: 1200px) {
-  .smp-footer-links a:hover {
-    @include link-20-hover;
-  }
-}
+				@media (min-width: 1200px) {
+					@include link-20-hover;
+				}
 
-@media (min-width: 1600px) {
-  .smp-footer-links a:hover {
-    @include link-24-hover;
-  }
+				@media (min-width: 1600px) {
+					@include link-24-hover;
+				}
+			}
+		}
+	}
 }

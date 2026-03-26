@@ -3,6 +3,7 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { projects } from "../scripts/projects";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import SplitType from "split-type";
 import MagazineEmbed from "../components/MagazineEmbed";
 import ProjectVideo1 from "../components/ProjectVideo1";
 import ProjectVideo2 from "../components/ProjectVideo2";
@@ -33,6 +34,13 @@ const ProjectPage2 = () => {
     }
 
     const ctx = gsap.context(() => {
+      const splits = [];
+
+      const problemSplit = new SplitType(".project-problem__body", { types: "lines" });
+      const solutionSplit = new SplitType(".project-solution__body", { types: "lines" });
+      const continueSplit = new SplitType(".project-continue__body", { types: "lines" });
+      splits.push(problemSplit, solutionSplit, continueSplit);
+
       // ── Hero entrance ──────────────────────────────────────
       const tl = gsap.timeline({ delay: 0.05 });
 
@@ -87,6 +95,7 @@ const ProjectPage2 = () => {
           scrollTrigger: {
             trigger: ".project-meta",
             start: "top 85%",
+            toggleActions: "play none none reverse",
           },
         }
       );
@@ -102,6 +111,7 @@ const ProjectPage2 = () => {
           scrollTrigger: {
             trigger: ".project-meta",
             start: "top 85%",
+            toggleActions: "play none none reverse",
           },
         }
       );
@@ -117,21 +127,24 @@ const ProjectPage2 = () => {
           scrollTrigger: {
             trigger: ".project-problem",
             start: "top 75%",
+            toggleActions: "play none none reverse",
           },
         }
       );
 
       gsap.fromTo(
-        ".project-problem__body",
+        problemSplit.lines,
         { opacity: 0, y: 36 },
         {
           opacity: 1,
           y: 0,
           duration: 0.8,
           ease: "power2.out",
+          stagger: 0.08,
           scrollTrigger: {
             trigger: ".project-problem__body",
             start: "top 82%",
+            toggleActions: "play none none reverse",
           },
         }
       );
@@ -147,6 +160,7 @@ const ProjectPage2 = () => {
           scrollTrigger: {
             trigger: ".project-problem__img",
             start: "top 82%",
+            toggleActions: "play none none reverse",
           },
         }
       );
@@ -178,22 +192,24 @@ const ProjectPage2 = () => {
           scrollTrigger: {
             trigger: ".project-solution",
             start: "top 75%",
+            toggleActions: "play none none reverse",
           },
         }
       );
 
       gsap.fromTo(
-        ".project-solution__body",
+        solutionSplit.lines,
         { opacity: 0, y: 36 },
         {
           opacity: 1,
           y: 0,
           duration: 0.8,
           ease: "power2.out",
-          stagger: 0.15,
+          stagger: 0.08,
           scrollTrigger: {
             trigger: ".project-solution__text",
             start: "top 80%",
+            toggleActions: "play none none reverse",
           },
         }
       );
@@ -209,6 +225,7 @@ const ProjectPage2 = () => {
           scrollTrigger: {
             trigger: ".project-solution__img",
             start: "top 82%",
+            toggleActions: "play none none reverse",
           },
         }
       );
@@ -226,23 +243,25 @@ const ProjectPage2 = () => {
           scrollTrigger: {
             trigger: ".project-strip",
             start: "top 80%",
+            toggleActions: "play none none reverse",
           },
         }
       );
 
       // ── Continue section ───────────────────────────────────
       gsap.fromTo(
-        ".project-continue__body",
+        continueSplit.lines,
         { opacity: 0, x: -50 },
         {
           opacity: 1,
           x: 0,
-          stagger: 0.2,
+          stagger: 0.08,
           duration: 0.9,
           ease: "power2.out",
           scrollTrigger: {
             trigger: ".project-continue",
             start: "top 75%",
+            toggleActions: "play none none reverse",
           },
         }
       );
@@ -258,6 +277,7 @@ const ProjectPage2 = () => {
           scrollTrigger: {
             trigger: ".project-continue__img",
             start: "top 82%",
+            toggleActions: "play none none reverse",
           },
         }
       );
@@ -275,6 +295,7 @@ const ProjectPage2 = () => {
           scrollTrigger: {
             trigger: ".project-gallery",
             start: "top 82%",
+            toggleActions: "play none none reverse",
           },
         }
       );
@@ -291,12 +312,16 @@ const ProjectPage2 = () => {
           scrollTrigger: {
             trigger: ".project-footer",
             start: "top 92%",
+            toggleActions: "play none none reverse",
           },
         }
       );
     });
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      splits.forEach((s) => s.revert());
+    };
   }, [project, navigate]);
 
   useEffect(() => {
@@ -476,7 +501,7 @@ const ProjectPage2 = () => {
         ) : <div />}
 
         {nextProject ? (
-          <button className="project-footer__link project-footer__link--next" onClick={() => navigate(`/home/${nextProject.id}`)}>
+          <button className="project-footer__link p2-footer__link--next" onClick={() => navigate(`/home/${nextProject.id}`)}>
             <span className="project-footer__label">Next</span>
             <span className="project-footer__title">{nextProject.title}</span>
           </button>
