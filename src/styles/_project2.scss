@@ -28,29 +28,32 @@
 .p2-hero__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.25) 0%,
-    rgba(0, 0, 0, 0.05) 35%,
-    rgba(0, 0, 0, 0.65) 100%
-  );
+  background: linear-gradient(to bottom,
+      rgba(0, 0, 0, 0.25) 0%,
+      rgba(0, 0, 0, 0.05) 35%,
+      rgba(0, 0, 0, 0.65) 100%);
   z-index: 1;
 }
 
 .p2-nav {
-  position: absolute;
+  // position: absolute;
+  position: fixed;
   top: 5dvh;
   left: 6dvw;
   z-index: 10;
+  background-color: v.$color-bg-secondary;
 
   a {
     @include link-16;
-    color: rgba(255, 255, 255, 0.85);
+    color: v.$color-text;
     cursor: pointer;
-    transition: color v.$transition;
+    transition: all v.$transition;
+    padding: 0 8px;
 
     &:hover {
-      color: #fff;
+      color: v.$color-bg;
+      background-color: v.$color-text;
+      @include link-16-hover;
     }
   }
 }
@@ -72,6 +75,7 @@
   left: 6dvw;
   right: 6dvw;
   overflow: hidden;
+  // height: 100%;
   z-index: 10;
 }
 
@@ -84,6 +88,7 @@
   color: #fff;
   text-transform: uppercase;
   letter-spacing: -0.02em;
+  padding: 60px 0;
 }
 
 .p2-hero__bottom {
@@ -322,24 +327,45 @@
 
 // ── Footer nav ────────────────────────────────────────────────
 .p2-footer {
+  padding: 8dvh 6dvw;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5dvh 6dvw;
   border-top: 1px solid rgba(v.$color-text, 0.15);
-}
+  margin-top: 4dvh;
 
-.p2-footer__back,
-.p2-footer__prev,
-.p2-footer__next {
-  @include link-16;
-  cursor: pointer;
-  transition: all v.$transition;
+  &__link {
+    background: none;
+    border: none;
+    color: v.$color-text;
+    cursor: pointer;
+    text-align: left;
 
-  &:hover {
-    padding: 0 8px;
-    background-color: v.$color-bg-secondary;
-    color: v.$color-text-hover;
+    &--next {
+      text-align: right;
+    }
+
+    .p2-footer__label {
+      display: block;
+      @include action-12;
+      color: rgba(v.$color-text, 0.45);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      margin-bottom: 0.5rem;
+    }
+
+    .p2-footer__title {
+      display: block;
+      font-size: clamp(1.5rem, 4vw, 3rem);
+      font-weight: 700;
+      transition: transform 0.3s ease;
+      font-family: v.$font-family-secondary;
+      color: v.$color-text;
+    }
+
+    &:hover .p2-footer__title {
+      transform: translateY(-5px);
+    }
   }
 }
 
@@ -499,19 +525,11 @@
     height: 72dvh;
   }
 
-  .p2-footer__back,
-  .p2-footer__prev,
-  .p2-footer__next {
-    @include link-20;
-  }
+  // Footer links dynamic size is handled by clamp() already
 }
 
 // ── Wide ──────────────────────────────────────────────────────
 @media (min-width: 1600px) {
 
-  .p2-footer__back,
-  .p2-footer__prev,
-  .p2-footer__next {
-    @include link-24;
-  }
+  // Footer links dynamic size is handled by clamp() already
 }

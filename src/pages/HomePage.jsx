@@ -12,6 +12,7 @@ export default function HomePage() {
   const isMobile = useIsMobile();
   const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeProject, setActiveProject] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -240,8 +241,49 @@ export default function HomePage() {
           {projects.map((p) => (
             <article 
               key={p.num} 
-              className="smp-project" 
-              onClick={() => navigate(`/home/${p.id}`)}
+              className={`smp-project ${activeProject === p.id ? 'is-active' : ''}`} 
+              id={`project-${p.id}`}
+              onClick={(e) => {
+                const isTouch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+                if (isTouch) {
+                  if (activeProject !== p.id) {
+                    e.preventDefault();
+                    
+                    // Revert previously active project
+                    if (activeProject) {
+                      const prevProjectEl = document.getElementById(`project-${activeProject}`);
+                      if (prevProjectEl && prevProjectEl._hoverTl) {
+                        prevProjectEl._hoverTl.reverse();
+                      }
+                    }
+                    
+                    setActiveProject(p.id);
+                    const target = e.currentTarget;
+                    if (target._hoverTl) target._hoverTl.play();
+
+                    if (window.hoverScrollTimeout) {
+                      clearTimeout(window.hoverScrollTimeout);
+                    }
+                    
+                    window.hoverScrollTimeout = setTimeout(() => {
+                      const navHeight = window.innerWidth >= 840 ? 100 : 95;
+                      const projectRect = target.getBoundingClientRect();
+                      
+                      // Scroll if the project isn't already positioned right under the navbar
+                      if (Math.abs(projectRect.top - navHeight) > 5) {
+                        window.scrollTo({
+                          top: window.scrollY + projectRect.top - navHeight,
+                          behavior: 'smooth'
+                        });
+                      }
+                    }, 750); // match duration of GSAP hover ease
+                  } else {
+                    navigate(`/home/${p.id}`);
+                  }
+                } else {
+                  navigate(`/home/${p.id}`);
+                }
+              }}
               role="button"
               tabIndex={0}
               onKeyDown={(e) => {
@@ -251,32 +293,38 @@ export default function HomePage() {
                 }
               }}
               onMouseEnter={(e) => {
-                const target = e.currentTarget;
-                if (target._hoverTl) target._hoverTl.play();
+                const isTouch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+                if (!isTouch) {
+                  const target = e.currentTarget;
+                  if (target._hoverTl) target._hoverTl.play();
 
-                if (window.hoverScrollTimeout) {
-                  clearTimeout(window.hoverScrollTimeout);
-                }
-                
-                window.hoverScrollTimeout = setTimeout(() => {
-                  const navHeight = window.innerWidth >= 840 ? 100 : 95;
-                  const projectRect = target.getBoundingClientRect();
-                  
-                  // Scroll if the project isn't already positioned right under the navbar
-                  if (Math.abs(projectRect.top - navHeight) > 5) {
-                    window.scrollTo({
-                      top: window.scrollY + projectRect.top - navHeight,
-                      behavior: 'smooth'
-                    });
+                  if (window.hoverScrollTimeout) {
+                    clearTimeout(window.hoverScrollTimeout);
                   }
-                }, 750); // match duration of GSAP hover ease
+                  
+                  window.hoverScrollTimeout = setTimeout(() => {
+                    const navHeight = window.innerWidth >= 840 ? 100 : 95;
+                    const projectRect = target.getBoundingClientRect();
+                    
+                    // Scroll if the project isn't already positioned right under the navbar
+                    if (Math.abs(projectRect.top - navHeight) > 5) {
+                      window.scrollTo({
+                        top: window.scrollY + projectRect.top - navHeight,
+                        behavior: 'smooth'
+                      });
+                    }
+                  }, 750); // match duration of GSAP hover ease
+                }
               }}
               onMouseLeave={(e) => {
-                const target = e.currentTarget;
-                if (target._hoverTl) target._hoverTl.reverse();
+                const isTouch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+                if (!isTouch) {
+                  const target = e.currentTarget;
+                  if (target._hoverTl) target._hoverTl.reverse();
 
-                if (window.hoverScrollTimeout) {
-                  clearTimeout(window.hoverScrollTimeout);
+                  if (window.hoverScrollTimeout) {
+                    clearTimeout(window.hoverScrollTimeout);
+                  }
                 }
               }}
             >

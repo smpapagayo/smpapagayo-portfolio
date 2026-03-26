@@ -468,24 +468,19 @@ const ProjectPage2 = () => {
 
       {/* ── Footer nav ───────────────────────────────────── */}
       <footer className="p2-footer">
-        <a
-          className="p2-footer__prev"
-          onClick={() => navigate(`/project2/${prevProject.id}`)}
-        >
-          ← {prevProject.title}
-        </a>
-        <a
-          className="p2-footer__back"
-          onClick={() => navigate("/home")}
-        >
-          ↑ Back to Projects
-        </a>
-        <a
-          className="p2-footer__next"
-          onClick={() => navigate(`/project2/${nextProject.id}`)}
-        >
-          {nextProject.title} →
-        </a>
+        {prevProject ? (
+          <button className="p2-footer__link" onClick={() => navigate(`/project2/${prevProject.id}`)}>
+            <span className="p2-footer__label">Previous</span>
+            <span className="p2-footer__title">{prevProject.title}</span>
+          </button>
+        ) : <div />}
+        
+        {nextProject ? (
+          <button className="p2-footer__link p2-footer__link--next" onClick={() => navigate(`/project2/${nextProject.id}`)}>
+            <span className="p2-footer__label">Next</span>
+            <span className="p2-footer__title">{nextProject.title}</span>
+          </button>
+        ) : <div />}
       </footer>
     </main>
   );

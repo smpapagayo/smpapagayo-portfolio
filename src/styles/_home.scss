@@ -235,7 +235,8 @@
   background-color: v.$color-text;
 }
 
-.smp-project:hover {
+.smp-project:hover,
+.smp-project.is-active {
 
   .smp-proj-title,
   .smp-proj-num,
@@ -260,8 +261,8 @@
   position: sticky;
   top: 95px;
   z-index: 10;
-  // background-color: v.$color-bg;
-  padding: 8px 0;
+  background-color: v.$color-bg;
+  padding: 8px;
 }
 
 @media (min-width: 840px) {

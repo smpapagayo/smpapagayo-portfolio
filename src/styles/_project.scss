@@ -1,381 +1,555 @@
 @use 'variables' as v;
 @use 'typography' as *;
 
-a {
-	cursor: pointer;
+// ── Base ──────────────────────────────────────────────────────
+.p2-detail {
+	background: v.$color-bg;
+	color: v.$color-text;
 }
 
-.grid-intro {
+// ── Hero ──────────────────────────────────────────────────────
+.project-hero {
 	position: relative;
-	display: grid;
-	line-height: 1;
 	height: 100dvh;
 	width: 100dvw;
-	grid-template-columns: 10% 1fr 1fr 10%;
-	grid-template-rows: auto 1fr 1fr auto;
-	grid-row-gap: 5dvh;
-	align-items: center;
-	grid-column-gap: 4dvw;
-	will-change: transform;
-}
+	overflow: hidden;
+	background: v.$color-blue;
 
-.intro__back {
-	display: flex;
-	align-items: center;
-	height: 40px;
-	grid-column: 2 / 4;
-	grid-row: 1;
-	flex-wrap: wrap;
-	@include link-16;
-}
+	&__bg {
+		position: absolute;
+		inset: 0;
+		background-size: cover;
+		background-position: center;
+		will-change: transform;
+		transform-origin: center;
+	}
 
-.intro__back a {
-	@include link-16;
-	transition: all v.$transition;
-}
+	&__overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(to bottom,
+				rgba(v.$color-text, 0.25) 0%,
+				rgba(v.$color-text, 0.05) 35%,
+				rgba(v.$color-text, 0.65) 100%);
+		z-index: 1;
+	}
 
+	&__num {
+		position: absolute;
+		top: 5dvh;
+		right: 6dvw;
+		z-index: 10;
+		@include action-12;
+		color: v.$color-bg-secondary;
 
-@media (min-width: 1200px) {
-	.intro__back a {
-		@include link-20;
+		@media (min-width: 840px) {
+			@include action-14;
+		}
+
+		@media (min-width: 1200px) {
+			@include action-16;
+		}
+	}
+
+	// Title reveal container — overflow:hidden creates the mask
+	&__title-wrap {
+		position: absolute;
+		bottom: 18dvh;
+		left: 6dvw;
+		right: 6dvw;
+		overflow: hidden;
+		z-index: 10;
+	}
+
+	&__title-inner {
+		display: block;
+		font-family: v.$font-family-secondary;
+		font-size: clamp(2.8rem, 10vw, 9.5rem);
+		font-weight: 700;
+		line-height: 0.92;
+		color: v.$color-bg;
+		text-transform: uppercase;
+		letter-spacing: -0.02em;
+		padding: 60px 0;
+
+		@media (min-width: 1200px) {
+			font-size: clamp(5rem, 10vw, 11rem);
+		}
+	}
+
+	&__bottom {
+		position: absolute;
+		bottom: 5dvh;
+		left: 6dvw;
+		right: 6dvw;
+		z-index: 10;
+		@include v.flex-center(space-between, flex-end, row);
+	}
+
+	&__category {
+		@include body-14;
+		color: v.$color-bg-secondary;
+		text-transform: uppercase;
+		letter-spacing: 0.18em;
+
+		@media (min-width: 840px) {
+			@include body-16;
+		}
+
+		@media (min-width: 1200px) {
+			@include body-18;
+		}
+	}
+
+	&__scroll {
+		@include action-12;
+		color: v.$color-bg-secondary;
+
+		@media (min-width: 840px) {
+			@include action-14;
+		}
+
+		@media (min-width: 1200px) {
+			@include action-16;
+		}
 	}
 }
 
-@media (min-width: 1600px) {
-	.intro__back a {
-		@include link-24;
-	}
-}
-
-.intro__back a:hover {
-	padding: 0 8px;
-	color: v.$color-text-hover;
+.project-nav {
+	position: fixed;
+	top: 5dvh;
+	left: 6dvw;
+	z-index: 10;
 	background-color: v.$color-bg-secondary;
-	@include link-16-hover;
-}
 
-@media (min-width: 1200px) {
-	.intro__back a:hover {
-		@include link-20-hover;
+	a {
+		@include link-16;
+		color: v.$color-text;
+		cursor: pointer;
+		transition: all v.$transition;
+		padding: 0 8px;
+
+		&:hover {
+			color: v.$color-bg;
+			background-color: v.$color-text;
+			@include link-16-hover;
+		}
+
+		@media (min-width: 840px) {
+			@include link-20;
+			@include link-20-hover;
+		}
+
+		@media (min-width: 1200px) {
+			@include link-24;
+			@include link-24-hover;
+		}
 	}
 }
 
-@media (min-width: 1600px) {
-	.intro__back a:hover {
-		@include link-24-hover;
+// ── Meta bar ──────────────────────────────────────────────────
+.project-meta {
+	padding: 6dvh 6dvw;
+	margin: 0;
+
+	&__line {
+		height: 2px;
+		background: v.$color-bg-secondary;
+		transform-origin: left;
+	}
+
+	&__items {
+		@include v.flex-center(center, flex-start, column);
+		gap: 28px;
+		padding: 4dvh 0;
+
+		@media (min-width: 840px) {
+			@include v.flex-center(center, flex-start, row);
+			padding: 5dvh 0;
+		}
+	}
+
+	&__item {
+		@include v.flex-center(center, flex-start, column);
+		gap: 6px;
+
+		&--right {
+			@media (min-width: 840px) {
+				text-align: right;
+			}
+		}
+	}
+
+	&__label {
+		@include action-12;
+		text-transform: uppercase;
+		color: v.$color-bg-tertiary;
+
+		@media (min-width: 840px) {
+			@include action-14;
+		}
+
+		@media (min-width: 1200px) {
+			@include action-16;
+		}
+	}
+
+	&__value {
+		@include body-14;
+		color: v.$color-text;
+
+		@media (min-width: 840px) {
+			@include body-16;
+		}
+
+		@media (min-width: 1200px) {
+			@include body-18;
+		}
 	}
 }
 
-.intro__scroll {
-	grid-column: 3 / 4;
-	grid-row: 2;
-	@include action-12;
-}
+// ── Problem ───────────────────────────────────────────────────
+.project-problem {
+	@include v.flex-center(center, flex-start, column);
+	gap: 6dvh;
+	padding: 0 6dvw 12dvh;
 
-.intro__scroll {
-	grid-column: 3 / 4;
-	grid-row: 2;
-	@include action-12;
-}
+	@media (min-width: 840px) {
+		flex-direction: row;
+		gap: 8dvw;
+	}
 
-@media (min-width: 840px) {
-	.intro__scroll {
-		@include action-14;
+	&__text {
+		@include v.flex-center(center, flex-start, column);
+		gap: 4dvh;
+
+		@media (min-width: 840px) {
+			flex: 1;
+		}
+	}
+
+	// Overflow hidden on this wrapper is what creates the reveal mask
+	&__heading-wrap {
+		overflow: hidden;
+	}
+
+	&__heading-inner {
+		@include title-32;
+		color: v.$color-text;
+		display: block;
+
+		@media (min-width: 840px) {
+			@include title-40;
+		}
+
+		@media (min-width: 1200px) {
+			@include title-48;
+		}
+	}
+
+	&__body {
+		@include body-14;
+		color: v.$color-text;
+		max-width: 58ch;
+
+		@media (min-width: 840px) {
+			@include body-16;
+		}
+
+		@media (min-width: 1200px) {
+			@include body-18;
+		}
+	}
+
+	&__img {
+		width: 100%;
+		aspect-ratio: 4 / 3;
+		background-size: cover;
+		background-position: center;
+		overflow: hidden;
+
+		@media (min-width: 840px) {
+			flex: 1;
+			aspect-ratio: 2 / 3;
+		}
 	}
 }
 
-@media (min-width: 1200px) {
-	.intro__scroll {
-		@include action-16;
+// ── Full-width ────────────────────────────────────────────────
+.project-full {
+	width: 100dvw;
+	height: 55dvh;
+	overflow: hidden;
+	margin-bottom: 12dvh;
+
+	@media (min-width: 1200px) {
+		height: 72dvh;
+	}
+
+	&__img {
+		width: 100%;
+		height: 120%;
+		background-size: cover;
+		background-position: center;
+		will-change: transform;
 	}
 }
 
-.info {
+// ── Solution ──────────────────────────────────────────────────
+.project-solution {
+	@include v.flex-center(center, flex-start, column);
+	gap: 6dvh;
+	padding: 0 6dvw 12dvh;
 
-	grid-column: 2 / 4;
-	grid-row: 3;
+	@media (min-width: 840px) {
+		flex-direction: row;
+		gap: 8dvw;
+	}
+
+	&__img {
+		width: 100%;
+		aspect-ratio: 3 / 2;
+		background-size: cover;
+		background-position: center;
+		overflow: hidden;
+
+		@media (min-width: 840px) {
+			flex: 1;
+			aspect-ratio: 2 / 3;
+		}
+	}
+
+	&__text {
+		@include v.flex-center(center, flex-start, column);
+		gap: 3dvh;
+
+		@media (min-width: 840px) {
+			flex: 1;
+		}
+	}
+
+	&__heading-wrap {
+		overflow: hidden;
+	}
+
+	&__heading-inner {
+		@include title-32;
+		color: v.$color-text;
+		display: block;
+
+		@media (min-width: 840px) {
+			@include title-40;
+		}
+
+		@media (min-width: 1200px) {
+			@include title-48;
+		}
+	}
+
+	&__body {
+		@include body-14;
+		color: v.$color-text;
+		max-width: 58ch;
+
+		@media (min-width: 840px) {
+			@include body-16;
+		}
+
+		@media (min-width: 1200px) {
+			@include body-18;
+		}
+	}
+}
+
+// ── Strip ─────────────────────────────────────────────────────
+.project-strip {
 	display: flex;
 	flex-direction: column;
-	row-gap: 4px;
+	gap: 4px;
+	margin-bottom: 12dvh;
 
-}
+	@media (min-width: 840px) {
+		flex-direction: row;
+		height: 50dvh;
+	}
 
-.info span {
-	@include subtitle-16
-}
+	&__img {
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		background-size: cover;
+		background-position: center;
+		will-change: transform;
 
-@media (min-width: 840px) {
-	.info span {
-		@include subtitle-18;
+		@media (min-width: 840px) {
+			flex: 1;
+			aspect-ratio: unset;
+			height: 100%;
+		}
 	}
 }
 
-@media (min-width: 1200px) {
-	.info span {
-		@include subtitle-20;
+// ── Continue ──────────────────────────────────────────────────
+.project-continue {
+	@include v.flex-center(center, flex-start, column);
+	gap: 6dvh;
+	padding: 0 6dvw 12dvh;
+
+	@media (min-width: 840px) {
+		flex-direction: row;
+		gap: 8dvw;
+		padding-right: 0;
+	}
+
+	&__text {
+		@include v.flex-center(center, flex-start, column);
+		gap: 2dvh;
+
+		@media (min-width: 840px) {
+			flex: 1;
+			padding-right: 2dvw;
+		}
+	}
+
+	&__body {
+		@include body-14;
+		color: v.$color-text;
+		max-width: 58ch;
+
+		@media (min-width: 840px) {
+			@include body-16;
+		}
+
+		@media (min-width: 1200px) {
+			@include body-18;
+		}
+	}
+
+	&__img {
+		width: 100%;
+		aspect-ratio: 4 / 5;
+		background-size: cover;
+		background-position: center;
+		overflow: hidden;
+
+		@media (min-width: 840px) {
+			flex: 1.3;
+			aspect-ratio: 4 / 3;
+		}
 	}
 }
 
-.info p {
-	@include body-14;
-}
-
-@media (min-width: 840px) {
-	.info p {
-		@include body-16;
-	}
-}
-
-@media (min-width: 1200px) {
-	.info p {
-		@include body-18;
-	}
-}
-
-.roles {
-	grid-column: 2 / 4;
-	grid-row: 3;
-}
-
-.intro__title {
-	grid-column: 1 / 5;
-	grid-row: 4;
-	font-size: 16vw;
-	will-change: color;
-	line-height: 0.8;
-}
-
-.grid-1 {
-	position: relative;
+// ── Gallery ───────────────────────────────────────────────────
+.project-gallery {
 	display: grid;
-	line-height: 1;
-	width: 100dvw;
-	padding: 5dvh 0;
-	grid-template-columns: 3dvh 1fr 3dvh;
-	grid-template-rows: auto 1fr auto;
-	grid-row-gap: 5dvh;
-	align-items: center;
-	grid-column-gap: 4dvw;
-	will-change: transform;
-}
+	grid-template-columns: 1fr 1fr;
+	gap: 4px;
+	margin-bottom: 10dvh;
 
-.problem {
-	grid-column: 2;
-	grid-row: 1;
-}
+	@media (min-width: 840px) {
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+	}
 
-.grid-img {
-	// height: 100%;
-	background-size: cover;
-	background-position: 50% 50%;
-	pointer-events: none;
-	will-change: transform;
-	height: min-content;
-	aspect-ratio: 17 / 22;
-	z-index: 100;
-}
+	&__img {
+		background-size: cover;
+		background-position: center;
+		will-change: transform;
 
-.grid-1-img {
-	grid-column: 2;
-	grid-row: 2;
-}
+		&--1 {
+			grid-column: 1 / 3;
+			aspect-ratio: 16 / 7;
 
-.solution {
-	grid-column: 2;
-	grid-row: 3;
-}
+			@media (min-width: 840px) {
+				grid-column: 1 / 3;
+				aspect-ratio: 1;
+			}
+		}
 
-.grid-2 {
-	position: relative;
-	display: grid;
-	line-height: 1;
-	width: 100dvw;
-	padding: 5dvh 0 10dvh 0;
-	grid-template-columns: 3dvh 1fr 3dvh;
-	grid-template-rows: repeat(9, auto);
-	grid-row-gap: 5dvh;
-	align-items: center;
-	grid-column-gap: 4dvw;
-	will-change: transform;
-}
+		&--2 {
+			grid-column: 1;
+			aspect-ratio: 3 / 4;
 
-.grid-2-img:nth-child(1) {
-	grid-column: 2;
-	grid-row: 1;
-}
+			@media (min-width: 840px) {
+				grid-column: 3;
+				aspect-ratio: unset;
+			}
+		}
 
-.solution-2 {
-	grid-column: 2;
-	grid-row: 2;
-}
+		&--3 {
+			grid-column: 2;
+			aspect-ratio: 3 / 4;
 
-.grid-2-img:nth-child(2) {
-	grid-column: 2;
-	grid-row: 3;
-}
+			@media (min-width: 840px) {
+				grid-column: 4;
+				aspect-ratio: unset;
+			}
+		}
 
-.grid-2-img:nth-child(3) {
-	grid-column: 2;
-	grid-row: 4;
-}
+		&--4 {
+			grid-column: 1 / 3;
+			aspect-ratio: 16 / 5;
 
-.solution-3 {
-	grid-column: 2;
-	grid-row: 5;
-}
-
-.grid-2-img:nth-child(4) {
-	grid-column: 2;
-	grid-row: 6;
-}
-
-.grid-2-img:nth-child(5) {
-	grid-column: 2;
-	grid-row: 7;
-}
-
-.timeframe {
-	align-self: start;
-	grid-column: 2;
-	grid-row: 8;
-}
-
-.tools {
-	align-self: start;
-	grid-column: 2;
-	grid-row: 9;
-}
-
-.footer {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-	padding: 5dvh 0;
-}
-
-.footer__back,
-.footer__prev,
-.footer__next {
-	@include link-16;
-	transition: all v.$transition;
-}
-
-
-@media (min-width: 1200px) {
-
-	.footer__back,
-	.footer__prev,
-	.footer__next {
-		@include link-16;
+			@media (min-width: 840px) {
+				grid-column: 1 / 5;
+				aspect-ratio: 16 / 5;
+			}
+		}
 	}
 }
 
-@media (min-width: 1600px) {
-	.intro__back a {
-		@include link-24;
+// ── Footer nav ────────────────────────────────────────────────
+.project-footer {
+	padding: 8dvh 6dvw;
+	@include v.flex-center(space-between, flex-end, row);
+	margin-top: 4dvh;
+	color: v.$color-text;
+
+	&__link {
+		background: none;
+		border: none;
+		cursor: pointer;
+		text-align: left;
+
+		&--next {
+			text-align: right;
+		}
+
+		.project-footer__label {
+			display: block;
+			@include action-12;
+			text-transform: uppercase;
+			margin-bottom: 0.5rem;
+			color: v.$color-bg-tertiary;
+
+			@media (min-width: 840px) {
+				@include action-14;
+			}
+
+			@media (min-width: 1200px) {
+				@include action-16;
+			}
+		}
+
+		.project-footer__title {
+			display: block;
+			@include title-24;
+			// font-size: clamp(1.5rem, 4vw, 3rem);
+			// font-weight: 700;
+			transition: all v.$transition;
+			// font-family: v.$font-family-secondary;
+
+			@media (min-width: 840px) {
+				@include title-28;
+			}
+
+			@media (min-width: 1200px) {
+				@include title-32;
+			}
+		}
+
+		&:hover .project-footer__title {
+			transform: translateY(-5px);
+			font-weight: 800;
+			color: v.$color-text-hover;
+		}
 	}
-}
-
-.intro__back a:hover {
-	padding: 0 8px;
-	color: v.$color-text-hover;
-	background-color: v.$color-bg-secondary;
-	@include link-16-hover;
-}
-
-@media (min-width: 1200px) {
-	.intro__back a:hover {
-		@include link-20-hover;
-	}
-}
-
-@media (min-width: 1600px) {
-	.intro__back a:hover {
-		@include link-24-hover;
-	}
-}
-
-.video-section {
-	height: 100dvh;
-	width: auto;
-	margin: 40px;
-	display: flex;
-}
-
-@media (min-width: 1200px) {
-
-	.project-detail {
-		padding-top: 3rem;
-	}
-
-	.grid-intro {
-		grid-template-columns: 20% 1fr 1fr;
-		grid-template-rows: auto 1fr 1fr auto;
-	}
-
-	.grid-1 {
-		grid-template-columns: 3dvh 1fr 1fr 3dvh 1fr 1fr 3dvh;
-		grid-template-rows: auto auto auto;
-	}
-
-	.problem {
-		grid-column: 3 / 6;
-		grid-row: 1;
-	}
-
-	.grid-1-img {
-		grid-column: 2 / 4;
-		grid-row: 2;
-	}
-
-	.solution {
-		grid-column: 5 / 7;
-		grid-row: 2;
-	}
-
-	.grid-2 {
-		grid-template-columns: 3dvh 1fr 1fr 1fr 3dvh;
-		grid-template-rows: auto auto auto auto;
-	}
-
-	.solution-2 {
-		grid-column: 3 / 5;
-		grid-row: 2;
-	}
-
-	.grid-2-img:nth-child(2) {
-		grid-column: 3;
-		grid-row: 1;
-	}
-
-	.grid-2-img:nth-child(3) {
-		grid-column: 4;
-		grid-row: 1;
-	}
-
-	.solution-3 {
-		grid-column: 4;
-		grid-row: 3;
-	}
-
-	.grid-2-img:nth-child(4) {
-		grid-column: 2;
-		grid-row: 3;
-	}
-
-	.grid-2-img:nth-child(5) {
-		grid-column: 3;
-		grid-row: 3;
-	}
-
-	.timeframe {
-		grid-column: 2;
-		grid-row: 4;
-	}
-
-	.tools {
-		grid-column: 3;
-		grid-row: 4;
-	}
-
 }

@@ -3,6 +3,20 @@ $font-family-primary: "Karla", sans-serif;
 $font-family-secondary: "Poppins", sans-serif;
 
 // ── Titles (Poppins, Semi Bold) ─────────────────────
+@mixin title-24 {
+  font-family: $font-family-secondary;
+  font-size: 24pt;
+  line-height: 32pt;
+  font-weight: 600;
+}
+
+@mixin title-28 {
+  font-family: $font-family-secondary;
+  font-size: 28pt;
+  line-height: 36pt;
+  font-weight: 600;
+}
+
 @mixin title-32 {
   font-family: $font-family-secondary;
   font-size: 32pt;
@@ -25,6 +39,20 @@ $font-family-secondary: "Poppins", sans-serif;
 }
 
 // ── Subtitles (Karla, Medium) ─────────────────────────
+@mixin subtitle-12 {
+  font-family: $font-family-primary;
+  font-size: 12pt;
+  line-height: 14pt;
+  font-weight: 700;
+}
+
+@mixin subtitle-14 {
+  font-family: $font-family-primary;
+  font-size: 14pt;
+  line-height: 16pt;
+  font-weight: 700;
+}
+
 @mixin subtitle-16 {
   font-family: $font-family-primary;
   font-size: 16pt;
