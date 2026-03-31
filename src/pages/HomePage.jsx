@@ -245,10 +245,10 @@ export default function HomePage() {
                 Hola! I am a graphic designer and engineer. I create visual
                 experiences that blend creativity and technology.
               </p>
-            </div>
-            <div className="smp-uc-badge">
-              <span className="smp-uc-icon">🚧</span>
-              <span className="smp-uc-text">Rive Canvas Coming Soon</span>
+              <p className="smp-bio">
+                🚧 This section is under reconstruction.
+              </p>
+              <p className="smp-bio">Rive Canvas Coming Soon</p>
             </div>
           </div>
           <p className="smp-action" aria-hidden="true">[scroll to see my work]</p>
@@ -380,12 +380,11 @@ export default function HomePage() {
           <div className="smp-about-img" aria-hidden="true">
             <div className="smp-uc-container smp-uc-container--fill">
               <p className="smp-bio">
-                This section is under reconstruction.
+                🚧 This section is under reconstruction.
               </p>
-              <div className="smp-uc-badge">
-                <span className="smp-uc-icon">🚧</span>
-                <span className="smp-uc-text">Rive Canvas Coming Soon</span>
-              </div>
+              <p className="smp-bio">
+                Rive Canvas Coming Soon
+              </p>
             </div>
           </div>
         </section>
