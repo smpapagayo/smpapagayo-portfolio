@@ -21,6 +21,11 @@ export default function HomePage() {
     autoplay: true,
   });
 
+  useLayoutEffect(() => {
+    // Snap to top synchronously on mount before GSAP calculates positions
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
