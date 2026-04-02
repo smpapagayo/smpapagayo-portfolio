@@ -263,6 +263,9 @@ export default function HomePage() {
               >
                 <RiveComponent />
               </div>
+              <p className="smp-bio">
+                This section is under construction. Please check back soon.
+              </p>
             </div>
           </div>
           <p className="smp-action" aria-hidden="true">[scroll to see my work]</p>
