@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { projects } from "../scripts/projects";
 import { gsap } from "gsap";
@@ -23,11 +23,13 @@ const ProjectPage2 = () => {
   const prevProject = projects[(currentIndex - 1 + total) % total];
   const nextProject = projects[(currentIndex + 1) % total];
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "auto" });
+  useLayoutEffect(() => {
+    // Forcing an 'instant' scroll synchronously before the next frame is painted
+    // ensures GSAP ScrollTriggers calculate their offsets perfectly from the top.
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
   }, [location.pathname]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     // Kill any lingering ScrollTriggers from a previous page before setting up new ones
     ScrollTrigger.getAll().forEach((t) => t.kill());
 

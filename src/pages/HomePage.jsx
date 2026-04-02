@@ -2,6 +2,7 @@ import React, { useLayoutEffect, useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { DrawSVGPlugin, ScrollTrigger, SplitText } from "gsap/all";
+import { useRive } from '@rive-app/react-canvas';
 import { projects } from "../scripts/projects";
 import useIsMobile from "../hooks/useIsMobile";
 
@@ -13,6 +14,12 @@ export default function HomePage() {
   const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeProject, setActiveProject] = useState(null);
+
+  const { RiveComponent } = useRive({
+    src: '/smp-hero.riv',
+    stateMachines: "smp-hero Animation", // <-- Added this line
+    autoplay: true,
+  });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -245,10 +252,12 @@ export default function HomePage() {
                 Hola! I am a graphic designer and engineer. I create visual
                 experiences that blend creativity and technology.
               </p>
-              <p className="smp-bio">
-                🚧 This section is under reconstruction.
-              </p>
-              <p className="smp-bio">Rive Canvas Coming Soon</p>
+              <div
+                className="smp-hero-rive"
+                style={{ width: "100%", aspectRatio: "16/9", maxHeight: "400px", marginTop: "16px" }}
+              >
+                <RiveComponent />
+              </div>
             </div>
           </div>
           <p className="smp-action" aria-hidden="true">[scroll to see my work]</p>

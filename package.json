@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@rive-app/react-canvas": "^4.27.3",
     "@studio-freight/lenis": "^1.0.42",
     "gsap": "^3.13.0",
     "imagesloaded": "^5.0.0",
