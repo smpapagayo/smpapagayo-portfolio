@@ -28,13 +28,17 @@ const ProjectPage2 = () => {
   }, [location.pathname]);
 
   useEffect(() => {
+    // Kill any lingering ScrollTriggers from a previous page before setting up new ones
+    ScrollTrigger.getAll().forEach((t) => t.kill());
+
     if (!project) {
       navigate("/home");
       return;
     }
 
+    const splits = [];
+
     const ctx = gsap.context(() => {
-      const splits = [];
 
       const problemSplit = new SplitType(".project-problem__body", { types: "lines" });
       const solutionSplit = new SplitType(".project-solution__body", { types: "lines" });
@@ -320,15 +324,10 @@ const ProjectPage2 = () => {
 
     return () => {
       ctx.revert();
+      ScrollTrigger.getAll().forEach((t) => t.kill());
       splits.forEach((s) => s.revert());
     };
   }, [project, navigate]);
-
-  useEffect(() => {
-    return () => {
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-    };
-  }, []);
 
   if (!project) return null;
 
