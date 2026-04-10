@@ -2,7 +2,15 @@ import React, { useLayoutEffect, useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { DrawSVGPlugin, ScrollTrigger, SplitText } from "gsap/all";
-import { useRive } from '@rive-app/react-canvas';
+import {
+  useRive,
+  Layout,
+  Fit,
+  Alignment,
+  useViewModel,
+  useViewModelInstance,
+  useStateMachineInput
+} from '@rive-app/react-canvas';
 import { projects } from "../scripts/projects";
 import useIsMobile from "../hooks/useIsMobile";
 
@@ -14,12 +22,6 @@ export default function HomePage() {
   const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeProject, setActiveProject] = useState(null);
-
-  const { RiveComponent } = useRive({
-    src: '/smp-hero.riv',
-    stateMachines: "smp-hero Animation", // <-- Added this line
-    autoplay: true,
-  });
 
   useLayoutEffect(() => {
     // Snap to top synchronously on mount before GSAP calculates positions
@@ -250,22 +252,9 @@ export default function HomePage() {
       <main>
         {/* --- Hero Section --- */}
         <section className="smp-hero" aria-label="Introduction">
-          <div className="smp-uc-container">
-            <div className="smp-hero-inner">
-              <h1>SERGIO M PAPAGAYO</h1>
-              <p className="smp-bio">
-                Hola! I am a graphic designer and engineer. I create visual
-                experiences that blend creativity and technology.
-              </p>
-              <div
-                className="smp-hero-rive"
-                style={{ width: "100%", aspectRatio: "16/9", maxHeight: "400px", marginTop: "16px" }}
-              >
-                <RiveComponent />
-              </div>
-              <p className="smp-bio">
-                This section is under construction. Please check back soon.
-              </p>
+          <div className="smp-hero-container">
+            <div className="smp-hero-rive" key={isMobile ? 'mobile' : 'desktop'}>
+              <ResponsiveHeroRive isMobile={isMobile} />
             </div>
           </div>
           <p className="smp-action" aria-hidden="true">[scroll to see my work]</p>
@@ -420,6 +409,20 @@ export default function HomePage() {
 
       {/* Global Transition Block */}
       <div className="page-transition"></div>
-    </div>
+    </div >
   );
+}
+
+function ResponsiveHeroRive({ isMobile }) {
+  const { RiveComponent } = useRive({
+    src: isMobile ? '/smp-hero-400px.riv' : '/smp-hero-1200px.riv',
+    stateMachines: "smp-hero Animation",
+    autoplay: true,
+    autoBind: true,
+    layout: new Layout({
+      fit: Fit.Contain,
+      alignment: Alignment.Center,
+    }),
+  });
+  return <RiveComponent />;
 }
