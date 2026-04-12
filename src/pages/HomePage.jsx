@@ -419,10 +419,11 @@ function ResponsiveHeroRive({ isMobile }) {
     stateMachines: "smp-hero Animation",
     autoplay: true,
     autoBind: true,
+    isTouchScrollEnabled: true,
     layout: new Layout({
       fit: Fit.Contain,
       alignment: Alignment.Center,
     }),
   });
-  return <RiveComponent />;
+  return <RiveComponent style={{ touchAction: "pan-y" }} />;
 }
