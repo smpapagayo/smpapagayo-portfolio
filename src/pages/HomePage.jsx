@@ -21,7 +21,6 @@ export default function HomePage() {
   const isMobile = useIsMobile();
   const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeProject, setActiveProject] = useState(null);
 
   useLayoutEffect(() => {
     // Snap to top synchronously on mount before GSAP calculates positions
@@ -113,91 +112,64 @@ export default function HomePage() {
         }, "-=0.6");
 
       // ==========================================
-      // 4. PROJECTS LIST ON SCROLL + HOVER EFFECTS
+      // 4. PROJECTS — ELEMENT-LEVEL SCROLL ANIMATIONS
       // ==========================================
-      const projectsEl = gsap.utils.toArray(".smp-project");
+      // Each element inside every project card has its own ScrollTrigger
+      // so it appears as soon as scrolling reaches that specific element.
 
-      // We will define a custom intense cubic-bezier similar to Lando's duration and snap
-      const hoverEase = "power4.inOut";
+      const projectEls = gsap.utils.toArray(".smp-project");
 
-      projectsEl.forEach((proj, index) => {
-        const border = proj.querySelector(".smp-proj-border");
+      projectEls.forEach((proj) => {
+        const imgWrapper = proj.querySelector(".smp-proj-img");
+        const img = proj.querySelector(".smp-proj-img img");
         const num = proj.querySelector(".smp-proj-num");
         const title = proj.querySelector(".smp-proj-title");
         const cat = proj.querySelector(".smp-proj-cat");
-        const imgWrapper = proj.querySelector(".smp-proj-img");
-        const img = proj.querySelector(".smp-proj-img img");
 
-        const numSplit = new SplitText(num, { type: "lines", mask: "lines" });
-        const titleSplit = new SplitText(title, { type: "lines", mask: "lines" });
-        const catSplit = new SplitText(cat, { type: "lines", mask: "lines" });
+        // — Image reveal: clip-path wipe + subtle de-scale —
+        if (imgWrapper && img) {
+          gsap.set(imgWrapper, { clipPath: "inset(100% 0% 0% 0%)" });
+          gsap.set(img, { scale: 1.15 });
 
-        // Scroll entry timeline
-        const projTl = gsap.timeline({ paused: true });
+          const imgTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: imgWrapper,
+              start: "top 95%",
+              toggleActions: "play none none reverse",
+            },
+          });
 
-        projTl
-          .from(border, {
-            scaleX: 0,
-            transformOrigin: "left",
-            duration: 0.6,
-            ease: "power3.inOut",
-          })
-          .from(
-            [...numSplit.lines, ...titleSplit.lines, ...catSplit.lines],
-            { yPercent: 110, duration: 0.9, stagger: 0.06, ease: "power4.out" },
-            "-=0.4"
-          );
+          imgTl
+            .to(imgWrapper, {
+              clipPath: "inset(0% 0% 0% 0%)",
+              duration: 1,
+              ease: "power4.inOut",
+            })
+            .to(img, {
+              scale: 1,
+              duration: 1.2,
+              ease: "power3.out",
+            }, "<0.15");
+        }
 
-        const isInitiallyVisible = proj.getBoundingClientRect().top <= window.innerHeight * 0.9;
-        let isFirstPlay = true;
-        let delayCall = null;
+        // — Text elements: each one has its own trigger —
+        [num, title, cat].forEach((el) => {
+          if (!el) return;
 
-        ScrollTrigger.create({
-          trigger: proj,
-          start: "top 88%",
-          onEnter: () => {
-            if (isFirstPlay && isInitiallyVisible) {
-              isFirstPlay = false;
-              // Wait for initial page enter animations to finish
-              delayCall = gsap.delayedCall(1.4 + (index * 0.15), () => projTl.play());
-              return;
-            }
-            isFirstPlay = false;
-            projTl.play();
-          },
-          onLeaveBack: () => {
-            if (delayCall) delayCall.kill();
-            projTl.reverse();
-          }
+          const split = new SplitText(el, { type: "lines", mask: "lines" });
+
+          gsap.from(split.lines, {
+            scrollTrigger: {
+              trigger: el,
+              start: "top 97%",
+              toggleActions: "play none none reverse",
+            },
+            yPercent: 120,
+            duration: 0.8,
+            stagger: 0.06,
+            ease: "power4.out",
+          });
         });
-
-        // Hover intense timeline
-        const hoverTl = gsap.timeline({ paused: true });
-
-        // Ensure values are read fresh on hover by using functional updates if needed,
-        // but passing the var() right into GSAP lets the browser handle responsive values dynamically 
-        // provided the CSS var is updated correctly on resize.
-        hoverTl
-          .to(imgWrapper, {
-            height: "var(--target-height)",
-            marginTop: 12,
-            duration: 0.75,
-            ease: hoverEase,
-          })
-          .to(img, {
-            clipPath: "inset(0% 0% 0% 0%)",
-            scale: 1,
-            duration: 0.75,
-            ease: hoverEase,
-          }, "<")
-          .to([title, num], {
-            x: 10,
-            duration: 0.75,
-            ease: "power3.out",
-          }, "<0.1");
-
-        // Stash the timeline on the DOM element for access in onMouseEnter
-        proj._hoverTl = hoverTl;
       });
 
       // ==========================================
@@ -265,48 +237,10 @@ export default function HomePage() {
           {projects.map((p) => (
             <article
               key={p.num}
-              className={`smp-project ${activeProject === p.id ? 'is-active' : ''}`}
+              className={`smp-project`}
               id={`project-${p.id}`}
               onClick={(e) => {
-                const isTouch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
-                if (isTouch) {
-                  if (activeProject !== p.id) {
-                    e.preventDefault();
-
-                    // Revert previously active project
-                    if (activeProject) {
-                      const prevProjectEl = document.getElementById(`project-${activeProject}`);
-                      if (prevProjectEl && prevProjectEl._hoverTl) {
-                        prevProjectEl._hoverTl.reverse();
-                      }
-                    }
-
-                    setActiveProject(p.id);
-                    const target = e.currentTarget;
-                    if (target._hoverTl) target._hoverTl.play();
-
-                    if (window.hoverScrollTimeout) {
-                      clearTimeout(window.hoverScrollTimeout);
-                    }
-
-                    window.hoverScrollTimeout = setTimeout(() => {
-                      const navHeight = window.innerWidth >= 840 ? 100 : 95;
-                      const projectRect = target.getBoundingClientRect();
-
-                      // Scroll if the project isn't already positioned right under the navbar
-                      if (Math.abs(projectRect.top - navHeight) > 5) {
-                        window.scrollTo({
-                          top: window.scrollY + projectRect.top - navHeight,
-                          behavior: 'smooth'
-                        });
-                      }
-                    }, 750); // match duration of GSAP hover ease
-                  } else {
-                    navigate(`/home/${p.id}`);
-                  }
-                } else {
-                  navigate(`/home/${p.id}`);
-                }
+                navigate(`/home/${p.id}`);
               }}
               role="button"
               tabIndex={0}
@@ -316,43 +250,9 @@ export default function HomePage() {
                   navigate(`/home/${p.id}`);
                 }
               }}
-              onMouseEnter={(e) => {
-                const isTouch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
-                if (!isTouch) {
-                  const target = e.currentTarget;
-                  if (target._hoverTl) target._hoverTl.play();
-
-                  if (window.hoverScrollTimeout) {
-                    clearTimeout(window.hoverScrollTimeout);
-                  }
-
-                  window.hoverScrollTimeout = setTimeout(() => {
-                    const navHeight = window.innerWidth >= 840 ? 100 : 95;
-                    const projectRect = target.getBoundingClientRect();
-
-                    // Scroll if the project isn't already positioned right under the navbar
-                    if (Math.abs(projectRect.top - navHeight) > 5) {
-                      window.scrollTo({
-                        top: window.scrollY + projectRect.top - navHeight,
-                        behavior: 'smooth'
-                      });
-                    }
-                  }, 750); // match duration of GSAP hover ease
-                }
-              }}
-              onMouseLeave={(e) => {
-                const isTouch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
-                if (!isTouch) {
-                  const target = e.currentTarget;
-                  if (target._hoverTl) target._hoverTl.reverse();
-
-                  if (window.hoverScrollTimeout) {
-                    clearTimeout(window.hoverScrollTimeout);
-                  }
-                }
-              }}
             >
-              <div className="smp-proj-border" aria-hidden="true" />
+
+
               <div className="smp-proj-head">
                 {isMobile ? (
                   // Mobile Layout: Number and Category together, Title below
@@ -375,7 +275,7 @@ export default function HomePage() {
                 )}
               </div>
               <div className="smp-proj-img">
-                <img src={p.images[1]} alt={p.title} />
+                <img src={p.images[0]} alt={p.title} />
               </div>
             </article>
           ))}

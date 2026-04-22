@@ -6,35 +6,35 @@ $font-family-secondary: "Poppins", sans-serif;
 @mixin title-24 {
   font-family: $font-family-secondary;
   font-size: 24pt;
-  line-height: 32pt;
+  line-height: 36pt;
   font-weight: 600;
 }
 
 @mixin title-28 {
   font-family: $font-family-secondary;
   font-size: 28pt;
-  line-height: 36pt;
+  line-height: 44pt;
   font-weight: 600;
 }
 
 @mixin title-32 {
   font-family: $font-family-secondary;
   font-size: 32pt;
-  line-height: 40pt;
+  line-height: 48pt;
   font-weight: 600;
 }
 
 @mixin title-40 {
   font-family: $font-family-secondary;
   font-size: 40pt;
-  line-height: 48pt;
+  line-height: 56pt;
   font-weight: 600;
 }
 
 @mixin title-48 {
   font-family: $font-family-secondary;
   font-size: 48pt;
-  line-height: 56pt;
+  line-height: 64pt;
   font-weight: 900;
 }
 

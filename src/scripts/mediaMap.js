@@ -1,4 +1,4 @@
-const images = import.meta.glob("../assets/*.{jpg,png,gif,svg}", { eager: true });
+const images = import.meta.glob("../assets/*.{jpg,png,gif,svg,webp}", { eager: true });
 
 const media = (filename) => {
   const file = Object.entries(images).find(([key]) =>

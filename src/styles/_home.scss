@@ -120,48 +120,23 @@
 
 // ── Hero ──────────────────────────────────────────
 .smp-hero {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	text-align: center;
-	padding: calc(40px + 95px) 16px 40px 16px;
-	gap: 28px;
-
-	@media (min-width: 600px) {
-		padding: calc(52px + 95px) 24px 52px 24px;
-	}
+	@include v.flex-center(space-evenly, center, column);
+	padding-top: 95px;
+	height: 100vh;
 
 	@media (min-width: 840px) {
-		padding: calc(60px + 100px) 0 60px 0;
-		gap: 32px;
+		padding-top: 100px;
 	}
 
-	@media (min-width: 1200px) {
-		gap: 36px;
-	}
 
 	&-container {
 		width: 100%;
-		height: 75vh;
+		height: 70vh;
 	}
 
 	&-rive {
 		width: 100%;
 		height: 100%;
-
-		// 	@media (min-width: 840px) {
-		// 		width: 760px;
-		// 		height: 570px;
-		// 	}
-
-		// 	@media (min-width: 1200px) {
-		// 		width: 1080px;
-		// 		height: 730px;
-		// 	}
-
-		// 	@media (min-width: 1600px) {
-		// 		width: 1360px;
-		// 	}
 	}
 }
 
@@ -177,128 +152,35 @@
 	}
 }
 
-// ── Under Construction Badge & Container ────────────
-.smp-uc-container {
-	position: relative;
-	width: 100%;
-	max-width: 800px;
-	margin: 0 auto;
-	padding: 40px 20px;
-	border: 2px dashed rgba(v.$color-text, 0.3);
-	border-radius: 12px;
-	background: repeating-linear-gradient(-45deg,
-			rgba(v.$color-text, 0.03),
-			rgba(v.$color-text, 0.03) 10px,
-			transparent 10px,
-			transparent 20px);
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	gap: 24px;
-	transition: border-color v.$transition, background v.$transition;
-
-	&--fill {
-		max-width: none;
-		height: 100%;
-		margin: 0;
-		padding: 0;
-		border-radius: inherit;
-	}
-
-	&:hover {
-		border-color: rgba(v.$color-blue, 0.5);
-		background: repeating-linear-gradient(-45deg,
-				rgba(v.$color-blue, 0.03),
-				rgba(v.$color-blue, 0.03) 10px,
-				transparent 10px,
-				transparent 20px);
-
-		.smp-uc-badge {
-			border-color: v.$color-blue;
-			color: v.$color-blue;
-		}
-	}
-}
-
-.smp-uc-badge {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	gap: 8px;
-	padding: 8px 16px;
-	background-color: v.$color-bg;
-	color: v.$color-text;
-	border: 1px solid rgba(v.$color-text, 0.3);
-	border-radius: 50px;
-	@include action-12;
-	text-transform: uppercase;
-	font-weight: 700;
-	letter-spacing: 0.05em;
-	transition: all v.$transition;
-	// Avoid being targeted by GSAP masks by isolating block format
-	display: inline-flex !important;
-
-	&-icon {
-		font-size: 1.2em;
-	}
-
-	@media (min-width: 840px) {
-		@include action-14;
-	}
-}
-
 // ── Projects ──────────────────────────────────────────
 .smp-projects {
 	width: 100%;
-	border-bottom: 2px solid v.$color-text;
+	margin: 60px 0;
+	@include v.flex-center(center, stretch, column);
+	gap: 100px;
 }
 
 .smp-project {
-	padding: 8px 0;
+	margin-bottom: 40px;
 	cursor: pointer;
 	transition: all v.$transition;
-
-	&:hover,
-	&.is-active {
-
-		.smp-proj-title,
-		.smp-proj-num,
-		.smp-proj-cat {
-			color: v.$color-text-hover;
-		}
-
-		.smp-proj-title {
-			font-weight: 900;
-		}
-
-		.smp-proj-num,
-		.smp-proj-cat {
-			font-weight: 700;
-		}
-	}
 }
 
 .smp-proj {
-	&-border {
-		width: 100%;
-		height: 2px;
-		background-color: v.$color-text;
-	}
 
 	&-head {
 		@include v.flex-center(space-between, flex-start, column);
 		// gap: 4px;
 		min-height: 40px;
-		position: sticky;
-		top: 95px;
-		z-index: 10;
-		background-color: v.$color-bg;
+		// position: sticky;
+		// top: 95px;
+		// z-index: 10;
+		// background-color: v.$color-bg;
 		padding: 8px;
 
 		@media (min-width: 840px) {
 			@include v.flex-center(flex-start, baseline, row);
-			top: 100px;
+			// top: 100px;
 		}
 	}
 
@@ -340,9 +222,9 @@
 
 	&-img {
 		--target-height: 320px;
-		margin-top: 0;
+		margin-top: 12px;
 		width: 100%;
-		height: 0;
+		height: var(--target-height);
 		overflow: hidden;
 
 		@media (min-width: 840px) {
@@ -361,11 +243,10 @@
 			width: 100%;
 			height: 100%;
 			object-fit: cover;
-			clip-path: inset(100% 0% 0% 0%);
-			transform: scale(1.15);
+			clip-path: inset(0% 0% 0% 0%);
+			transform: scale(1);
 			transform-origin: center;
-			transition: none;
-			/* Let GSAP control */
+			transition: all v.$transition;
 		}
 	}
 }
