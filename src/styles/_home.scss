@@ -170,17 +170,11 @@
 
 	&-head {
 		@include v.flex-center(space-between, flex-start, column);
-		// gap: 4px;
 		min-height: 40px;
-		// position: sticky;
-		// top: 95px;
-		// z-index: 10;
-		// background-color: v.$color-bg;
 		padding: 8px;
 
 		@media (min-width: 840px) {
 			@include v.flex-center(flex-start, baseline, row);
-			// top: 100px;
 		}
 	}
 
@@ -193,7 +187,7 @@
 
 	&-num,
 	&-cat {
-		@include subtitle-16;
+		@include subtitle-14;
 		transition: color v.$transition;
 
 		@media (min-width: 840px) {
@@ -208,7 +202,7 @@
 	&-title {
 		flex: 1;
 		min-width: 0;
-		@include title-32;
+		@include title-24;
 		transition: color v.$transition;
 
 		@media (min-width: 840px) {

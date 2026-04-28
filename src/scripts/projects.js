@@ -27,17 +27,18 @@ export const projects = [
     ],
     images: [
       media("p1-1.webp"),
-      media("p1-1.jpg"),
-      media("p1-1.jpg"),
-      media("p1-1-stack2.png"),
-      media("p1-1-stack3.png"),
-      media("p1-1-stack4.png"),
-      media("p1-1-stack5.png"),
+      media("p1-2.jpg"),
       media("p1-3.jpg"),
       media("p1-4.jpg"),
       media("p1-5.jpg"),
       media("p1-6.jpg"),
       media("p1-7.jpg"),
+      media("p1-8.jpg"),
+      media("p1-9.jpg"),
+      media("p1-10.jpg"),
+      media("p1-11.jpg"),
+      media("p1-12.jpg"),
+      media("p1-13.jpg"),
     ],
 
   },
@@ -48,20 +49,20 @@ export const projects = [
     num: "02",
     title: "Seattle Fishing Co",
     category:"Branding",
-    timeframe: "10 weeks (Jan – Mar 2025)",
+    timeframe: "10 weeks (Oct – Dec 2025)",
     tools:
-      "Procreate, After Effects, Photoshop, Illustrator, Figma, Final Cut Pro",
-      roles: "Visual Designer, Motion Designer, Video Editor",
+      "Procreate, Illustrator, Photoshop, Figma",
+      roles: "Graphic Designer",
     problem: [
       "Problem",
-      "The complexity and cultural richness of the novel “One Hundred Years of Solitude” are often overlooked or misunderstood, particularly by global audiences who may not be familiar with Latin American history and magical realism.",
+      "...",
     ],
     solution: [
       "Solution",
-      "I created a video that introduces viewers to the cultural, historical, and literary significance of the novel “One Hundred Years of Solitude” by Gabriel García Márquez, transforming its complexity into a visually compelling and accessible narrative.",
-      "As a Colombian, I understand that this novel is more than just a literary masterpiece—it reflects Latin America’s history, identity, and struggles. Through magical realism, García Márquez tells a story of endless cycles of hope and despair, where the boundaries between reality and fantasy blur, much like they do in the collective memory of my country.",
-      "The collage technique was an ideal choice for the video because it reflects the fragmented and cyclical nature of the novel. The collage style layers various visual elements to create a surreal yet cohesive world. This approach offers a dynamic representation of magical realism and lets me capture the essence of the genre.",
-      "The layered compositions and surreal visuals in the story are strong symbols of the events that happen in Macondo, the fictional town at the center of the narrative. Although Macondo is not found on any map, it represents Colombia and the complexities of Latin America."
+      "",
+      "",
+      "",
+      ""
     ],
     images: [
       media("p2-1.webp"),
@@ -85,7 +86,7 @@ export const projects = [
     num: "03",
     title: "100 Years of Solitude",
     category:"Motion Graphics",
-    timeframe: "12 weeks (Oct – Dec 2025)",
+    timeframe: "12 weeks (Sep – Dec 2024)",
     tools:
       "Procreate, After Effects, Photoshop, Illustrator, Figma, Final Cut Pro",
       roles: "Visual Designer, Motion Designer, Video Editor",
@@ -137,7 +138,7 @@ export const projects = [
       "The label design emphasizes approachability and transparency, featuring a clean layout for nutrition facts, icons for health benefits, and a QR code that invites consumers into the “bubble revolution.” The overall aesthetic positions bubble as a fresh, health-conscious alternative to traditional sodas—without sacrificing taste or joy.",
     ],
     images: [
-      media("p3-1.jpg"),
+      media("p4-1.webp"),
       media("p3-2.jpg"),
       media("p3-stack1.png"),
       media("p3-stack2.png"),
@@ -173,7 +174,7 @@ export const projects = [
       "I enhanced the solution with a bus wrap advertisement that showcases the brand's vibrant colors. The design highlights the freshness and effervescence of the product. The messages “JOIN THE BUBBLE REVOLUTION!” and “NO GUILT, ALL FLAVOR!” are intended to foster a sense of community while promoting the soda's health benefits."
     ],
     images: [
-      media("p4-1.jpg"),
+      media("p5-1.webp"),
       media("p4-2.jpg"),
       media("p4-stack1.png"),
       media("p4-stack2.png"),
@@ -209,7 +210,7 @@ export const projects = [
       "I created not just a brand, but experiences that connect with our community. I developed programs like “Buy One, Surprise One” and “Petal to Soil” to engage customers even after their purchase. These initiatives provide two compelling reasons to trust and support our mission: the joy of surprising someone with a bouquet at local hospitals and community centers, and the positive impact of composting floral waste."
     ],
     images: [
-      media("p5-1.jpg"),
+      media("p6-1.webp"),
       media("p5-2.jpg"),
       media("p5-stack1.png"),
       media("p5-stack2.png"),
@@ -236,7 +237,7 @@ export const projects = [
     problem: "",
     solution: "",
     images: [
-      media("p6-1.jpg"),
+      media("p7-1.webp"),
       media("p6-2.jpg"),
       media("p6-stack1.png"),
       media("p6-stack2.png"),

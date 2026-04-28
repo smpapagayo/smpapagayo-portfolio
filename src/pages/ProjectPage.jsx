@@ -341,8 +341,8 @@ const ProjectPage2 = () => {
         <div
           className="project-hero__bg"
           style={{
-            backgroundImage: project.images?.[0]
-              ? `url(${project.images[0]})`
+            backgroundImage: project.images?.[1]
+              ? `url(${project.images[1]})`
               : "none",
           }}
         />
@@ -401,8 +401,8 @@ const ProjectPage2 = () => {
         <div
           className="project-problem__img"
           style={{
-            backgroundImage: project.images?.[1]
-              ? `url(${project.images[1]})`
+            backgroundImage: project.images?.[2]
+              ? `url(${project.images[2]})`
               : "none",
           }}
         />
@@ -413,8 +413,8 @@ const ProjectPage2 = () => {
         <div
           className="project-full__img"
           style={{
-            backgroundImage: project.images?.[2]
-              ? `url(${project.images[2]})`
+            backgroundImage: project.images?.[3]
+              ? `url(${project.images[3]})`
               : "none",
           }}
         />
@@ -425,8 +425,8 @@ const ProjectPage2 = () => {
         <div
           className="project-solution__img"
           style={{
-            backgroundImage: project.images?.[3]
-              ? `url(${project.images[3]})`
+            backgroundImage: project.images?.[4]
+              ? `url(${project.images[4]})`
               : "none",
           }}
         />
@@ -441,7 +441,7 @@ const ProjectPage2 = () => {
 
       {/* ── Image strip ──────────────────────────────────── */}
       <section className="project-strip">
-        {[4, 5, 6].map((imgIdx) => (
+        {[5, 6, 7].map((imgIdx) => (
           <div
             key={imgIdx}
             className="project-strip__img"
@@ -463,8 +463,8 @@ const ProjectPage2 = () => {
         <div
           className="project-continue__img"
           style={{
-            backgroundImage: project.images?.[7]
-              ? `url(${project.images[7]})`
+            backgroundImage: project.images?.[8]
+              ? `url(${project.images[8]})`
               : "none",
           }}
         />
@@ -472,7 +472,7 @@ const ProjectPage2 = () => {
 
       {/* ── Final gallery ─────────────────────────────────── */}
       <section className="project-gallery">
-        {[8, 9, 10, 11].map((imgIdx, i) => (
+        {[9, 10, 11, 12].map((imgIdx, i) => (
           <div
             key={imgIdx}
             className={`project-gallery__img project-gallery__img--${i + 1}`}
