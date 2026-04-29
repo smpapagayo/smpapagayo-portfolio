@@ -54,7 +54,7 @@
 	// Title reveal container — overflow:hidden creates the mask
 	&__title-wrap {
 		position: absolute;
-		bottom: 18dvh;
+		bottom: 5dvh;
 		// left: 6dvw;
 		// right: 6dvw;
 		overflow: hidden;
@@ -65,17 +65,17 @@
 	&__title-inner {
 		display: block;
 		font-family: v.$font-family-secondary;
-		font-size: clamp(2.8rem, 10vw, 9.5rem);
+		font-size: clamp(3rem, 4.5rem, 6rem);
 		font-weight: 700;
 		line-height: 0.8;
 		color: v.$color-bg;
 		text-transform: uppercase;
 		letter-spacing: -0.02em;
 		padding: 40px 6dvw;
-		background-color: v.$color-text;
+		// background-color: v.$color-text;
 
 		@media (min-width: 1200px) {
-			font-size: clamp(5rem, 10vw, 11rem);
+			font-size: clamp(6rem, 7.5rem, 9rem);
 		}
 	}
 
