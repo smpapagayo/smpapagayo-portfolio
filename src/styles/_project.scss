@@ -7,13 +7,13 @@
 	color: v.$color-text;
 }
 
-// ── Hero ──────────────────────────────────────────────────────
-.project-hero {
+// ── Intro ──────────────────────────────────────────────────────
+.project-intro {
 	position: relative;
+	// height: 50dvh;
 	height: 100dvh;
 	width: 100dvw;
 	overflow: hidden;
-	background: v.$color-blue;
 
 	&__bg {
 		position: absolute;
@@ -34,6 +34,8 @@
 		z-index: 1;
 	}
 
+
+
 	&__num {
 		position: absolute;
 		top: 5dvh;
@@ -51,12 +53,9 @@
 		}
 	}
 
-	// Title reveal container — overflow:hidden creates the mask
 	&__title-wrap {
 		position: absolute;
-		bottom: 5dvh;
-		// left: 6dvw;
-		// right: 6dvw;
+		bottom: 8dvh;
 		overflow: hidden;
 		z-index: 10;
 		width: 100%;
@@ -65,23 +64,22 @@
 	&__title-inner {
 		display: block;
 		font-family: v.$font-family-secondary;
-		font-size: clamp(3rem, 4.5rem, 6rem);
+		font-size: clamp(3rem, 4rem, 5rem);
 		font-weight: 700;
 		line-height: 0.8;
-		color: v.$color-bg;
 		text-transform: uppercase;
 		letter-spacing: -0.02em;
 		padding: 40px 6dvw;
-		// background-color: v.$color-text;
+		color: v.$color-bg-secondary;
 
 		@media (min-width: 1200px) {
-			font-size: clamp(6rem, 7.5rem, 9rem);
+			font-size: clamp(6rem, 7rem, 8rem);
 		}
 	}
 
 	&__bottom {
 		position: absolute;
-		bottom: 5dvh;
+		bottom: 8dvh;
 		left: 6dvw;
 		right: 6dvw;
 		z-index: 10;
@@ -90,9 +88,9 @@
 
 	&__category {
 		@include body-14;
-		color: v.$color-bg-secondary;
 		text-transform: uppercase;
 		letter-spacing: 0.18em;
+		color: v.$color-bg-secondary;
 
 		@media (min-width: 840px) {
 			@include body-16;
@@ -117,6 +115,7 @@
 	}
 }
 
+// ── Back to projects ── //
 .project-nav {
 	position: fixed;
 	top: 5dvh;
@@ -149,72 +148,11 @@
 	}
 }
 
-// ── Meta bar ──────────────────────────────────────────────────
-.project-meta {
-	padding: 6dvh 6dvw;
-	margin: 0;
-
-	&__line {
-		height: 2px;
-		background: v.$color-bg-secondary;
-		transform-origin: left;
-	}
-
-	&__items {
-		@include v.flex-center(center, flex-start, column);
-		gap: 28px;
-		padding: 4dvh 0;
-
-		@media (min-width: 840px) {
-			@include v.flex-center(center, flex-start, row);
-			padding: 5dvh 0;
-		}
-	}
-
-	&__item {
-		@include v.flex-center(center, flex-start, column);
-		gap: 6px;
-
-		&--right {
-			@media (min-width: 840px) {
-				text-align: right;
-			}
-		}
-	}
-
-	&__label {
-		@include action-12;
-		text-transform: uppercase;
-		color: v.$color-bg-tertiary;
-
-		@media (min-width: 840px) {
-			@include action-14;
-		}
-
-		@media (min-width: 1200px) {
-			@include action-16;
-		}
-	}
-
-	&__value {
-		@include body-14;
-		color: v.$color-text;
-
-		@media (min-width: 840px) {
-			@include body-16;
-		}
-
-		@media (min-width: 1200px) {
-			@include body-18;
-		}
-	}
-}
-
-// ── Problem ───────────────────────────────────────────────────
-.project-problem {
+// ── Project Showcase ───────────────────────────────────────────
+.project-showcase {
 	@include v.flex-center(center, flex-start, column);
 	gap: 6dvh;
-	padding: 0 6dvw 12dvh;
+	padding: 12dvh 6dvw;
 
 	@media (min-width: 840px) {
 		flex-direction: row;
@@ -223,29 +161,28 @@
 
 	&__text {
 		@include v.flex-center(center, flex-start, column);
-		gap: 4dvh;
+		// gap: 2dvh;
 
 		@media (min-width: 840px) {
 			flex: 1;
 		}
 	}
 
-	// Overflow hidden on this wrapper is what creates the reveal mask
 	&__heading-wrap {
 		overflow: hidden;
 	}
 
 	&__heading-inner {
-		@include title-32;
+		@include title-24;
 		color: v.$color-text;
 		display: block;
 
 		@media (min-width: 840px) {
-			@include title-40;
+			@include title-28;
 		}
 
 		@media (min-width: 1200px) {
-			@include title-48;
+			@include title-32;
 		}
 	}
 
@@ -253,6 +190,7 @@
 		@include body-14;
 		color: v.$color-text;
 		max-width: 58ch;
+		padding-bottom: 40px;
 
 		@media (min-width: 840px) {
 			@include body-16;
@@ -265,17 +203,134 @@
 
 	&__img {
 		width: 100%;
-		aspect-ratio: 4 / 3;
+		aspect-ratio: 2 / 3;
 		background-size: cover;
 		background-position: center;
 		overflow: hidden;
 
 		@media (min-width: 840px) {
 			flex: 1;
-			aspect-ratio: 2 / 3;
+			max-height: 90vh;
+			background-size: contain;
+			background-repeat: no-repeat;
 		}
 	}
 }
+
+// ── Hero Video ───────────────────────────────────────────────────
+.project-hero {
+	position: relative;
+	height: 100dvh;
+	width: 100dvw;
+	max-height: 100vh;
+	aspect-ratio: 4 / 3;
+	overflow: hidden;
+
+	&__bg {
+		background-size: cover;
+		background-position: center;
+		will-change: transform;
+		transform-origin: center;
+		border: none;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
+	}
+}
+
+// ── Solution ──────────────────────────────────────────────────
+.project-solution {
+	@include v.flex-center(center, flex-start, column);
+	gap: 6dvh;
+	padding: 12dvh 6dvw;
+
+	@media (min-width: 840px) {
+		flex-direction: row;
+		gap: 8dvw;
+	}
+
+	&__text {
+		@include v.flex-center(center, flex-start, column);
+		// gap: 2dvh;
+
+		@media (min-width: 840px) {
+			flex: 1;
+		}
+	}
+
+	&__heading-wrap {
+		overflow: hidden;
+	}
+
+	&__heading-inner {
+		@include title-24;
+		color: v.$color-text;
+		display: block;
+
+		@media (min-width: 840px) {
+			@include title-28;
+		}
+
+		@media (min-width: 1200px) {
+			@include title-32;
+		}
+	}
+
+	&__body {
+		@include body-14;
+		color: v.$color-text;
+		max-width: 58ch;
+		padding-bottom: 40px;
+
+		@media (min-width: 840px) {
+			@include body-16;
+		}
+
+		@media (min-width: 1200px) {
+			@include body-18;
+		}
+	}
+
+	&__img {
+		width: 100%;
+		aspect-ratio: 2 / 3;
+		background-size: cover;
+		background-position: center;
+		overflow: hidden;
+
+		@media (min-width: 840px) {
+			flex: 1;
+			max-height: 90vh;
+			background-size: contain;
+			background-repeat: no-repeat;
+		}
+	}
+}
+
+// .project-solution {
+// 	@include v.flex-center(center, flex-start, column);
+// 	gap: 6dvh;
+// 	padding: 0 6dvw 12dvh;
+
+// 	@media (min-width: 840px) {
+// 		flex-direction: row;
+// 		gap: 8dvw;
+// 	}
+
+// 	&__img {
+// 		width: 100%;
+// 		aspect-ratio: 3 / 2;
+// 		background-size: cover;
+// 		background-position: center;
+// 		overflow: hidden;
+
+// 		@media (min-width: 840px) {
+// 			flex: 1;
+// 			aspect-ratio: 2 / 3;
+// 		}
+// 	}
+// }
 
 // ── Full-width ────────────────────────────────────────────────
 .project-full {
@@ -297,71 +352,49 @@
 	}
 }
 
-// ── Solution ──────────────────────────────────────────────────
-.project-solution {
-	@include v.flex-center(center, flex-start, column);
-	gap: 6dvh;
-	padding: 0 6dvw 12dvh;
 
-	@media (min-width: 840px) {
-		flex-direction: row;
-		gap: 8dvw;
-	}
 
-	&__img {
-		width: 100%;
-		aspect-ratio: 3 / 2;
-		background-size: cover;
-		background-position: center;
-		overflow: hidden;
+// 	&__text {
+// 		@include v.flex-center(center, flex-start, column);
+// 		gap: 3dvh;
 
-		@media (min-width: 840px) {
-			flex: 1;
-			aspect-ratio: 2 / 3;
-		}
-	}
+// 		@media (min-width: 840px) {
+// 			flex: 1;
+// 		}
+// 	}
 
-	&__text {
-		@include v.flex-center(center, flex-start, column);
-		gap: 3dvh;
+// 	&__heading-wrap {
+// 		overflow: hidden;
+// 	}
 
-		@media (min-width: 840px) {
-			flex: 1;
-		}
-	}
+// 	&__heading-inner {
+// 		@include title-32;
+// 		color: v.$color-text;
+// 		display: block;
 
-	&__heading-wrap {
-		overflow: hidden;
-	}
+// 		@media (min-width: 840px) {
+// 			@include title-40;
+// 		}
 
-	&__heading-inner {
-		@include title-32;
-		color: v.$color-text;
-		display: block;
+// 		@media (min-width: 1200px) {
+// 			@include title-48;
+// 		}
+// 	}
 
-		@media (min-width: 840px) {
-			@include title-40;
-		}
+// 	&__body {
+// 		@include body-14;
+// 		color: v.$color-text;
+// 		max-width: 58ch;
 
-		@media (min-width: 1200px) {
-			@include title-48;
-		}
-	}
+// 		@media (min-width: 840px) {
+// 			@include body-16;
+// 		}
 
-	&__body {
-		@include body-14;
-		color: v.$color-text;
-		max-width: 58ch;
-
-		@media (min-width: 840px) {
-			@include body-16;
-		}
-
-		@media (min-width: 1200px) {
-			@include body-18;
-		}
-	}
-}
+// 		@media (min-width: 1200px) {
+// 			@include body-18;
+// 		}
+// 	}
+// }
 
 // ── Strip ─────────────────────────────────────────────────────
 .project-strip {
@@ -518,9 +551,9 @@
 		.project-footer__label {
 			display: block;
 			@include action-12;
-			text-transform: uppercase;
+			// text-transform: uppercase;
 			margin-bottom: 0.5rem;
-			color: v.$color-bg-tertiary;
+			// color: v.$color-bg-tertiary;
 
 			@media (min-width: 840px) {
 				@include action-14;

@@ -7,28 +7,30 @@ export const projects = [
   {
     index: 0,
     id: "sabra-mandrake",
+    heroVideo: {
+      horizontal: "https://pub-1bd59606e5714f75aa9a1a290b51dda0.r2.dev/Project1/Project1_horizontal.m4v",
+      vertical: "https://pub-1bd59606e5714f75aa9a1a290b51dda0.r2.dev/Project1/Project1_vertical.m4v"
+    },
     reference: "magazine",
     num: "01",
     title: "Sabrá Mandrake",
     category: "Editorial Design",
-    timeframe: "12 weeks (Sep – Dec 2024)",
-    tools: "Procreate, Illustrator, Photoshop, InDesign",
-    roles: "Researcher, Editorial Designer, Writer, Visual Designer, Brand Designer, Typographer, Illustrator, Editor",
+    timeframe: "12 weeks, September 2024",
+    year: "2024",
+    tools: "Procreate, Illustrator, Photoshop, InDesign, NotebookLM and Gemini",
+    roles: "I built an authentic brand and design system that reflects Colombia's true cultural and ancestral roots. Also, I developed a modern workflow using NotebookLM and Gemini, turning hundreds of pages of raw academic data into focused, narrative-driven articles without losing historical depth.",
     problem: [
-      "Problem",
       "Most contemporary Colombian media outlets offer a limited or biased perspective of traditional Colombian culture. Although valuable research exists, it is often written in complex academic language that can be difficult to understand or access.",
     ],
     solution: [
-      "Solution",
-      "I created Sabrá MANDRAKE, a magazine that transforms complex historical and cultural topics about Colombia into engaging visuals and easy-to-understand stories.",
-      "Each issue delves into a specific topic, offering readers a narrative-driven analysis of the origins of Colombian traditions, social norms, and behaviors. The issue I designed explores the origins and influences that have shaped Colombian cuisine.",
-      "With bold typography, vibrant colors, rich illustrations and photograpies, I aim to capture the essence of Colombian traditions and customs.",
-      "The white space is minimal, and the balance between the columns isn't completely symmetrical. This asymmetry lends the layout a dynamic quality, reflecting an unconventional design approach. There are elements that introduce visual disruption, and the use of collage and overlapping elements is quite evident."
+      "I created Sabrá MANDRAKE, a magazine that transforms complex historical and cultural topics about Colombia into engaging visuals and easy-to-understand stories. Each issue delves into a specific topic, offering readers access to the origins of Colombian traditions, social norms, and behaviors. The issue I designed explores the origins and influences that have shaped Colombian cuisine.",
+      "I designed this magazine to master the layout and typographic systems required for complex, long-form documents. My goal was to build a cohesive brand identity—from initial mood boards to a final design—that adapts seamlessly between traditional print and digital screens. By applying grid structures and historical typographic rules, I transformed dense content into a professional editorial format ready for production.",
+      "To manage the extensive data, I developed a modern workflow using NotebookLM and Gemini to synthesize hundreds of pages of academic texts into focused, narrative-driven articles without losing historical depth. Beyond the editorial content, I defined the publication's structural foundation, establishing a design system and an authentic visual identity that reflects Colombia's true cultural and ancestral roots.",
     ],
     images: [
       media("p1-1.webp"),
       media("p1-2.webp"),
-      media("p1-3.jpg"),
+      media("p1-3.webp"),
       media("p1-4.jpg"),
       media("p1-5.jpg"),
       media("p1-6.jpg"),
@@ -45,11 +47,15 @@ export const projects = [
    {
     index: 1,
     id: "seattle-fihsing-co",
+    heroVideo: {
+      horizontal: "",
+      vertical: ""
+    },
     reference: "branding",
     num: "02",
     title: "Seattle Fishing Co",
     category:"Branding",
-    timeframe: "10 weeks (Oct – Dec 2025)",
+    timeframe: "10 weeks, October 2025",
     tools:
       "Procreate, Illustrator, Photoshop, Figma",
       roles: "Graphic Designer",
@@ -82,11 +88,15 @@ export const projects = [
   {
     index: 2,
     id: "100-years-of-solitude",
+    heroVideo: {
+      horizontal: "",
+      vertical: ""
+    },
     reference: "animation & motion",
     num: "03",
     title: "100 Years of Solitude",
     category:"Motion Graphics",
-    timeframe: "12 weeks (Sep – Dec 2024)",
+    timeframe: "12 weeks, January 2025",
     tools:
       "Procreate, After Effects, Photoshop, Illustrator, Figma, Final Cut Pro",
       roles: "Visual Designer, Motion Designer, Video Editor",
@@ -119,11 +129,15 @@ export const projects = [
   {
     index: 3,
     id: "bubble-brand",
+    heroVideo: {
+      horizontal: "",
+      vertical: ""
+    },
     reference: "branding & UX/UI",
     num: "04",
     title: "bubble, probiotic soda",
     category: "Branding + UX/UI", 
-    timeframe: "12 weeks (Jan – Mar 2024)",
+    timeframe: "12 weeks, January 2024",
     tools: "Figma, Illustrator, Photoshop, Adobe Dimension, Procreate, Webflow",
     roles: "Brand Designer, Graphic Designer, Illustrator, Marketing Strategist, Web desinger",
     problem: [
@@ -191,11 +205,15 @@ export const projects = [
   {
     index: 4,
     id: "rebloom",
+    heroVideo: {
+      horizontal: "",
+      vertical: ""
+    },
     reference: "branding + UX+UI",
     num: "05",
     title: "ReBloom",
     category: "Branding + UX/UI",
-    timeframe: "12 weeks (Sep – Dec 2024)",
+    timeframe: "12 weeks, September 2024",
     tools: "Figma, Midjourney, Photoshop, Illustrator",
     roles: "Researcher, Graphic Designer, Web Designer",
     problem: [
@@ -227,11 +245,15 @@ export const projects = [
   {
     index: 5,
     id: "exploration",
+    heroVideo: {
+      horizontal: "",
+      vertical: ""
+    },
     reference: "other works",
     num: "06",
     title: "Creative Exploration",
     category: "Visual Design",
-    timeframe: "Sep 2023 – Dec 2025)",
+    timeframe: "Ongoing",
     tools: "Illustrator, InDesign, Photoshop, Procreate, AfterEffects",
     roles: "Graphic Designer, Visual Designer",
     problem: "",

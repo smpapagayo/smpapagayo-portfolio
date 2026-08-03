@@ -258,8 +258,8 @@ export default function HomePage() {
                   // Mobile Layout: Number and Category together, Title below
                   <>
                     <div className="smp-proj-group">
-                      <p className="smp-proj-num">{p.num}</p>
-                      <p className="smp-proj-cat">{p.category}</p>
+                      <p className="smp-proj-label">{p.num}</p>
+                      <p className="smp-proj-label">{p.category}</p>
                     </div>
                     <h2 className="smp-proj-title">{p.title}</h2>
                   </>
@@ -267,16 +267,17 @@ export default function HomePage() {
                   // Desktop Layout: Number and Title together, Category floats right
                   <>
                     <div className="smp-proj-group">
-                      <p className="smp-proj-num">{p.num}</p>
+                      <p className="smp-proj-label">{p.num}</p>
                       <h2 className="smp-proj-title">{p.title}</h2>
                     </div>
-                    <p className="smp-proj-cat">{p.category}</p>
+                    <p className="smp-proj-label">{p.category}</p>
                   </>
                 )}
               </div>
               <div className="smp-proj-img">
                 <img src={p.images[0]} alt={p.title} />
               </div>
+              <p className="smp-proj-label">{p.timeframe}</p>
             </article>
           ))}
         </section>

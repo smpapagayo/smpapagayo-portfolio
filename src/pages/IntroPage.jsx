@@ -57,14 +57,14 @@ export default function IntroPage() {
       // ----------------------------------------------------
       // 2. ANIMATION TIMELINES
       // ----------------------------------------------------
-      
+
       // Secondary timeline (Transition out): Starts playing when barTl completes
       const outTl = gsap.timeline({ paused: true });
-      
+
       // Main timeline (Intro load):
       // - delay: Initial wait time before the loading animation starts
       const barTl = gsap.timeline({
-        delay: 1, 
+        delay: 1,
         onComplete: () => outTl.play()
       });
 
@@ -108,7 +108,7 @@ export default function IntroPage() {
       // - "+=0.2": Tiny wait time before the credits reveal starts perfectly
       barTl.addLabel("revealCredits", "+=0.2");
       const lines = gsap.utils.toArray(".intro__credits-line");
-      
+
       lines.forEach((line, i) => {
         const block = line.querySelector(".intro__credits-block");
         const text = line.querySelector(".intro__credits-text");
@@ -117,9 +117,9 @@ export default function IntroPage() {
         // - duration (0.4s): How fast each half of the sweep is
         // - i * 0.15: Creates the stagger between the two credit lines
         barTl.to(block, { scaleX: 1, duration: 0.4, ease: "power2.inOut" }, `revealCredits+=${i * 0.15}`)
-             .set(text, { opacity: 1 }, `revealCredits+=${i * 0.15 + 0.4}`)
-             .set(block, { transformOrigin: "right" }, `revealCredits+=${i * 0.15 + 0.4}`)
-             .to(block, { scaleX: 0, duration: 0.4, ease: "power2.inOut" }, `revealCredits+=${i * 0.15 + 0.4}`);
+          .set(text, { opacity: 1 }, `revealCredits+=${i * 0.15 + 0.4}`)
+          .set(block, { transformOrigin: "right" }, `revealCredits+=${i * 0.15 + 0.4}`)
+          .to(block, { scaleX: 0, duration: 0.4, ease: "power2.inOut" }, `revealCredits+=${i * 0.15 + 0.4}`);
       });
 
       // ----------------------------------------------------
@@ -162,7 +162,7 @@ export default function IntroPage() {
           ease: "power3.inOut",
           onComplete: () => navigate("/home"),
         }, "+=0.2");
-           
+
     });
 
     return () => ctx.revert();
@@ -178,16 +178,16 @@ export default function IntroPage() {
       <div className="intro__text">
         {/* Loading "loading..." string SVG */}
         <LoadingText />
-        
+
         {/* Color-block text reveal lines */}
         <div className="intro__credits">
           <div className="intro__credits-line">
             <div className="intro__credits-block"></div>
-            <span className="intro__credits-text">designed and coded by</span>
+            <span className="intro__credits-text">designed and engineered by</span>
           </div>
           <div className="intro__credits-line">
             <div className="intro__credits-block"></div>
-            <span className="intro__credits-text">sergio m papagayo © 2025</span>
+            <span className="intro__credits-text">sergio m papagayo © 2026</span>
           </div>
         </div>
       </div>

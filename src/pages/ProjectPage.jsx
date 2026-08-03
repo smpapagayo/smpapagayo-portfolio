@@ -1,6 +1,7 @@
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useLayoutEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { projects } from "../scripts/projects";
+import useIsMobile from "../hooks/useIsMobile";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
@@ -18,10 +19,32 @@ const ProjectPage2 = () => {
   const location = useLocation();
 
   const project = projects.find((p) => p.id === id);
+  const isMobile = useIsMobile();
+
+  // Select the appropriate hero video source based on screen width/orientation
+  let heroVideoSrc = "";
+  if (project?.heroVideo) {
+    if (typeof project.heroVideo === "object") {
+      heroVideoSrc = isMobile
+        ? (project.heroVideo.vertical || project.heroVideo.horizontal || "")
+        : (project.heroVideo.horizontal || project.heroVideo.vertical || "");
+    } else if (typeof project.heroVideo === "string") {
+      heroVideoSrc = project.heroVideo;
+    }
+  }
+
   const currentIndex = projects.findIndex((p) => p.id === id);
   const total = projects.length;
   const prevProject = projects[(currentIndex - 1 + total) % total];
   const nextProject = projects[(currentIndex + 1) % total];
+
+  const solutionParagraphs = project?.solution ? project.solution.slice(1).filter(p => p.trim() !== "") : [];
+  const halfLength = Math.ceil(solutionParagraphs.length / 2);
+  const firstHalfSolution = solutionParagraphs.slice(0, halfLength);
+  const secondHalfSolution = solutionParagraphs.slice(halfLength);
+
+  const stripImages = project?.images ? project.images.slice(5, 8).filter(Boolean) : [];
+  const galleryImages = project?.images ? project.images.slice(9).filter(Boolean) : [];
 
   useLayoutEffect(() => {
     // Forcing an 'instant' scroll synchronously before the next frame is painted
@@ -42,10 +65,10 @@ const ProjectPage2 = () => {
 
     const ctx = gsap.context(() => {
 
-      const problemSplit = new SplitType(".project-problem__body", { types: "lines" });
+      const showcaseSplit = new SplitType(".project-showcase__body", { types: "lines" });
       const solutionSplit = new SplitType(".project-solution__body", { types: "lines" });
       const continueSplit = new SplitType(".project-continue__body", { types: "lines" });
-      splits.push(problemSplit, solutionSplit, continueSplit);
+      splits.push(showcaseSplit, solutionSplit, continueSplit);
 
       // ── Hero entrance ──────────────────────────────────────
       const tl = gsap.timeline({ delay: 0.05 });
@@ -63,75 +86,41 @@ const ProjectPage2 = () => {
           0.4
         )
         .fromTo(
-          ".project-hero__num",
+          ".project-intro__num",
           { opacity: 0 },
           { opacity: 1, duration: 0.5, ease: "power2.out" },
           0.5
         )
         // Title reveal: slides up from behind overflow-hidden wrapper
         .fromTo(
-          ".project-hero__title-inner",
+          ".project-intro__title-inner",
           { yPercent: 110 },
           { yPercent: 0, duration: 1.1, ease: "power4.out" },
           0.55
         )
         .fromTo(
-          ".project-hero__category",
+          ".project-intro__category",
           { opacity: 0, y: 12 },
           { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" },
           1.3
         )
         .fromTo(
-          ".project-hero__scroll",
+          ".project-intro__scroll",
           { opacity: 0 },
           { opacity: 1, duration: 0.4 },
           1.5
         );
 
-      // ── Meta bar ───────────────────────────────────────────
-      gsap.fromTo(
-        ".project-meta__item",
-        { opacity: 0, y: 24 },
-        {
-          opacity: 1,
-          y: 0,
-          stagger: 0.1,
-          duration: 0.7,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: ".project-meta",
-            start: "top 85%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-
-      gsap.fromTo(
-        ".project-meta__line",
-        { scaleX: 0 },
-        {
-          scaleX: 1,
-          duration: 0.8,
-          ease: "power2.out",
-          transformOrigin: "left",
-          scrollTrigger: {
-            trigger: ".project-meta",
-            start: "top 85%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-
       // ── Problem section ────────────────────────────────────
       gsap.fromTo(
-        ".project-problem__heading-inner",
+        ".project-showcase__heading-inner",
         { yPercent: 110 },
         {
           yPercent: 0,
           duration: 0.9,
           ease: "power3.out",
           scrollTrigger: {
-            trigger: ".project-problem",
+            trigger: ".project-showcase",
             start: "top 75%",
             toggleActions: "play none none reverse",
           },
@@ -139,7 +128,7 @@ const ProjectPage2 = () => {
       );
 
       gsap.fromTo(
-        problemSplit.lines,
+        showcaseSplit.lines,
         { opacity: 0, y: 36 },
         {
           opacity: 1,
@@ -148,7 +137,7 @@ const ProjectPage2 = () => {
           ease: "power2.out",
           stagger: 0.08,
           scrollTrigger: {
-            trigger: ".project-problem__body",
+            trigger: ".project-showcase__body",
             start: "top 82%",
             toggleActions: "play none none reverse",
           },
@@ -156,7 +145,7 @@ const ProjectPage2 = () => {
       );
 
       gsap.fromTo(
-        ".project-problem__img",
+        ".project-showcase__img",
         { scale: 1.08, opacity: 0 },
         {
           scale: 1,
@@ -164,7 +153,7 @@ const ProjectPage2 = () => {
           duration: 1.1,
           ease: "power2.out",
           scrollTrigger: {
-            trigger: ".project-problem__img",
+            trigger: ".project-showcase__img",
             start: "top 82%",
             toggleActions: "play none none reverse",
           },
@@ -172,139 +161,157 @@ const ProjectPage2 = () => {
       );
 
       // ── Full-width image parallax ──────────────────────────
-      gsap.fromTo(
-        ".project-full__img",
-        { yPercent: -8 },
-        {
-          yPercent: 8,
-          ease: "none",
-          scrollTrigger: {
-            trigger: ".project-full",
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        }
-      );
+      if (document.querySelector(".project-full")) {
+        gsap.fromTo(
+          ".project-full__img",
+          { yPercent: -8 },
+          {
+            yPercent: 8,
+            ease: "none",
+            scrollTrigger: {
+              trigger: ".project-full",
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          }
+        );
+      }
 
       // ── Solution section ───────────────────────────────────
-      gsap.fromTo(
-        ".project-solution__heading-inner",
-        { yPercent: 110 },
-        {
-          yPercent: 0,
-          duration: 0.9,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ".project-solution",
-            start: "top 75%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
+      if (document.querySelector(".project-solution")) {
+        gsap.fromTo(
+          ".project-solution__heading-inner",
+          { yPercent: 110 },
+          {
+            yPercent: 0,
+            duration: 0.9,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: ".project-solution",
+              start: "top 75%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
 
-      gsap.fromTo(
-        solutionSplit.lines,
-        { opacity: 0, y: 36 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "power2.out",
-          stagger: 0.08,
-          scrollTrigger: {
-            trigger: ".project-solution__text",
-            start: "top 80%",
-            toggleActions: "play none none reverse",
-          },
+        if (solutionSplit.lines?.length > 0) {
+          gsap.fromTo(
+            solutionSplit.lines,
+            { opacity: 0, y: 36 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              ease: "power2.out",
+              stagger: 0.08,
+              scrollTrigger: {
+                trigger: ".project-solution__text",
+                start: "top 80%",
+                toggleActions: "play none none reverse",
+              },
+            }
+          );
         }
-      );
 
-      gsap.fromTo(
-        ".project-solution__img",
-        { scale: 1.08, opacity: 0 },
-        {
-          scale: 1,
-          opacity: 1,
-          duration: 1.1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: ".project-solution__img",
-            start: "top 82%",
-            toggleActions: "play none none reverse",
-          },
+        if (document.querySelector(".project-solution__img")) {
+          gsap.fromTo(
+            ".project-solution__img",
+            { scale: 1.08, opacity: 0 },
+            {
+              scale: 1,
+              opacity: 1,
+              duration: 1.1,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: ".project-solution__img",
+                start: "top 82%",
+                toggleActions: "play none none reverse",
+              },
+            }
+          );
         }
-      );
+      }
 
       // ── Image strip stagger ────────────────────────────────
-      gsap.fromTo(
-        ".project-strip__img",
-        { y: 70, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          stagger: 0.14,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ".project-strip",
-            start: "top 80%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
+      if (document.querySelector(".project-strip")) {
+        gsap.fromTo(
+          ".project-strip__img",
+          { y: 70, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            stagger: 0.14,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: ".project-strip",
+              start: "top 80%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
 
       // ── Continue section ───────────────────────────────────
-      gsap.fromTo(
-        continueSplit.lines,
-        { opacity: 0, x: -50 },
-        {
-          opacity: 1,
-          x: 0,
-          stagger: 0.08,
-          duration: 0.9,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: ".project-continue",
-            start: "top 75%",
-            toggleActions: "play none none reverse",
-          },
+      if (document.querySelector(".project-continue")) {
+        if (continueSplit.lines?.length > 0) {
+          gsap.fromTo(
+            continueSplit.lines,
+            { opacity: 0, x: -50 },
+            {
+              opacity: 1,
+              x: 0,
+              stagger: 0.08,
+              duration: 0.9,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: ".project-continue",
+                start: "top 75%",
+                toggleActions: "play none none reverse",
+              },
+            }
+          );
         }
-      );
 
-      gsap.fromTo(
-        ".project-continue__img",
-        { scale: 1.06, opacity: 0 },
-        {
-          scale: 1,
-          opacity: 1,
-          duration: 1.1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: ".project-continue__img",
-            start: "top 82%",
-            toggleActions: "play none none reverse",
-          },
+        if (document.querySelector(".project-continue__img")) {
+          gsap.fromTo(
+            ".project-continue__img",
+            { scale: 1.06, opacity: 0 },
+            {
+              scale: 1,
+              opacity: 1,
+              duration: 1.1,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: ".project-continue__img",
+                start: "top 82%",
+                toggleActions: "play none none reverse",
+              },
+            }
+          );
         }
-      );
+      }
 
       // ── Final gallery ──────────────────────────────────────
-      gsap.fromTo(
-        ".project-gallery__img",
-        { y: 90, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          stagger: 0.1,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ".project-gallery",
-            start: "top 82%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
+      if (document.querySelector(".project-gallery")) {
+        gsap.fromTo(
+          ".project-gallery__img",
+          { y: 90, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            stagger: 0.1,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: ".project-gallery",
+              start: "top 82%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
 
       // ── Footer ─────────────────────────────────────────────
       gsap.fromTo(
@@ -334,72 +341,50 @@ const ProjectPage2 = () => {
   if (!project) return null;
 
   return (
-    <main className="project-detail">
+    <main key={project.id} className="project-detail">
 
-      {/* ── Hero ─────────────────────────────────────────── */}
-      <section className="project-hero">
+      {/* ── Intro ─────────────────────────────────────────── */}
+      <section className="project-intro">
         <div
-          className="project-hero__bg"
+          className="project-intro__bg"
           style={{
             backgroundImage: project.images?.[1]
               ? `url(${project.images[1]})`
               : "none",
           }}
         />
-        <div className="project-hero__overlay" />
+        <div className="project-intro__overlay" />
 
         <nav className="project-nav">
           <a onClick={() => navigate("/home")}>← Back</a>
         </nav>
 
-        <span className="project-hero__num">{project.num}</span>
+        <span className="project-intro__num">Project {project.num} / {project.year}</span>
 
-        <div className="project-hero__title-wrap">
-          <h1 className="project-hero__title-inner">{project.title}</h1>
+        <div className="project-intro__title-wrap">
+          <h1 className="project-intro__title-inner">{project.title}</h1>
         </div>
 
-        <div className="project-hero__bottom">
-          <p className="project-hero__category">{project.category}</p>
-          <p className="project-hero__scroll">[Scroll ↓]</p>
+        <div className="project-intro__bottom">
+          <p className="project-intro__category">{project.category}</p>
+          <p className="project-intro__scroll">[scroll ↓]</p>
         </div>
       </section>
 
-      {/* ── Meta bar ─────────────────────────────────────── */}
-      <section className="project-meta">
-        <div className="project-meta__line" />
-        <div className="project-meta__items">
-          <div className="project-meta__item">
-            <span className="project-meta__label">Roles</span>
-            <p className="project-meta__value">{project.roles}</p>
+      {/* ── Showcase ──────────────────────────────────────── */}
+      <section className="project-showcase">
+        <div className="project-showcase__text">
+          <div className="project-showcase__heading-wrap">
+            <h2 className="project-showcase__heading-inner">Problem</h2>
           </div>
-          <div className="project-meta__item">
-            <span className="project-meta__label">Timeframe</span>
-            <p className="project-meta__value">{project.timeframe}</p>
+          <p className="project-showcase__body">{project.problem?.[0]}</p>
+          <div className="project-showcase__heading-wrap">
+            <h2 className="project-showcase__heading-inner">Solution</h2>
           </div>
-          <div className="project-meta__item">
-            <span className="project-meta__label">Tools</span>
-            <p className="project-meta__value">{project.tools}</p>
-          </div>
-          <div className="project-meta__item project-meta__item--right">
-            <span className="project-meta__label">Project</span>
-            <p className="project-meta__value">
-              {project.num} / 0{total}
-            </p>
-          </div>
-        </div>
-        <div className="project-meta__line" />
-      </section>
-
-      {/* ── Problem ──────────────────────────────────────── */}
-      <section className="project-problem">
-        <div className="project-problem__text">
-          <div className="project-problem__heading-wrap">
-            <h2 className="project-problem__heading-inner">{project.problem?.[0]}</h2>
-          </div>
-          <p className="project-problem__body">{project.problem?.[1]}</p>
+          <p className="project-showcase__body">{project.solution?.[0]}</p>
         </div>
         <div
-          className="project-problem__img"
+          className="project-showcase__img"
           style={{
             backgroundImage: project.images?.[2]
               ? `url(${project.images[2]})`
@@ -408,10 +393,50 @@ const ProjectPage2 = () => {
         />
       </section>
 
-      {/* ── Full-width image ──────────────────────────────── */}
-      <section className="project-full">
+      {/* ── Hero ─────────────────────────────────────────── */}
+      <section className="project-hero">
+        {heroVideoSrc ? (
+          heroVideoSrc.includes("iframe") || heroVideoSrc.includes("videodelivery.net") ? (
+            <iframe
+              className="project-hero__bg"
+              src={
+                heroVideoSrc.includes("?")
+                  ? `${heroVideoSrc}&autoplay=true&loop=true&muted=true&controls=false`
+                  : `${heroVideoSrc}?autoplay=true&loop=true&muted=true&controls=false`
+              }
+              allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+              allowFullScreen
+            />
+          ) : (
+            <video
+              key={heroVideoSrc}
+              className="project-hero__bg"
+              src={heroVideoSrc}
+              autoPlay
+              loop
+              muted
+              playsInline
+            />
+          )
+        ) : (
+          <div
+            className="project-hero__bg"
+            style={{
+              backgroundImage: project?.images?.[1]
+                ? `url(${project.images[1]})`
+                : "none",
+            }}
+          />
+        )}
+      </section>
+
+      {/* ── Solution ─────────────────────────────────────── */}
+      <section className="project-solution">
+        <div className="project-solution__text">
+          <p className="project-solution__body">{project.solution?.[1]}</p>
+        </div>
         <div
-          className="project-full__img"
+          className="project-solution__img"
           style={{
             backgroundImage: project.images?.[3]
               ? `url(${project.images[3]})`
@@ -420,70 +445,97 @@ const ProjectPage2 = () => {
         />
       </section>
 
-      {/* ── Solution ─────────────────────────────────────── */}
-      <section className="project-solution">
-        <div
-          className="project-solution__img"
-          style={{
-            backgroundImage: project.images?.[4]
-              ? `url(${project.images[4]})`
-              : "none",
-          }}
-        />
-        <div className="project-solution__text">
-          <div className="project-solution__heading-wrap">
-            <h2 className="project-solution__heading-inner">{project.solution?.[0]}</h2>
+      {/* {(firstHalfSolution.length > 0 || project.images?.[4]) && (
+        <section className="project-solution">
+          {project.images?.[4] && (
+            <div
+              className="project-solution__img"
+              style={{
+                backgroundImage: `url(${project.images[4]})`,
+              }}
+            />
+          )}
+          <div className="project-solution__text">
+            <div className="project-solution__heading-wrap">
+              <h2 className="project-solution__heading-inner">{project.solution?.[3] || "Solution"}</h2>
+            </div>
+            {firstHalfSolution.map((text, idx) => (
+              <p key={idx} className="project-solution__body">{text}</p>
+            ))}
           </div>
-          <p className="project-solution__body">{project.solution?.[1]}</p>
-          <p className="project-solution__body">{project.solution?.[2]}</p>
-        </div>
-      </section>
+        </section>
+      )} */}
+
+      {/* ── Full-width image ──────────────────────────────── */}
+      {
+        project.images?.[3] && (
+          <section className="project-full">
+            <div
+              className="project-full__img"
+              style={{
+                backgroundImage: `url(${project.images[3]})`,
+              }}
+            />
+          </section>
+        )
+      }
 
       {/* ── Image strip ──────────────────────────────────── */}
-      <section className="project-strip">
-        {[5, 6, 7].map((imgIdx) => (
-          <div
-            key={imgIdx}
-            className="project-strip__img"
-            style={{
-              backgroundImage: project.images?.[imgIdx]
-                ? `url(${project.images[imgIdx]})`
-                : "none",
-            }}
-          />
-        ))}
-      </section>
+      {
+        stripImages.length > 0 && (
+          <section className="project-strip">
+            {stripImages.map((img, idx) => (
+              <div
+                key={idx}
+                className="project-strip__img"
+                style={{
+                  backgroundImage: `url(${img})`,
+                }}
+              />
+            ))}
+          </section>
+        )
+      }
 
       {/* ── Continue ─────────────────────────────────────── */}
-      <section className="project-continue">
-        <div className="project-continue__text">
-          <p className="project-continue__body">{project.solution?.[3]}</p>
-          <p className="project-continue__body">{project.solution?.[4]}</p>
-        </div>
-        <div
-          className="project-continue__img"
-          style={{
-            backgroundImage: project.images?.[8]
-              ? `url(${project.images[8]})`
-              : "none",
-          }}
-        />
-      </section>
+      {
+        (secondHalfSolution.length > 0 || project.images?.[8]) && (
+          <section className="project-continue">
+            {secondHalfSolution.length > 0 && (
+              <div className="project-continue__text">
+                {secondHalfSolution.map((text, idx) => (
+                  <p key={idx} className="project-continue__body">{text}</p>
+                ))}
+              </div>
+            )}
+            {project.images?.[8] && (
+              <div
+                className="project-continue__img"
+                style={{
+                  backgroundImage: `url(${project.images[8]})`,
+                }}
+              />
+            )}
+          </section>
+        )
+      }
 
       {/* ── Final gallery ─────────────────────────────────── */}
-      <section className="project-gallery">
-        {[9, 10, 11, 12].map((imgIdx, i) => (
-          <div
-            key={imgIdx}
-            className={`project-gallery__img project-gallery__img--${i + 1}`}
-            style={{
-              backgroundImage: project.images?.[imgIdx]
-                ? `url(${project.images[imgIdx]})`
-                : "none",
-            }}
-          />
-        ))}
-      </section>
+      {
+        galleryImages.length > 0 && (
+          <section className="project-gallery">
+            {galleryImages.map((img, i) => (
+              <div
+                key={i}
+                className={`project-gallery__img project-gallery__img--${(i % 4) + 1}`}
+                style={{
+                  backgroundImage: `url(${img})`,
+                }}
+              />
+            ))}
+          </section>
+        )
+      }
 
       {/* ── Media embeds ─────────────────────────────────── */}
       {project.index === 0 && <MagazineEmbed />}
@@ -496,19 +548,19 @@ const ProjectPage2 = () => {
       <footer className="project-footer">
         {prevProject ? (
           <button className="project-footer__link" onClick={() => navigate(`/home/${prevProject.id}`)}>
-            <span className="project-footer__label">Previous</span>
             <span className="project-footer__title">{prevProject.title}</span>
+            <span className="project-footer__label">[&larr; previous]</span>
           </button>
         ) : <div />}
 
         {nextProject ? (
-          <button className="project-footer__link p2-footer__link--next" onClick={() => navigate(`/home/${nextProject.id}`)}>
-            <span className="project-footer__label">Next</span>
+          <button className="project-footer__link" onClick={() => navigate(`/home/${nextProject.id}`)}>
             <span className="project-footer__title">{nextProject.title}</span>
+            <span className="project-footer__label">[next &rarr;]</span>
           </button>
         ) : <div />}
       </footer>
-    </main>
+    </main >
   );
 };
 
